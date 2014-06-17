@@ -1,6 +1,6 @@
 package TileMap;
 
-import view.GamePanel;
+import harusame.core.view.GamePanel;
 
 import java.awt.*;
 import java.awt.image.*;

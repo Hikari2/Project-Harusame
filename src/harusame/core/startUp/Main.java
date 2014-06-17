@@ -1,7 +1,7 @@
 package harusame.core.startUp;
 
 import harusame.core.controller.Controller;
-import view.GamePanel;
+import harusame.core.view.GamePanel;
 import javax.swing.JFrame;
 
 public class Main {
