@@ -7,6 +7,7 @@ package harusame.core.controller;
  */
 
 
+import harusame.core.model.entity.Player;
 import harusame.core.model.entity.Sprite;
 import java.awt.Graphics2D;
 import java.awt.List;
@@ -20,6 +21,10 @@ public class Controller {
     
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
+    public Controller () {
+        sprites.add (new Player (30, 30));
+    }
+    
     public void keyPressed(int keyCode) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -29,7 +34,6 @@ public class Controller {
     }
 
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void draw(Graphics2D g) {

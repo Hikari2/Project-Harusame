@@ -6,6 +6,9 @@ import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -26,6 +29,13 @@ public class Sprite extends Animatable{
    public Sprite (int width, int height) {
        dx = width * Tile.WIDTH;
        dy = height * Tile.WIDTH;
+       
+       try {
+           image = ImageIO.read(new File("Resources/Sprites/Mario.png"));
+       }
+       		catch (IOException e) {
+				e.printStackTrace();
+		}
    }
    
    public void setPosition (float x, float y) {
