@@ -4,12 +4,18 @@
  * and open the template in the editor.
  */
 
-package harusame.project.core.model.animation;
+package harusame.core.model.animation;
+
+import java.awt.Graphics;
 
 /**
  *
  * @author Hikari
  */
-public interface Animatable {
+abstract public class Animatable {
     
+    public abstract void draw(Graphics g, int pixelX, int pixelY);
+    
+    public abstract int getHeight();
+    public abstract int getWidth();
 }

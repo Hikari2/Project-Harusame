@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-package controller;
 
 import java.awt.Graphics2D;
 

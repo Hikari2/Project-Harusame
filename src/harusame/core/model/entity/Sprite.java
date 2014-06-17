@@ -1,5 +1,6 @@
 package harusame.core.model.entity;
 
+import harusame.core.model.animation.Animatable;
 import harusame.core.model.map.Tile;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;
@@ -8,7 +9,7 @@ import static harusame.core.util.Direction.NEUTRAL;
  *
  * @author Hikari
  */
-public abstract class Sprite {
+public abstract class Sprite extends Animatable{
    
    protected Direction  direction = NEUTRAL;
 

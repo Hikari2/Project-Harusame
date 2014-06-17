@@ -6,6 +6,7 @@ import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
+import java.awt.Graphics;
 
 /**
  *
@@ -13,21 +14,28 @@ import static harusame.core.util.Direction.UP;
  */
 public class Player extends Sprite{
     
-    private Direction directionHeld;
+    private Direction lastDirection;
     
     public Player(int width, int height) {
         super(width, height);
     }
     
     public void update () {
-        switch (this.direction)
-            case LEFT: this.x += this.
+        switch (this.direction){
+            case LEFT: this.x--;
+                break;
+            case RIGHT: this.x++;
+                break;
+            case UP: this.y--;
+                break;
+            case DOWN: this.y++;
+                break;
+            case NEUTRAL: 
+                break;     
+        }
     }
     
     public void keyPressed (Direction d) {
-        if (d == this.direction)
-            directionHeld = d;
-        
         switch (d) {
             case LEFT: this.direction = LEFT;
                 break;
@@ -40,24 +48,27 @@ public class Player extends Sprite{
         }
     }
     
+    private boolean isKeyHeld (Direction d) {
+        return lastDirection == d;
+    }
+    
     public void keyReleased (Direction d) {
-        switch (d) {
-            case LEFT: this.direction = NEUTRAL;
-                       if (directionHeld == d)
-                            directionHeld = null;
-                break;
-            case RIGHT: this.direction = NEUTRAL;
-                       if (directionHeld == d)
-                            directionHeld = null;
-                break;
-            case UP: this.direction = NEUTRAL;
-                       if (directionHeld == d)
-                            directionHeld = null;
-                break;
-            case DOWN: this.direction = NEUTRAL;
-                       if (directionHeld == d)
-                            directionHeld = null;
-                break;
-        }
+        if (lastDirection == d)
+            direction = NEUTRAL;
+    }
+
+    @Override
+    public void draw(Graphics g, int pixelX, int pixelY) {
+        
+    }
+
+    @Override
+    public int getHeight() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getWidth() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -1,6 +1,6 @@
-package startUp;
+package harusame.core.startUp;
 
-import controller.Controller;
+import harusame.core.controller.Controller;
 import view.GamePanel;
 import javax.swing.JFrame;
 
