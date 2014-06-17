@@ -56,19 +56,4 @@ public class Player extends Sprite{
         if (lastDirection == d)
             direction = NEUTRAL;
     }
-
-    @Override
-    public void draw(Graphics g, int pixelX, int pixelY) {
-        
-    }
-
-    @Override
-    public int getHeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getWidth() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

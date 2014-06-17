@@ -14,8 +14,12 @@ import java.awt.Graphics;
  */
 abstract public class Animatable {
     
-    public abstract void draw(Graphics g, int pixelX, int pixelY);
+    public abstract void draw(Graphics g);
     
-    public abstract int getHeight();
-    public abstract int getWidth();
+    
+    public abstract float getX ();
+    public abstract float getY ();
+    
+    public abstract float getDX ();
+    public abstract float getDY ();
 }
