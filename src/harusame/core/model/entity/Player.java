@@ -14,13 +14,14 @@ import java.awt.event.KeyEvent;
  */
 public class Player extends Sprite{
     
-    private final DirectionKey left = new DirectionKey (LEFT);
-    private final DirectionKey right = new DirectionKey (RIGHT);
-    private final DirectionKey up = new DirectionKey (UP);
-    private final DirectionKey down = new DirectionKey (DOWN);
-    
+    private boolean isLeftHeld = false;
+    private boolean isRightHeld = false;
+    private boolean isUpHeld = false;
+    private boolean isDownHeld = false;
+
     private int priority = 4;
     
+    private DirectionQueue  dQueue = new DirectionQueue ();
     
     public Player(int width, int height) {
         super(width, height);
@@ -43,95 +44,71 @@ public class Player extends Sprite{
     
     public void keyPressed (int keyCode) 
     {
-        direction = KeyCodeToDirection (keyCode);
-        
-        holdDirection (direction);
-                        System.out.println ("p = " + direction);
-    }
-    
-    public void keyReleased (int keyCode) 
-    {
-        Direction d = KeyCodeToDirection (keyCode);
-        releaseDirection (d);
-        
-        direction = MostRecentDirection ();
-    }
-
-    private Direction MostRecentDirection () {
-        
-        Direction   d = NEUTRAL;
-        
-        if (left.isHeld)
-            d = LEFT;
-        if (right.isHeld && right.getPriority() > left.getPriority())
-            d = RIGHT;
-        
-        if (up.isHeld &&  up.getPriority() > right.getPriority())
-            d = UP;
-        
-        if (down.isHeld && down.getPriority() > up.getPriority())
-            d = DOWN;
-        
-        return d;
+        Direction   d = KeyCodeToDirection (keyCode);
+        holdDirection (d);
     }
     
     private void holdDirection (Direction d) 
     {
         switch (d) {
             case LEFT: 
-                if (left.isHeld) 
+                if (isLeftHeld) 
                     return;
-                left.hold();
-                left.setPriority(priority);
+                else isLeftHeld = true;
                 break;
                 
             case RIGHT: 
-                if (right.isHeld) 
+                if (isRightHeld) 
                     return;
-                right.hold();
-                right.setPriority(priority);
+                else isRightHeld = true;
                 break;
                 
             case UP: 
-                if (up.isHeld) 
+                if (isUpHeld) 
                     return;
-                up.hold();
-                up.setPriority(priority);
+                else isUpHeld = true;
                 break;
                 
             case DOWN:
-                if (down.isHeld) 
+                if (isDownHeld) 
                     return;
-                down.hold();
-                down.setPriority(priority);
+                else isDownHeld = true;
                 break;
         }
+        direction = d;
+        dQueue.addDirection(d);
+    }  
+
+    public void keyReleased (int keyCode) 
+    {
+        Direction d = KeyCodeToDirection (keyCode);
+        releaseDirection (d);
         
-        priority--;
-    }    
+        direction = dQueue.getMostRecentDirection();
+        System.out.println ("Direction; " + direction);
+    }
     
     private void releaseDirection (Direction d) 
     {
         switch (d) {
             case LEFT: 
-                left.release();
+                isLeftHeld = false;
                 break;
                 
             case RIGHT: 
-                right.release();
+                isRightHeld = false;
                 break;
                 
             case UP: 
-                up.release();
+                isUpHeld = false;
                 break;
                 
             case DOWN: 
-                down.release();
+                isDownHeld = false;
                 break;
         }
-        
-        priority++;
-    }    
+        dQueue.removeDirection(d);
+    }     
     
     private Direction KeyCodeToDirection (int keyCode) {
         
@@ -148,41 +125,50 @@ public class Player extends Sprite{
         return null;
     }
     
-    private class DirectionKey {
+    private class DirectionQueue {
         
-        private final Direction d;
-        private boolean isHeld;
-        private int p;
+        private Direction[] queue = new Direction [4];
+        private Direction [] tmp;
+        private Direction d;
         
-        private DirectionKey (Direction d) {
-            this.d = d;
-            isHeld = false;
+        
+        private void addDirection (Direction d) {
+            for (int i=0; i<4; i++){
+                if(queue[i] == null){
+                    queue[i] = d;
+                    return;
+                }
+            }
         }
         
-        private boolean isHeld () {
-            this.p = priority; 
-            return isHeld;
+        private void removeDirection (Direction d) {
+            
+            for (int i=0; i<4; i++){
+                if (queue[i] == d){
+                    tmp = queue.clone ();
+                    queue = new Direction [4];
+                    
+                    for (int j=0; j<i; j++)
+                        queue[j] = tmp[j];
+                    
+                    for (int y=i+1; y<4; y++)
+                        queue[y-1] = tmp[y];
+                }
+            }
         }
         
-        private void hold () {
-            isHeld = true;
+        private Direction getMostRecentDirection () {
+            if (queue[0] == null)
+                return NEUTRAL;
+            return queue[0];
         }
         
-        private void release () {
-            isHeld = false;
-            p = 0;
-        }
-        
-        private void setPriority (int i) {
-            p = i;
-        }
-        
-        private int getPriority () {
-            return p;
-        }
-        
-        private Direction getDirection () {
-            return d;
+        private void print () {
+                            System.out.print ("[ ");
+            for (int i=0; i<queue.length; i++){
+                System.out.print (queue[i] + ", ");
+            }
+                            System.out.println (" ]");
         }
     }
 }
