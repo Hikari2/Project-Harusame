@@ -6,8 +6,8 @@ import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.Graphics;
 
 /**
  *
@@ -15,7 +15,13 @@ import java.awt.event.KeyEvent;
  */
 public class Player extends Sprite{
     
-    private Direction lastDirection;
+    private final DirectionKey left = new DirectionKey (LEFT);
+    private final DirectionKey right = new DirectionKey (RIGHT);
+    private final DirectionKey up = new DirectionKey (UP);
+    private final DirectionKey down = new DirectionKey (DOWN);
+    
+    private int priority = 4;
+    
     
     public Player(int width, int height) {
         super(width, height);
@@ -36,20 +42,77 @@ public class Player extends Sprite{
         }
     }
     
-    public void keyPressed (int keyCode) {
-        direction = KeyToDirection (keyCode);
+    public void keyPressed (int keyCode) 
+    {
+        direction = KeyCodeToDirection (keyCode);
+        
+        holdDirection (direction);
+        System.out.println ("p = " + priority);
     }
     
-    private boolean isKeyHeld (Direction d) {
-        return lastDirection == d;
+    public void keyReleased (int keyCode) 
+    {
+        Direction d = KeyCodeToDirection (keyCode);
+        releaseDirection (d);
+        
+        direction = MostRecentDirection ();
+    }
+
+    private Direction MostRecentDirection () {
+        
+        Direction   d = NEUTRAL;
+        
+        if (left.isHeld)
+            d = LEFT;
+        if (right.isHeld && right.getPriority() > left.getPriority())
+            d = RIGHT;
+        
+        if (up.isHeld &&  up.getPriority() > right.getPriority())
+            d = UP;
+        
+        if (down.isHeld && down.getPriority() > up.getPriority())
+            d = DOWN;
+        
+        return d;
     }
     
-    public void keyReleased (int keyCode) {
-        if (direction == KeyToDirection (keyCode))
-            direction = NEUTRAL;
-    }
+    private void holdDirection (Direction d) 
+    {
+        switch (d) {
+            case LEFT: if (left.isHeld) return;
+            left.hold();
+            left.setPriority(priority);
+                break;
+            case RIGHT: if (right.isHeld) return;
+            right.setPriority(priority);
+                break;
+            case UP: if (up.isHeld) return;
+            up.setPriority(priority);
+                break;
+            case DOWN: if (down.isHeld) return;
+            down.setPriority(priority);
+                break;
+        }
+        priority--;
+    }    
     
-    private Direction KeyToDirection (int keyCode) {
+    private void releaseDirection (Direction d) 
+    {
+        switch (d) {
+            case LEFT: left.release();
+                break;
+            case RIGHT: right.release();
+                break;
+            case UP: up.release();
+                break;
+            case DOWN: down.release();
+                break;
+        }
+        
+        priority++;
+    }    
+    
+    private Direction KeyCodeToDirection (int keyCode) {
         
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
@@ -62,5 +125,43 @@ public class Player extends Sprite{
                 return  DOWN;
         }
         return null;
+    }
+    
+    private class DirectionKey {
+        
+        private final Direction d;
+        private boolean isHeld;
+        private int p;
+        
+        private DirectionKey (Direction d) {
+            this.d = d;
+            isHeld = false;
+        }
+        
+        private boolean isHeld () {
+            this.p = priority; 
+            return isHeld;
+        }
+        
+        private void hold () {
+            isHeld = true;
+        }
+        
+        private void release () {
+            isHeld = false;
+            p = 0;
+        }
+        
+        private void setPriority (int i) {
+            p = i;
+        }
+        
+        private int getPriority () {
+            return p;
+        }
+        
+        private Direction getDirection () {
+            return d;
+        }
     }
 }
