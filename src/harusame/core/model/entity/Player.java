@@ -46,7 +46,7 @@ public class Player extends Sprite{
         direction = KeyCodeToDirection (keyCode);
         
         holdDirection (direction);
-        System.out.println ("p = " + priority);
+                        System.out.println ("p = " + direction);
     }
     
     public void keyReleased (int keyCode) 
@@ -78,33 +78,55 @@ public class Player extends Sprite{
     private void holdDirection (Direction d) 
     {
         switch (d) {
-            case LEFT: if (left.isHeld) return;
-            left.hold();
-            left.setPriority(priority);
+            case LEFT: 
+                if (left.isHeld) 
+                    return;
+                left.hold();
+                left.setPriority(priority);
                 break;
-            case RIGHT: if (right.isHeld) return;
-            right.setPriority(priority);
+                
+            case RIGHT: 
+                if (right.isHeld) 
+                    return;
+                right.hold();
+                right.setPriority(priority);
                 break;
-            case UP: if (up.isHeld) return;
-            up.setPriority(priority);
+                
+            case UP: 
+                if (up.isHeld) 
+                    return;
+                up.hold();
+                up.setPriority(priority);
                 break;
-            case DOWN: if (down.isHeld) return;
-            down.setPriority(priority);
+                
+            case DOWN:
+                if (down.isHeld) 
+                    return;
+                down.hold();
+                down.setPriority(priority);
                 break;
         }
+        
         priority--;
     }    
     
     private void releaseDirection (Direction d) 
     {
         switch (d) {
-            case LEFT: left.release();
+            case LEFT: 
+                left.release();
                 break;
-            case RIGHT: right.release();
+                
+            case RIGHT: 
+                right.release();
                 break;
-            case UP: up.release();
+                
+            case UP: 
+                up.release();
                 break;
-            case DOWN: down.release();
+                
+            case DOWN: 
+                down.release();
                 break;
         }
         
