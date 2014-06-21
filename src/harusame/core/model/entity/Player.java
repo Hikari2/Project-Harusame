@@ -7,7 +7,6 @@ import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
 import java.awt.event.KeyEvent;
-import java.awt.Graphics;
 
 /**
  *
