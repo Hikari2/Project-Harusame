@@ -45,7 +45,7 @@ public class Player extends Sprite{
     }
     
     public void keyReleased (int keyCode) {
-        if (lastDirection == KeyToDirection (keyCode))
+        if (direction == KeyToDirection (keyCode))
             direction = NEUTRAL;
     }
     
