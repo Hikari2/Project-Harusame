@@ -7,6 +7,7 @@ import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -35,25 +36,31 @@ public class Player extends Sprite{
         }
     }
     
-    public void keyPressed (Direction d) {
-        switch (d) {
-            case LEFT: this.direction = LEFT;
-                break;
-            case RIGHT: this.direction = RIGHT;
-                break;
-            case UP: this.direction = UP;
-                break;
-            case DOWN: this.direction = DOWN;
-                break;
-        }
+    public void keyPressed (int keyCode) {
+        direction = KeyToDirection (keyCode);
     }
     
     private boolean isKeyHeld (Direction d) {
         return lastDirection == d;
     }
     
-    public void keyReleased (Direction d) {
-        if (lastDirection == d)
+    public void keyReleased (int keyCode) {
+        if (lastDirection == KeyToDirection (keyCode))
             direction = NEUTRAL;
+    }
+    
+    private Direction KeyToDirection (int keyCode) {
+        
+        switch (keyCode) {
+            case KeyEvent.VK_LEFT:
+                return LEFT;
+            case KeyEvent.VK_RIGHT:
+                return  RIGHT;
+            case KeyEvent.VK_UP:
+                return  UP;
+            case KeyEvent.VK_DOWN:
+                return  DOWN;
+        }
+        return null;
     }
 }

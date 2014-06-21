@@ -11,6 +11,7 @@ import harusame.core.model.entity.Player;
 import harusame.core.model.entity.Sprite;
 import java.awt.Graphics2D;
 import java.awt.List;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -19,24 +20,28 @@ import java.util.ArrayList;
  */
 public class Controller {
     
+    Player  player;
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
     public Controller () {
-        sprites.add (new Player (30, 30));
+        player = new Player (20, 20);
     }
     
     public void keyPressed(int keyCode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        player.keyPressed(keyCode);
     }
 
     public void keyReleased(int keyCode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        player.keyReleased(keyCode);
     }
 
     public void update() {
+        player.update();
     }
 
     public void draw(Graphics2D g) {
+        player.draw(g);
+        
         for (int i=0; i<sprites.size(); i++){
             sprites.get(i).draw(g);
         }
