@@ -29,6 +29,7 @@ public class Player extends Sprite {
     
     public Player(int width, int height) {
         super(width, height);
+        setAnimation (pal.getFacingRight());
     }
     
     public void update () {
@@ -58,13 +59,19 @@ public class Player extends Sprite {
             case LEFT: 
                 if (isLeftHeld) 
                     return;
-                else isLeftHeld = true;
+                else {
+                    isLeftHeld = true;
+                    setAnimation (pal.getFacingLeft());
+                }
                 break;
                 
             case RIGHT: 
                 if (isRightHeld) 
                     return;
-                else isRightHeld = true;
+                else {
+                    isRightHeld = true;
+                    setAnimation (pal.getFacingRight());
+                }
                 break;
                 
             case UP: 
@@ -82,7 +89,7 @@ public class Player extends Sprite {
         direction = d;
         dQueue.addDirection(d);
     }  
-
+    
     public void keyReleased (int keyCode) 
     {
         Direction d = KeyCodeToDirection (keyCode);

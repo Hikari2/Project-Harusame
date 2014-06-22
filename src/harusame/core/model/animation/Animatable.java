@@ -20,6 +20,10 @@ abstract public class Animatable {
         return activeAnimation;
     }
     
+    public void setAnimation (Animation a) {
+        activeAnimation = a;
+    }
+    
     public abstract void draw(Graphics g, int x, int y);
     public abstract void draw (Graphics g, int x, int y, int dx, int dy);
             

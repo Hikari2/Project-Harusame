@@ -32,7 +32,7 @@ public class PlayerAnimationLoader {
         return pal;
     }
     
-    public Animation    getFacingRight () {
+    public  Animation   getFacingRight () {
         return facingRight;
     }
     
