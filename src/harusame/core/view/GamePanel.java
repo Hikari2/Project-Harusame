@@ -99,7 +99,7 @@ public class GamePanel extends JPanel
 	private void draw() {
 		ctrl.draw(g);
                 
-                 int drawX = 0;
+                int drawX = 0;
                 int drawY = 0;
                 for(int i = 0; i < level.length; i++)
                 {
@@ -122,8 +122,8 @@ public class GamePanel extends JPanel
 		g2.drawImage(image, 0, 0,
 				WIDTH * SCALE, HEIGHT * SCALE, null);
                 
-                
 		g2.dispose();
+                init ();
 	}
 	
 	public void keyTyped(KeyEvent key) {}
