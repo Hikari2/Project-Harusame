@@ -2,6 +2,7 @@ package harusame.core.model.animation;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Animation {
     
-    private ArrayList<BufferedImage>    frames;
+    private ArrayList<BufferedImage>    frames = new ArrayList ();
     private BufferedImage   currentFrame;
     private int position = 0;
     

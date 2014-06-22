@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  */
 public class PlayerAnimationLoader {
     
-    private static PlayerAnimationLoader    pal;
+    private static PlayerAnimationLoader    pal = new PlayerAnimationLoader ();
     
     Animation   facingRight = new Animation ();
     Animation   facingLeft = new Animation ();
