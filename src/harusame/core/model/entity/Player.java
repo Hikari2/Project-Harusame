@@ -1,6 +1,5 @@
 package harusame.core.model.entity;
 
-import harusame.core.model.animation.Animation;
 import harusame.core.model.animation.PlayerAnimationLoader;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
@@ -9,9 +8,6 @@ import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * 
