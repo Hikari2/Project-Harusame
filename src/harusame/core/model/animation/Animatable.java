@@ -24,6 +24,10 @@ abstract public class Animatable {
         activeAnimation = a;
     }
     
+    public void resetAnimation () {
+        activeAnimation.reset();
+    }
+    
     public abstract void draw(Graphics g, int x, int y);
     public abstract void draw (Graphics g, int x, int y, int dx, int dy);
             

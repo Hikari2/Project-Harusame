@@ -73,13 +73,19 @@ public class Player extends Sprite {
             case UP: 
                 if (isUpHeld) 
                     return;
-                else isUpHeld = true;
+                else {
+                    isUpHeld = true;
+                    setAnimation (pal.getFacingUp());
+                }
                 break;
                 
             case DOWN:
                 if (isDownHeld) 
                     return;
-                else isDownHeld = true;
+                else {
+                    isDownHeld = true;
+                    setAnimation (pal.getFacingDown());
+                }
                 break;
         }
         direction = d;
@@ -114,6 +120,8 @@ public class Player extends Sprite {
                 break;
         }
         dQueue.removeDirection(d);
+        if (direction == NEUTRAL)
+            resetAnimation ();
     }     
     
     private Direction KeyCodeToDirection (int keyCode) {

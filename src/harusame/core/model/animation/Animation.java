@@ -24,4 +24,8 @@ public class Animation {
         
         return frames.get(position);
     }
+    
+    public void reset () {
+        position = 0;
+    }
 }
