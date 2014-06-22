@@ -33,9 +33,9 @@ public class Sprite extends Animatable{
        try {
            image = ImageIO.read(new File("Resources/Sprites/Mario.png"));
        }
-       		catch (IOException e) {
-				e.printStackTrace();
-		}
+       catch (IOException e) {
+           e.printStackTrace();
+       }
    }
    
    public void setPosition (float x, float y) {
@@ -47,8 +47,7 @@ public class Sprite extends Animatable{
        direction = d;
    } 
     
-   @Override
-    public void draw (Graphics g){
+       public void draw (Graphics g){
         g.drawImage(image, (int)x, (int)y, null);
     }
     
@@ -69,6 +68,16 @@ public class Sprite extends Animatable{
 
     @Override
     public float getDY() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void draw(Graphics g, int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void draw(Graphics g, int x, int y, int dx, int dy) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -9,8 +9,7 @@ import static harusame.core.util.Direction.UP;
 import java.awt.event.KeyEvent;
 
 /**
- *
- * @author Hikari
+ * 
  */
 public class Player extends Sprite{
     
@@ -18,8 +17,6 @@ public class Player extends Sprite{
     private boolean isRightHeld = false;
     private boolean isUpHeld = false;
     private boolean isDownHeld = false;
-
-    private int priority = 4;
     
     private DirectionQueue  dQueue = new DirectionQueue ();
     
@@ -85,7 +82,6 @@ public class Player extends Sprite{
         releaseDirection (d);
         
         direction = dQueue.getMostRecentDirection();
-        System.out.println ("Direction; " + direction);
     }
     
     private void releaseDirection (Direction d) 
@@ -161,14 +157,6 @@ public class Player extends Sprite{
             if (queue[0] == null)
                 return NEUTRAL;
             return queue[0];
-        }
-        
-        private void print () {
-                            System.out.print ("[ ");
-            for (int i=0; i<queue.length; i++){
-                System.out.print (queue[i] + ", ");
-            }
-                            System.out.println (" ]");
         }
     }
 }
