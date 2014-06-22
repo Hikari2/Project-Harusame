@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 /**
  * 
  */
-public class Player extends Sprite{
+public class Player extends Sprite {
     
     private final PlayerAnimationLoader   pal = PlayerAnimationLoader.getPAL();
     
