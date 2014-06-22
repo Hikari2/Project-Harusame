@@ -1,6 +1,7 @@
 package harusame.core.model.entity;
 
 import harusame.core.model.animation.Animatable;
+import harusame.core.model.animation.Animation;
 import harusame.core.model.map.Tile;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;
@@ -29,27 +30,12 @@ public class Sprite extends Animatable{
    public Sprite (int width, int height) {
        dx = width * Tile.WIDTH;
        dy = height * Tile.WIDTH;
-       
-       try {
-           image = ImageIO.read(new File("Resources/Sprites/Mario.png"));
-       }
-       catch (IOException e) {
-           e.printStackTrace();
-       }
    }
    
    public void setPosition (float x, float y) {
        this.x = x;
        this.y = y;
    }
-    
-    public void setDirection (Direction d) {
-       direction = d;
-   } 
-    
-       public void draw (Graphics g){
-        g.drawImage(image, (int)x, (int)y, null);
-    }
     
    @Override
     public float getX () {
@@ -73,7 +59,9 @@ public class Sprite extends Animatable{
 
     @Override
     public void draw(Graphics g, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Animation    a = getAnimation ();
+       image = a.nextFrame();
+       g.drawImage(image, x, y, null);
     }
 
     @Override

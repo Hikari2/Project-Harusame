@@ -40,10 +40,11 @@ public class Controller {
     }
 
     public void draw(Graphics2D g) {
-        player.draw(g);
+        player.draw(g, (int)player.getX(), (int)player.getY());
         
         for (int i=0; i<sprites.size(); i++){
-            sprites.get(i).draw(g);
+            Sprite  s = sprites.get(i);
+            s.draw(g, (int)s.getX(), (int)s.getY());
         }
     }
 }

@@ -14,7 +14,11 @@ import java.awt.Graphics;
  */
 abstract public class Animatable {
     
-    Animation activeAnimation;
+    private Animation activeAnimation;
+    
+    public Animation getAnimation () {
+        return activeAnimation;
+    }
     
     public abstract void draw(Graphics g, int x, int y);
     public abstract void draw (Graphics g, int x, int y, int dx, int dy);
