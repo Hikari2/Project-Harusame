@@ -1,5 +1,6 @@
 package harusame.core.model.entity;
 
+import harusame.core.model.animation.Animation;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
@@ -12,6 +13,8 @@ import java.awt.event.KeyEvent;
  * 
  */
 public class Player extends Sprite{
+    
+    private Animation   facingRight;
     
     private boolean isLeftHeld = false;
     private boolean isRightHeld = false;
@@ -74,6 +77,7 @@ public class Player extends Sprite{
         }
         direction = d;
         dQueue.addDirection(d);
+        System.out.println (direction);
     }  
 
     public void keyReleased (int keyCode) 
@@ -82,6 +86,7 @@ public class Player extends Sprite{
         releaseDirection (d);
         
         direction = dQueue.getMostRecentDirection();
+                System.out.println (direction);
     }
     
     private void releaseDirection (Direction d) 
@@ -156,7 +161,9 @@ public class Player extends Sprite{
         private Direction getMostRecentDirection () {
             if (queue[0] == null)
                 return NEUTRAL;
-            return queue[0];
+            for (int i=3; ; i--)
+                if (queue[i] != null)
+                    return queue[i];
         }
     }
 }
