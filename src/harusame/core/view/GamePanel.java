@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import GameState.GameStateManager;
 import harusame.core.controller.Controller;
+import harusame.core.model.MapLoader;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
@@ -17,8 +18,8 @@ public class GamePanel extends JPanel
         private Controller ctrl;
         
 	// dimensions
-	public static final int WIDTH = 320;
-	public static final int HEIGHT = 240;
+	public static final int WIDTH = 300;
+	public static final int HEIGHT = 200;
 	public static final int SCALE = 4;
 	
 	// game thread
@@ -30,6 +31,10 @@ public class GamePanel extends JPanel
 	// image
 	private BufferedImage image;
 	private Graphics2D g;
+        
+        // Map Loader
+        private MapLoader map = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT);
+        char[] level;
 	
 	public GamePanel(Controller ctrl) {
 		super();
@@ -37,6 +42,7 @@ public class GamePanel extends JPanel
 		setPreferredSize(
 			new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setFocusable(true);
+                level = map.readMap("Level1.txt");                
 		requestFocus();
 	}
 	
@@ -92,11 +98,31 @@ public class GamePanel extends JPanel
 	}
 	private void draw() {
 		ctrl.draw(g);
+                
+                 int drawX = 0;
+                int drawY = 0;
+                for(int i = 0; i < level.length; i++)
+                {
+                    if(level[i] == '#')
+                    {
+                        g.setColor(Color.GREEN);                      
+                        g.fillRect(drawX, drawY, 10, 10);
+                    }
+                    drawX += 10;
+                    if(drawX == WIDTH)
+                    {
+                        drawX = 0;
+                        drawY += 10;
+                    }
+                }
+                
 	}
 	private void drawToScreen() {
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0,
 				WIDTH * SCALE, HEIGHT * SCALE, null);
+                
+                
 		g2.dispose();
 	}
 	

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package harusame.project.core.model;
+package harusame.core.model;
 
 /**
  *

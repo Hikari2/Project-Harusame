@@ -16,11 +16,14 @@ public class Background {
 	private double dy;
 	
 	private double moveScale;
-	
+        
+        
 	public Background(String s, double ms) {
+           
             try {
 		image = ImageIO.read(getClass().getResourceAsStream(s));
-		moveScale = ms;
+		moveScale = ms;               
+               
             }
             catch(Exception e) {
 		e.printStackTrace();
