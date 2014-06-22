@@ -18,11 +18,15 @@ public class Animation {
         frames.add (image);
     }
     
-    public BufferedImage nextFrame () {
-        if (position >= frames.size())
+    public BufferedImage getFrame () {
+        if (position == frames.size())
             position = 0;
         
         return frames.get(position);
+    }
+    
+    public void  nextFrame () {
+        position++;
     }
     
     public void reset () {

@@ -24,6 +24,10 @@ abstract public class Animatable {
         activeAnimation = a;
     }
     
+    public void updateAnimation () {
+        activeAnimation.nextFrame();
+    }
+    
     public void resetAnimation () {
         activeAnimation.reset();
     }

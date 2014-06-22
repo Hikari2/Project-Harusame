@@ -60,7 +60,7 @@ public class Sprite extends Animatable{
     @Override
     public void draw(Graphics g, int x, int y) {
        Animation    a = getAnimation ();
-       image = a.nextFrame();
+       image = a.getFrame();
        g.drawImage(image, x, y, null);
     }
 

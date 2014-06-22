@@ -41,6 +41,10 @@ public class Player extends Sprite {
             case NEUTRAL: 
                 break;     
         }
+        if (direction != NEUTRAL)
+            updateAnimation ();
+        else 
+            resetAnimation ();
     }
     
     public void keyPressed (int keyCode) 
@@ -120,8 +124,6 @@ public class Player extends Sprite {
                 break;
         }
         dQueue.removeDirection(d);
-        if (direction == NEUTRAL)
-            resetAnimation ();
     }     
     
     private Direction KeyCodeToDirection (int keyCode) {
