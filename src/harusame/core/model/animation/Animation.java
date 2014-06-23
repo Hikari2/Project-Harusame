@@ -30,6 +30,6 @@ public class Animation {
     }
     
     public void reset () {
-        position = 0;
+        position = 1;
     }
 }

@@ -49,12 +49,12 @@ public class Sprite extends Animatable{
 
     @Override
     public float getDX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dx;
     }
 
     @Override
     public float getDY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dy;
     }
 
     @Override
