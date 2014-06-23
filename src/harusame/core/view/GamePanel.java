@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.awt.event.*;
 
 import javax.swing.JPanel;
-
 import harusame.core.controller.Controller;
 import harusame.core.model.MapLoader;
 import harusame.core.model.map.Tile;

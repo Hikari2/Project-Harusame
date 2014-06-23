@@ -7,9 +7,6 @@ import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -49,23 +46,22 @@ public class Sprite extends Animatable{
 
     @Override
     public float getDX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dx;
     }
 
     @Override
     public float getDY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dy;
     }
 
     @Override
     public void draw(Graphics g, int x, int y) {
        Animation    a = getAnimation ();
        image = a.getFrame();
-       g.drawImage(image, x, y, null);
+       g.drawImage(image, x, y, (int) dx, (int) dy, null);
     }
 
     @Override
     public void draw(Graphics g, int x, int y, int dx, int dy) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
