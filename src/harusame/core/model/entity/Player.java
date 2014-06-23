@@ -30,13 +30,13 @@ public class Player extends Sprite {
     
     public void update () {
         switch (this.direction){
-            case LEFT: this.x-=5;
+            case LEFT: this.x-=2;
                 break;
-            case RIGHT: this.x+=5;
+            case RIGHT: this.x+=2;
                 break;
-            case UP: this.y-=5;
+            case UP: this.y-=2;
                 break;
-            case DOWN: this.y+=5;
+            case DOWN: this.y+=2;
                 break;
             case NEUTRAL: 
                 break;     
