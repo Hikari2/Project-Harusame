@@ -21,7 +21,7 @@ public class MapLoader
     
     public MapLoader(int width, int height)
     {
-        map = new char[(width*height) / 10];
+        map = new char[(width*height) / 100];
     }
     
     public char[] readMap(String level)
@@ -52,8 +52,7 @@ public class MapLoader
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
-               
+		}          
         return map;
     }
     

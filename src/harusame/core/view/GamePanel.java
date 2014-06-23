@@ -6,9 +6,12 @@ import java.awt.event.*;
 
 import javax.swing.JPanel;
 
-import GameState.GameStateManager;
 import harusame.core.controller.Controller;
 import harusame.core.model.MapLoader;
+import harusame.core.model.map.Tile;
+import harusame.core.model.map.TileMap;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
@@ -34,6 +37,7 @@ public class GamePanel extends JPanel
         
         // Map Loader
         private MapLoader map = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT);
+        private TileMap tileMap = new TileMap();
         char[] level;
 	
 	public GamePanel(Controller ctrl) {
@@ -97,17 +101,36 @@ public class GamePanel extends JPanel
 		ctrl.update();
 	}
 	private void draw() {
-		ctrl.draw(g);
-                
+              // BACKGROUND
+              try
+              {
+                   Image in = ImageIO.read(new File("Resources/Tilesets/tilebackround1.png"));                   
+                   int imageW = in.getWidth(this);
+                   int imageH = in.getHeight(this);
+
+                   // Tile the image to fill our area.
+                   for (int x = 0; x < WIDTH; x += imageW) {
+                       for (int y = 0; y < HEIGHT; y += imageH) {
+                           g.drawImage(in, x, y, this);
+                     }
+                    }    
+              }
+              catch (Exception ex)
+              {
+                  ex.printStackTrace();
+              }         
+            
+            // TILES                
                 int drawX = 0;
                 int drawY = 0;
+                
+                
                 for(int i = 0; i < level.length; i++)
                 {
-                    if(level[i] == '#')
-                    {
-                        g.setColor(Color.GREEN);                      
-                        g.fillRect(drawX, drawY, 10, 10);
-                    }
+                    
+                    if(level[i] != '0')
+                        g.drawImage(tileMap.getTile(level[i]), drawX, drawY, this);               
+                   
                     drawX += 10;
                     if(drawX == WIDTH)
                     {
@@ -115,6 +138,10 @@ public class GamePanel extends JPanel
                         drawY += 10;
                     }
                 }
+                
+                
+                // PLAYER DRAW
+                ctrl.draw(g);
                 
 	}
 	private void drawToScreen() {
