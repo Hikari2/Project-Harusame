@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import java.awt.event.*;
 
 import javax.swing.JPanel;
-
-import GameState.GameStateManager;
 import harusame.core.controller.Controller;
 import harusame.core.model.MapLoader;
 
