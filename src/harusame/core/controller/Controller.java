@@ -24,7 +24,7 @@ public class Controller {
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
     public Controller () {
-        player = new Player (20, 20);
+        player = new Player (5, 5);
     }
     
     public void keyPressed(int keyCode) {

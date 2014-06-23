@@ -61,11 +61,10 @@ public class Sprite extends Animatable{
     public void draw(Graphics g, int x, int y) {
        Animation    a = getAnimation ();
        image = a.getFrame();
-       g.drawImage(image, x, y, null);
+       g.drawImage(image, x, y, (int) dx, (int) dy, null);
     }
 
     @Override
     public void draw(Graphics g, int x, int y, int dx, int dy) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
