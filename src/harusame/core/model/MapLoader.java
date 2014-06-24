@@ -16,22 +16,27 @@ import java.io.IOException;
  */
 public class MapLoader 
 {
-    char[] map;
+    char[][] map;
+    int w;
+    int h;
     
     
     public MapLoader(int width, int height)
     {
-        map = new char[(width*height) / 100];
+        map = new char[height/10][width/10];
+        w = width;
+        h = height;
     }
     
-    public char[] readMap(String level)
+    public char[][] readMap(String level)
     {
         BufferedReader br = null;
 
            
 		try {                     
 			String sCurrentLine;
-                        int counter = 0;
+                        int counterX = 0;
+                        int counterY = 0;
  
 			br = new BufferedReader(new FileReader(level));
  
@@ -39,8 +44,13 @@ public class MapLoader
                         {
                             for(int i = 0; i < sCurrentLine.length(); i++)
                             {
-                                map[counter] = sCurrentLine.charAt(i);
-                                counter++;
+                                map[counterY][counterX] = sCurrentLine.charAt(i);
+                                counterX++;
+                                if(counterX == w/10)
+                                {
+                                    counterX = 0;
+                                    counterY++;                                   
+                                }                                
                             }
                             System.out.println(sCurrentLine);
 			}

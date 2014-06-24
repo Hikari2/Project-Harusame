@@ -37,7 +37,7 @@ public class GamePanel extends JPanel
         // Map Loader
         private MapLoader map = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT);
         private TileMap tileMap = new TileMap();
-        char[] level;
+        char[][] level;
 	
 	public GamePanel(Controller ctrl) {
 		super();
@@ -124,17 +124,19 @@ public class GamePanel extends JPanel
                 int drawY = 0;
                 
                 
-                for(int i = 0; i < level.length; i++)
+                for(int i = 0; i < HEIGHT/10; i++)
                 {
-                    
-                    if(level[i] != '0')
-                        g.drawImage(tileMap.getTile(level[i]), drawX, drawY, this);               
-                   
-                    drawX += 10;
-                    if(drawX == WIDTH)
+                    for(int p = 0; p < WIDTH/10; p++)
                     {
-                        drawX = 0;
-                        drawY += 10;
+                        if(level[i][p] != '0')
+                            g.drawImage(tileMap.getTile(level[i][p]), drawX, drawY, this);               
+
+                        drawX += 10;
+                        if(drawX == WIDTH)
+                        {
+                            drawX = 0;
+                            drawY += 10;
+                        }
                     }
                 }
                 
