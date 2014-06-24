@@ -8,7 +8,9 @@ package harusame.core.model.map;
 
 import harusame.core.model.animation.PlayerAnimationLoader;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,20 +22,52 @@ import javax.imageio.ImageIO;
  */
 public class TileMap 
 {
-    private Tile[] tiles = new Tile[10];
+    private Tile[] tiles = new Tile[100];
     
     
     public TileMap()
     {
-        try
-        {
-                 Image in = ImageIO.read(new File("Resources/Tilesets/Stonewall1.jpg"));
-                 tiles[0] = new Tile(in, true, '#');                 
-        }
-        catch (IOException ex) 
-        {
-                 Logger.getLogger(PlayerAnimationLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+           Image in;
+           Boolean blocked;
+           char symbol;
+                 
+           BufferedReader br = null;
+                 
+           try {                     
+                    String sCurrentLine;
+                    int counter = 0;
+ 
+                    br = new BufferedReader(new FileReader("Resources/Maps/paths.txt"));
+ 
+                    while ((sCurrentLine = br.readLine()) != null) 
+                    {        
+                         blocked = false;
+                         in = ImageIO.read(new File(sCurrentLine));
+                         sCurrentLine = br.readLine();
+                              
+                         if(sCurrentLine.equals("true"))
+                             blocked = true;
+                              
+                         symbol = br.readLine().charAt(0);
+                              
+                         tiles[counter] = new Tile(in, true, symbol);  
+                         counter++;
+                    }
+                System.out.println(sCurrentLine);
+               }
+ 
+	 catch (IOException e) {
+		e.printStackTrace();
+		} finally 
+                {
+			try {
+				if (br != null)br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}         
+     
     }
     
     public Image getTile(char symbol)
