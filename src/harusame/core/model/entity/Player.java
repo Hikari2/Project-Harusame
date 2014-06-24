@@ -23,21 +23,34 @@ public class Player extends Sprite {
     
     private DirectionQueue  dQueue = new DirectionQueue ();
     
-    public Player(int width, int height) {
-        super(width, height);
-        setAnimation (pal.getFacingRight());
+    public Player(int x, int y) {
+        super(x, y);
+        setAnimation (pal.getFacingDown());
     }
     
+    @Override
     public void update () {
         switch (this.direction){
-            case LEFT: this.x-=2;
+            case LEFT: 
+                this.x-=2;
+                setAnimation (pal.getFacingLeft());
                 break;
-            case RIGHT: this.x+=2;
+                
+            case RIGHT: 
+                this.x+=2;
+                setAnimation (pal.getFacingRight());
                 break;
-            case UP: this.y-=2;
+                
+            case UP: 
+                this.y-=2;
+                setAnimation (pal.getFacingUp());
                 break;
-            case DOWN: this.y+=2;
+                
+            case DOWN: 
+                this.y+=2;
+                setAnimation (pal.getFacingDown());
                 break;
+                
             case NEUTRAL: 
                 break;     
         }
@@ -46,6 +59,7 @@ public class Player extends Sprite {
         else 
             resetAnimation ();
     }
+    
     
     public void keyPressed (int keyCode) 
     {
@@ -59,37 +73,29 @@ public class Player extends Sprite {
             case LEFT: 
                 if (isLeftHeld) 
                     return;
-                else {
+                else 
                     isLeftHeld = true;
-                    setAnimation (pal.getFacingLeft());
-                }
                 break;
                 
             case RIGHT: 
                 if (isRightHeld) 
                     return;
-                else {
+                else 
                     isRightHeld = true;
-                    setAnimation (pal.getFacingRight());
-                }
                 break;
                 
             case UP: 
                 if (isUpHeld) 
                     return;
-                else {
+                else 
                     isUpHeld = true;
-                    setAnimation (pal.getFacingUp());
-                }
                 break;
                 
             case DOWN:
                 if (isDownHeld) 
                     return;
-                else {
+                else 
                     isDownHeld = true;
-                    setAnimation (pal.getFacingDown());
-                }
                 break;
         }
         direction = d;

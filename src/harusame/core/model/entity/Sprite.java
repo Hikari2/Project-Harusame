@@ -16,7 +16,7 @@ public class Sprite extends Animatable{
    
    protected Direction  direction = NEUTRAL;
 
-   protected boolean isCollidable;
+   protected boolean isCollidable = true;
    private BufferedImage    image;
   
    protected float x;
@@ -24,9 +24,11 @@ public class Sprite extends Animatable{
    protected float dx;
    protected float dy;
    
-   public Sprite (int width, int height) {
-       dx = width * Tile.WIDTH;
-       dy = height * Tile.WIDTH;
+   public Sprite (int x, int y) {
+       this.x = x;
+       this.y = y;
+       dx = 2 * Tile.WIDTH;
+       dy = 2 * Tile.WIDTH;
    }
    
    public void setPosition (float x, float y) {
@@ -34,6 +36,10 @@ public class Sprite extends Animatable{
        this.y = y;
    }
     
+   public void update () {
+       
+   }
+   
    @Override
     public float getX () {
         return x;

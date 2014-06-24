@@ -11,7 +11,7 @@ public class Animation {
     
     private ArrayList<BufferedImage>    frames = new ArrayList ();
     private BufferedImage   currentFrame;
-    private int position = 0;
+    private int count = 0;
     
     /**
      * Add a new frame to this Animation
@@ -27,23 +27,23 @@ public class Animation {
      * @return The current frame
      */
     public BufferedImage getFrame () {
-        if (position == frames.size())
-            position = 0;
+        if (count >= frames.size())
+            count = 0;
         
-        return frames.get(position);
+        return frames.get(count);
     }
     
     /**
      * Increment the counter
      */
     public void  nextFrame () {
-        position++;
+        count++;
     }
     
     /**
      * Reset the counter
      */
     public void reset () {
-        position = 0;
+        count = 0;
     }
 }
