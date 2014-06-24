@@ -55,34 +55,6 @@ public class MapLoader
 			}
 		}          
 
-        
-        try {                     
-            String sCurrentLine;
-            int counter = 0;
-
-            br = new BufferedReader(new FileReader(level));
-            
-            while ((sCurrentLine = br.readLine()) != null) 
-            {
-                for(int i = 0; i < sCurrentLine.length(); i++)
-                {
-                    map[counter] = sCurrentLine.charAt(i);
-                    counter++;
-                }
-                System.out.println(sCurrentLine);
-            }
-        
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null)br.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-               
-
         return map;
     }
     
