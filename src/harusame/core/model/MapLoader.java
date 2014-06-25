@@ -42,7 +42,7 @@ public class MapLoader
                         int counterX = 0;
                         int counterY = 0;
  
-			br = new BufferedReader(new FileReader(level +".txt"));
+			br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
  
 			while ((sCurrentLine = br.readLine()) != null) 
                         {
