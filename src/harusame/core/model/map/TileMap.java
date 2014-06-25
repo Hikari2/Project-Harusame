@@ -25,7 +25,7 @@ public class TileMap
     private Tile[] tiles = new Tile[100];
     
     
-    public TileMap()
+    public TileMap(String level)
     {
         
            Image in;
@@ -38,7 +38,7 @@ public class TileMap
                     String sCurrentLine;
                     int counter = 0;
  
-                    br = new BufferedReader(new FileReader("Resources/Maps/paths.txt"));
+                    br = new BufferedReader(new FileReader("Resources/Maps/" + level + "-tiles.txt"));
  
                     while ((sCurrentLine = br.readLine()) != null) 
                     {        

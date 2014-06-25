@@ -35,8 +35,8 @@ public class GamePanel extends JPanel
 	private Graphics2D g;
         
         // Map Loader
-        private MapLoader map = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT);
-        private TileMap tileMap = new TileMap();
+        String currentLevel = "Level1";
+        private MapLoader map = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT);        
         char[][] level;
 	
 	public GamePanel(Controller ctrl) {
@@ -45,7 +45,7 @@ public class GamePanel extends JPanel
 		setPreferredSize(
 			new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setFocusable(true);
-                level = map.readMap("Level1.txt");                
+                level = map.readMap(currentLevel);                
 		requestFocus();
 	}
 	
@@ -129,7 +129,7 @@ public class GamePanel extends JPanel
                     for(int p = 0; p < WIDTH/10; p++)
                     {
                         if(level[i][p] != '0')
-                            g.drawImage(tileMap.getTile(level[i][p]), drawX, drawY, this);               
+                            g.drawImage(map.getTile(level[i][p]), drawX, drawY, this);               
 
                         drawX += 10;
                         if(drawX == WIDTH)
