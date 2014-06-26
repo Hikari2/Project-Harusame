@@ -156,8 +156,9 @@ public class GamePanel extends JPanel
 	
 	public void keyTyped(KeyEvent key) {}
         
-	public void keyPressed(KeyEvent key) {
-		ctrl.keyPressed(key.getKeyCode());
+	public void keyPressed(KeyEvent key) {          
+            
+                    ctrl.keyPressed(key.getKeyCode(), level, WIDTH, HEIGHT);
 	}
         
 	public void keyReleased(KeyEvent key) {

@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
     
-    public static float WIDTH = 10;
+    public static int WIDTH = 10;
         
     private Image image;
     private boolean BLOCKED;

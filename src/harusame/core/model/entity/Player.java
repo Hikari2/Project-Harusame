@@ -23,6 +23,10 @@ public class Player extends Sprite {
     
     private DirectionQueue  dQueue = new DirectionQueue ();
     
+    private char[][] collisionCheck;
+    private int mapWIDTH;
+    private int mapHEIGHT;
+    
     public Player(int x, int y) {
         super(x, y);
         setAnimation (pal.getFacingDown());
@@ -31,14 +35,17 @@ public class Player extends Sprite {
     @Override
     public void update () {
         switch (this.direction){
-            case LEFT: 
+            case LEFT:               
                 this.x-=2;
                 setAnimation (pal.getFacingLeft());
                 break;
                 
             case RIGHT: 
-                this.x+=2;
-                setAnimation (pal.getFacingRight());
+                if(this.x < mapWIDTH - 17 && getCollision(this.direction) == false)
+                {
+                    this.x+=2;
+                    setAnimation (pal.getFacingRight());
+                }                
                 break;
                 
             case UP: 
@@ -60,10 +67,36 @@ public class Player extends Sprite {
             resetAnimation ();
     }
     
+    private boolean getCollision(Direction d)
+    {
+        boolean checkValue = false;
+        int playerX = this.x/10;
+        int playerY = this.y/10;
+        switch (d){
+            case LEFT:               
+                
+                
+            case RIGHT: 
+                System.out.println("PlayerY: " + playerY + "   PlayerX: " + playerX);
+                if(collisionCheck[playerY][playerX + 2] == '#')
+                    checkValue = true;
+            case UP: 
+              
+            case DOWN: 
+               
+            case NEUTRAL: 
+                break;     
+        }
+        return checkValue;
+    }
     
-    public void keyPressed (int keyCode) 
+    
+    public void keyPressed (int keyCode, char[][] level, int WIDTH, int HEIGHT) 
     {
         Direction   d = KeyCodeToDirection (keyCode);
+        collisionCheck = level;
+        mapWIDTH = WIDTH;
+        mapHEIGHT = HEIGHT;
         holdDirection (d);
     }
     

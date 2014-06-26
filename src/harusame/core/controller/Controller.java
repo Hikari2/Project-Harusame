@@ -27,8 +27,8 @@ public class Controller {
         player = new Player (100, 150);
     }
     
-    public void keyPressed(int keyCode) {
-        player.keyPressed(keyCode);
+    public void keyPressed(int keyCode, char[][] level, int WIDTH, int HEIGHT) {
+        player.keyPressed(keyCode, level, WIDTH, HEIGHT);
     }
 
     public void keyReleased(int keyCode) {
@@ -37,7 +37,7 @@ public class Controller {
 
     public void update() {
         player.update();
-    }
+    }  
 
     public void draw(Graphics2D g) {
         player.draw(g, (int)player.getX(), (int)player.getY());

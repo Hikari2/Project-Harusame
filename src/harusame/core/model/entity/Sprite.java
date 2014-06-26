@@ -19,10 +19,10 @@ public class Sprite extends Animatable{
    protected boolean isCollidable = true;
    private BufferedImage    image;
   
-   protected float x;
-   protected float y;
-   protected float dx;
-   protected float dy;
+   protected int x;
+   protected int y;
+   protected int dx;
+   protected int dy;
    
    public Sprite (int x, int y) {
        this.x = x;
@@ -31,7 +31,7 @@ public class Sprite extends Animatable{
        dy = 2 * Tile.WIDTH;
    }
    
-   public void setPosition (float x, float y) {
+   public void setPosition (int x, int y) {
        this.x = x;
        this.y = y;
    }
