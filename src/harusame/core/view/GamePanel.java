@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 import javax.swing.JPanel;
 import harusame.core.controller.Controller;
-import harusame.core.model.MapLoader;
+import harusame.core.model.map.MapLoader;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import java.io.File;
@@ -32,20 +32,14 @@ public class GamePanel extends JPanel
 	
 	// image
 	private BufferedImage image;
-	private Graphics2D g;
-        
-        // Map Loader
-        String currentLevel = "Level1";
-        private MapLoader map = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT);        
-        char[][] level;
+	private Graphics2D g;   
 	
 	public GamePanel(Controller ctrl) {
 		super();
                 this.ctrl = ctrl;
 		setPreferredSize(
 			new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		setFocusable(true);
-                level = map.readMap(currentLevel);                
+		setFocusable(true);               
 		requestFocus();
 	}
 	
@@ -100,7 +94,7 @@ public class GamePanel extends JPanel
 		ctrl.update();
 	}
 	private void draw() {
-              // BACKGROUND
+            /*
               try
               {
                    Image in = ImageIO.read(new File("Resources/Tilesets/tilebackround1.png"));                   
@@ -118,31 +112,8 @@ public class GamePanel extends JPanel
               {
                   ex.printStackTrace();
               }         
-            
-            // TILES                
-                int drawX = 0;
-                int drawY = 0;
-                
-                
-                for(int i = 0; i < HEIGHT/10; i++)
-                {
-                    for(int p = 0; p < WIDTH/10; p++)
-                    {
-                        if(level[i][p] != '0')
-                            g.drawImage(map.getTile(level[i][p]), drawX, drawY, this);               
-
-                        drawX += 10;
-                        if(drawX == WIDTH)
-                        {
-                            drawX = 0;
-                            drawY += 10;
-                        }
-                    }
-                }
-                
-                
-                // PLAYER DRAW
-                ctrl.draw(g);
+              */
+              ctrl.draw(g);
                 
 	}
 	private void drawToScreen() {
@@ -158,7 +129,7 @@ public class GamePanel extends JPanel
         
 	public void keyPressed(KeyEvent key) {          
             
-                    ctrl.keyPressed(key.getKeyCode(), level, WIDTH, HEIGHT);
+                    ctrl.keyPressed(key.getKeyCode());
 	}
         
 	public void keyReleased(KeyEvent key) {

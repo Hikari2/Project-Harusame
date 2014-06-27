@@ -41,11 +41,8 @@ public class Player extends Sprite {
                 break;
                 
             case RIGHT: 
-                if(this.x < mapWIDTH - 17 && getCollision(this.direction) == false)
-                {
-                    this.x+=2;
-                    setAnimation (pal.getFacingRight());
-                }                
+                this.x+=2;
+                setAnimation (pal.getFacingRight());           
                 break;
                 
             case UP: 
@@ -67,36 +64,9 @@ public class Player extends Sprite {
             resetAnimation ();
     }
     
-    private boolean getCollision(Direction d)
-    {
-        boolean checkValue = false;
-        int playerX = this.x/10;
-        int playerY = this.y/10;
-        switch (d){
-            case LEFT:               
-                
-                
-            case RIGHT: 
-                System.out.println("PlayerY: " + playerY + "   PlayerX: " + playerX);
-                if(collisionCheck[playerY][playerX + 2] == '#')
-                    checkValue = true;
-            case UP: 
-              
-            case DOWN: 
-               
-            case NEUTRAL: 
-                break;     
-        }
-        return checkValue;
-    }
-    
-    
-    public void keyPressed (int keyCode, char[][] level, int WIDTH, int HEIGHT) 
+    public void keyPressed (int keyCode) 
     {
         Direction   d = KeyCodeToDirection (keyCode);
-        collisionCheck = level;
-        mapWIDTH = WIDTH;
-        mapHEIGHT = HEIGHT;
         holdDirection (d);
     }
     

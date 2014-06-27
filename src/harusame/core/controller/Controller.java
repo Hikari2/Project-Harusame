@@ -1,17 +1,11 @@
 package harusame.core.controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import harusame.core.model.entity.Player;
 import harusame.core.model.entity.Sprite;
+import harusame.core.model.map.MapLoader;
+import harusame.core.model.map.TileMap;
+import harusame.core.view.GamePanel;
 import java.awt.Graphics2D;
-import java.awt.List;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -20,15 +14,19 @@ import java.util.ArrayList;
  */
 public class Controller {
     
+    private final MapLoader ml = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT); 
+    private final TileMap map;
+    
     Player  player;
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
     public Controller () {
         player = new Player (100, 150);
+        map = ml.loadMap("Level1");
     }
     
-    public void keyPressed(int keyCode, char[][] level, int WIDTH, int HEIGHT) {
-        player.keyPressed(keyCode, level, WIDTH, HEIGHT);
+    public void keyPressed(int keyCode) {
+        player.keyPressed(keyCode);
     }
 
     public void keyReleased(int keyCode) {
@@ -46,5 +44,7 @@ public class Controller {
             Sprite  s = sprites.get(i);
             s.draw(g, (int)s.getX(), (int)s.getY());
         }
+        
+        map.draw (g, (int)player.getX(), (int)player.getY());
     }
 }

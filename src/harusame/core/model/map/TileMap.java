@@ -1,20 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package harusame.core.model.map;
 
-import harusame.core.model.animation.PlayerAnimationLoader;
-import java.awt.Image;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+import java.awt.Graphics;
 
 /**
  *
@@ -22,58 +8,30 @@ import javax.imageio.ImageIO;
  */
 public class TileMap 
 {
-    private Tile[] tiles = new Tile[100];
+    private Tile[][] tiles;
     
     
-    public TileMap(String level)
+    public TileMap(int w, int h)
     {
-        Image in;
-        Boolean blocked;
-        char symbol;
-        
-        BufferedReader br = null;
-        
-        try {                     
-            String sCurrentLine;
-            int counter = 0;
-            
-            br = new BufferedReader(new FileReader("Resources/Maps/" + level + "-tiles.txt"));
-            
-            while ((sCurrentLine = br.readLine()) != null) 
-            {        
-                blocked = false;
-                in = ImageIO.read(new File(sCurrentLine));
-                sCurrentLine = br.readLine();
-                
-                if(sCurrentLine.equals("true"))
-                    blocked = true;
-                
-                symbol = br.readLine().charAt(0);
-                tiles[counter] = new Tile(in, true, symbol);  
-                counter++;
-            }
-            System.out.println(sCurrentLine);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        } finally 
-        {
-            try {
-                if (br != null)br.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }         
+        tiles = new Tile [h][w];
     }
     
-    public Image getTile(char symbol)
-    {       
-        for(int i = 0; i < tiles.length; i++)
-        {
-            if(tiles[i].isChar(symbol) == true)
-                return tiles[i].getTile();
-        }
-        return null;
+    public Tile getTile (int x, int y) {
+        return tiles[y][x];
     }
     
+    public void setTile (Tile t, int x, int y) {
+        tiles[y][x] = t;
+    }
+    
+    public void draw (Graphics g, int x, int y) {
+        Tile tile;
+        for (int i=0; i<tiles.length; i++) {
+            
+            for (int j=0; j<tiles[i].length; j++) {
+                tile = tiles[i][j];
+                g.drawImage (tile.getImage(), tile.getX (), tile.getY(), null);
+            }
+        }
+    }
 }

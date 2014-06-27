@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package harusame.core.model.map;
 
 /**
@@ -11,7 +5,6 @@ package harusame.core.model.map;
  * @author Hikari
  */
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 
 public class Tile {
     
@@ -19,26 +12,31 @@ public class Tile {
         
     private Image image;
     private boolean BLOCKED;
-    private char symbol;
+    private int x;
+    private int y;
     
-    public Tile(Image image, boolean type, char newSymbol) {
+    
+    public Tile(Image image, boolean type, int x, int y) {
         this.image = image;
-        BLOCKED = type;
-        symbol = newSymbol;        
+        BLOCKED = type;  
+        this.x = x;
+        this.y = y;
     }
     
     public boolean isBlocked () {
         return BLOCKED;
     }
     
-    public boolean isChar(char checkSymbol) {
-        if(symbol == checkSymbol)
-            return true;
-        return false;
-    }
-    
-    public Image getTile()
+    public Image getImage()
     {
         return image;
+    }
+    
+    public int getX () {
+        return x;
+    }
+    
+    public int getY () {
+        return y;
     }
 }
