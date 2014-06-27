@@ -6,8 +6,6 @@
 
 package harusame.core.model.map;
 
-import harusame.core.model.map.TileMap;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,28 +20,17 @@ import javax.imageio.ImageIO;
 public class MapLoader 
 {
     private String  stoneWall = "Resources/Tilesets/Stonewall1.jpg";
-    
-    char[][] map;
     private TileMap tileMap;
-    int w;
-    int h;
-    
-    
-    public MapLoader(int width, int height)
-    {
-        map = new char[height/10][width/10];
-        w = width;
-        h = height;
-    }
+    int w = 10;
+    int h = 10;
     
     public TileMap loadMap(String level)
     {
         BufferedReader br = null;
         
         try {        
-            String sCurrentLine;
-            int x = 0;
-            int y = 0;
+            int x;
+            int y;
             
             br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
             
@@ -57,11 +44,11 @@ public class MapLoader
             
             for (int i=0; i<h; i++){
                 
-                line = sCurrentLine = br.readLine();
+                line = br.readLine();
                 
-                for (int j=0; j<w; i++) {
+                for (int j=0; j<w; j++) {
                     tile = symbolToTile(line.charAt(j), j, i);
-                    tileMap.setTile(tile, x, y);
+                    tileMap.setTile(tile, j, i);
                 }
             }
         } catch (IOException e) {
@@ -70,7 +57,8 @@ public class MapLoader
         
         finally {
             try {
-                if (br != null)br.close();
+                if (br != null)
+                    br.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

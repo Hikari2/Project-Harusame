@@ -6,11 +6,6 @@ import java.awt.event.*;
 
 import javax.swing.JPanel;
 import harusame.core.controller.Controller;
-import harusame.core.model.map.MapLoader;
-import harusame.core.model.map.Tile;
-import harusame.core.model.map.TileMap;
-import java.io.File;
-import javax.imageio.ImageIO;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
@@ -20,9 +15,9 @@ public class GamePanel extends JPanel
         private Controller ctrl;
         
 	// dimensions
-	public static final int WIDTH = 300;
-	public static final int HEIGHT = 200;
-	public static final int SCALE = 4;
+	public static final int WIDTH = 1200;
+	public static final int HEIGHT = 800;
+	public static final int SCALE = 1;
 	
 	// game thread
 	private Thread thread;
@@ -125,15 +120,17 @@ public class GamePanel extends JPanel
                 init ();
 	}
 	
+        @Override
 	public void keyTyped(KeyEvent key) {}
         
+        @Override
 	public void keyPressed(KeyEvent key) {          
-            
-                    ctrl.keyPressed(key.getKeyCode());
+            ctrl.keyPressed(key.getKeyCode());
 	}
         
+        @Override
 	public void keyReleased(KeyEvent key) {
-		ctrl.keyReleased(key.getKeyCode());
+            ctrl.keyReleased(key.getKeyCode());
 	}
 }
 

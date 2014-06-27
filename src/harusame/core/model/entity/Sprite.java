@@ -7,6 +7,11 @@ import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -64,6 +69,12 @@ public class Sprite extends Animatable{
     public void draw(Graphics g, int x, int y) {
        Animation    a = getAnimation ();
        image = a.getFrame();
+       try {
+           g.drawImage(ImageIO.read(new File("Resources/Sprites/Player/blank.png")), x, y, (int) dx, (int) dy, null); //BLANKFRAME
+       } catch (IOException ex) {
+           Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
        g.drawImage(image, x, y, (int) dx, (int) dy, null);
     }
 

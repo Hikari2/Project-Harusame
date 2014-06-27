@@ -14,14 +14,14 @@ import java.util.ArrayList;
  */
 public class Controller {
     
-    private final MapLoader ml = new MapLoader(GamePanel.WIDTH, GamePanel.HEIGHT); 
+    private final MapLoader ml = new MapLoader(); 
     private final TileMap map;
     
     Player  player;
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
     public Controller () {
-        player = new Player (100, 150);
+        player = new Player (150, 100);
         map = ml.loadMap("Level1");
     }
     

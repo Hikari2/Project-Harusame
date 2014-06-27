@@ -7,6 +7,7 @@ import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 /**
@@ -21,14 +22,15 @@ public class Player extends Sprite {
     private boolean isUpHeld = false;
     private boolean isDownHeld = false;
     
-    private DirectionQueue  dQueue = new DirectionQueue ();
+    private int startX;
+    private int startY;
     
-    private char[][] collisionCheck;
-    private int mapWIDTH;
-    private int mapHEIGHT;
+    private DirectionQueue  dQueue = new DirectionQueue ();
     
     public Player(int x, int y) {
         super(x, y);
+        startX = x;
+        startY = y;
         setAnimation (pal.getFacingDown());
     }
     
@@ -36,22 +38,22 @@ public class Player extends Sprite {
     public void update () {
         switch (this.direction){
             case LEFT:               
-                this.x-=2;
+                this.x-=10;
                 setAnimation (pal.getFacingLeft());
                 break;
                 
             case RIGHT: 
-                this.x+=2;
+                this.x+=10;
                 setAnimation (pal.getFacingRight());           
                 break;
                 
             case UP: 
-                this.y-=2;
+                this.y-=10;
                 setAnimation (pal.getFacingUp());
                 break;
                 
             case DOWN: 
-                this.y+=2;
+                this.y+=10;
                 setAnimation (pal.getFacingDown());
                 break;
                 

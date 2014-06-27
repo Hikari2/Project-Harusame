@@ -8,7 +8,7 @@ import java.awt.Image;
 
 public class Tile {
     
-    public static int WIDTH = 10;
+    public static int WIDTH = 40;
         
     private Image image;
     private boolean BLOCKED;
