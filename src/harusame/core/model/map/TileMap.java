@@ -27,47 +27,43 @@ public class TileMap
     
     public TileMap(String level)
     {
+        Image in;
+        Boolean blocked;
+        char symbol;
         
-           Image in;
-           Boolean blocked;
-           char symbol;
-                 
-           BufferedReader br = null;
-                 
-           try {                     
-                    String sCurrentLine;
-                    int counter = 0;
- 
-                    br = new BufferedReader(new FileReader("Resources/Maps/" + level + "-tiles.txt"));
- 
-                    while ((sCurrentLine = br.readLine()) != null) 
-                    {        
-                         blocked = false;
-                         in = ImageIO.read(new File(sCurrentLine));
-                         sCurrentLine = br.readLine();
-                              
-                         if(sCurrentLine.equals("true"))
-                             blocked = true;
-                              
-                         symbol = br.readLine().charAt(0);
-                              
-                         tiles[counter] = new Tile(in, true, symbol);  
-                         counter++;
-                    }
-                System.out.println(sCurrentLine);
-               }
- 
-	 catch (IOException e) {
-		e.printStackTrace();
-		} finally 
-                {
-			try {
-				if (br != null)br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}         
-     
+        BufferedReader br = null;
+        
+        try {                     
+            String sCurrentLine;
+            int counter = 0;
+            
+            br = new BufferedReader(new FileReader("Resources/Maps/" + level + "-tiles.txt"));
+            
+            while ((sCurrentLine = br.readLine()) != null) 
+            {        
+                blocked = false;
+                in = ImageIO.read(new File(sCurrentLine));
+                sCurrentLine = br.readLine();
+                
+                if(sCurrentLine.equals("true"))
+                    blocked = true;
+                
+                symbol = br.readLine().charAt(0);
+                tiles[counter] = new Tile(in, true, symbol);  
+                counter++;
+            }
+            System.out.println(sCurrentLine);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } finally 
+        {
+            try {
+                if (br != null)br.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }         
     }
     
     public Image getTile(char symbol)

@@ -35,39 +35,38 @@ public class MapLoader
     {
         tileMap = new TileMap(level);
         BufferedReader br = null;
-
-           
-		try {                     
-			String sCurrentLine;
-                        int counterX = 0;
-                        int counterY = 0;
- 
-			br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
- 
-			while ((sCurrentLine = br.readLine()) != null) 
-                        {
-                            for(int i = 0; i < sCurrentLine.length(); i++)
-                            {
-                                map[counterY][counterX] = sCurrentLine.charAt(i);
-                                counterX++;
-                                if(counterX == w/10)
-                                {
-                                    counterX = 0;
-                                    counterY++;                                   
-                                }                                
-                            }
-                            System.out.println(sCurrentLine);
-			}
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}          
+        
+        try {                     
+            String sCurrentLine;
+            int counterX = 0;
+            int counterY = 0;
+            
+            br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
+            
+            while ((sCurrentLine = br.readLine()) != null) 
+            {
+                for(int i = 0; i < sCurrentLine.length(); i++)
+                {
+                    map[counterY][counterX] = sCurrentLine.charAt(i);
+                    counterX++;
+                    if(counterX == w/10)
+                    {
+                        counterX = 0;
+                        counterY++;                                   
+                    }                                
+                }
+                System.out.println(sCurrentLine);
+            }
+        
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)br.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }          
 
         return map;
     }
