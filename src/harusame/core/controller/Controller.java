@@ -4,7 +4,6 @@ import harusame.core.model.entity.Player;
 import harusame.core.model.entity.Sprite;
 import harusame.core.model.map.MapLoader;
 import harusame.core.model.map.TileMap;
-import harusame.core.view.GamePanel;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 

@@ -3,9 +3,11 @@ package harusame.core.model.entity;
 import harusame.core.model.animation.Animatable;
 import harusame.core.model.animation.Animation;
 import harusame.core.model.map.Tile;
+import static harusame.core.model.map.Tile.WIDTH;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +46,10 @@ public class Sprite extends Animatable{
    public void update () {
        
    }
+   
+   public Rectangle getBount () {
+        return new Rectangle (x, y, dx, dy);
+    }
    
    @Override
     public float getX () {

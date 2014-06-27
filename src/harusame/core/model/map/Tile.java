@@ -5,6 +5,7 @@ package harusame.core.model.map;
  * @author Hikari
  */
 import java.awt.Image;
+import java.awt.Rectangle;
 
 public class Tile {
     
@@ -38,5 +39,9 @@ public class Tile {
     
     public int getY () {
         return y;
+    }
+    
+    public Rectangle getBount () {
+        return new Rectangle (x, y, WIDTH, WIDTH);
     }
 }
