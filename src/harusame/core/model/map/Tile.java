@@ -41,7 +41,7 @@ public class Tile {
         return y;
     }
     
-    public Rectangle getBount () {
+    public Rectangle getBound () {
         return new Rectangle (x, y, WIDTH, WIDTH);
     }
 }

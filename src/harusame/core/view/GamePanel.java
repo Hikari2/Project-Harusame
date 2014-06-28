@@ -6,10 +6,11 @@ import java.awt.event.*;
 
 import javax.swing.JPanel;
 import harusame.core.controller.Controller;
+import harusame.core.util.Observer;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
-	implements Runnable, KeyListener{
+	implements Runnable, KeyListener, Observer{
 	
         // controller
         private Controller ctrl;
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel
 	public GamePanel(Controller ctrl) {
 		super();
                 this.ctrl = ctrl;
+                ctrl.addObserver (this);
 		setPreferredSize(
 			new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setFocusable(true);               

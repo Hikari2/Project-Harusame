@@ -21,8 +21,8 @@ public class MapLoader
 {
     private String  stoneWall = "Resources/Tilesets/Stonewall1.jpg";
     private TileMap tileMap;
-    int w = 10;
-    int h = 10;
+    int w;
+    int h;
     
     public TileMap loadMap(String level)
     {
@@ -45,8 +45,8 @@ public class MapLoader
             for (int i=0; i<h; i++){
                 
                 line = br.readLine();
-                
-                for (int j=0; j<w; j++) {
+
+                for (int j=0; j<line.length(); j++) {
                     tile = symbolToTile(line.charAt(j), j, i);
                     tileMap.setTile(tile, j, i);
                 }
@@ -68,7 +68,6 @@ public class MapLoader
     }
     
     private Tile symbolToTile (char symbol, int colum, int row) throws IOException {
-        
         String path;
         BufferedImage   image;
         Tile    tile;

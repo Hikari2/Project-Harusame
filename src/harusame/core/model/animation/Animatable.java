@@ -29,9 +29,9 @@ abstract public class Animatable {
     public abstract void draw(Graphics g, int x, int y);
     public abstract void draw (Graphics g, int x, int y, int dx, int dy);
             
-    public abstract float getX ();
-    public abstract float getY ();
+    public abstract int getX ();
+    public abstract int getY ();
     
-    public abstract float getDX ();
-    public abstract float getDY ();
+    public abstract int getDX ();
+    public abstract int getDY ();
 }

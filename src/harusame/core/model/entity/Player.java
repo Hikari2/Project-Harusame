@@ -7,8 +7,11 @@ import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
+import harusame.core.util.Observer;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -16,44 +19,46 @@ import java.awt.event.KeyEvent;
 public class Player extends Sprite {
     
     private final PlayerAnimationLoader   pal = PlayerAnimationLoader.getPAL();
+    private List<Observer> observers = new ArrayList<Observer>();
     
     private boolean isLeftHeld = false;
     private boolean isRightHeld = false;
     private boolean isUpHeld = false;
     private boolean isDownHeld = false;
     
-    private int startX;
-    private int startY;
+    private int lastX;
+    private int lastY;
     
     private DirectionQueue  dQueue = new DirectionQueue ();
     
     public Player(int x, int y) {
         super(x, y);
-        startX = x;
-        startY = y;
         setAnimation (pal.getFacingDown());
     }
     
     @Override
     public void update () {
+        lastX = x;
+        lastY = y;
+        
         switch (this.direction){
             case LEFT:               
-                this.x-=10;
+                this.x-=20;
                 setAnimation (pal.getFacingLeft());
                 break;
                 
             case RIGHT: 
-                this.x+=10;
+                this.x+=20;
                 setAnimation (pal.getFacingRight());           
                 break;
                 
             case UP: 
-                this.y-=10;
+                this.y-=20;
                 setAnimation (pal.getFacingUp());
                 break;
                 
             case DOWN: 
-                this.y+=10;
+                this.y+=20;
                 setAnimation (pal.getFacingDown());
                 break;
                 
@@ -64,6 +69,11 @@ public class Player extends Sprite {
             updateAnimation ();
         else 
             resetAnimation ();
+    }
+    
+    public void revert () {
+        x = lastX;
+        y = lastY;
     }
     
     public void keyPressed (int keyCode) 

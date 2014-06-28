@@ -26,9 +26,6 @@ public class TileMap
         tiles = new Tile [h][w];
         offsetMaxX = (w * Tile.WIDTH ) - CAMERA_SIZE_X;
         offsetMaxY = (h * Tile.WIDTH) - CAMERA_SIZE_Y;
-        
-        System.out.println (offsetMaxX);
-            System.out.println (offsetMaxY);
     }
     
     public Tile getTile (int x, int y) {
@@ -37,6 +34,21 @@ public class TileMap
     
     public void setTile (Tile t, int x, int y) {
         tiles[y][x] = t;
+    }
+    
+    public Tile[] getRow (int i) {
+        return tiles[i];
+    }
+    
+    public int getRowCount () {
+        return tiles.length;
+    }
+    
+    public int getCamX () {
+        return camX;
+    }
+    public int getCamY () {
+        return camY;
     }
     
     /**
@@ -54,16 +66,19 @@ public class TileMap
         for (int row=0; row<tiles.length; row++) {
             for (int colum=0; colum<tiles[row].length; colum++) {
                 tile = tiles[row][colum];
-                if (tile != null)
+                if (tile != null){
                     g.drawImage (tile.getImage(), tile.getX (), tile.getY(), Tile.WIDTH, Tile.WIDTH, null);
+                                              g.drawString("" + camX, camX+80, camY+80);
+                                              g.drawString("" + camY, camX+80, camY+90);
+                }
             }
         }
     }
     
     private void adjustCamera (Graphics g, int x, int y) {
         
-        camX = x - CAMERA_SIZE_X / 5;
-        camY = y - CAMERA_SIZE_Y / 5;
+        camX = x - CAMERA_SIZE_X / 20;
+        camY = y - CAMERA_SIZE_Y / 20;
         
         if (camX > offsetMaxX)
             camX = offsetMaxX;

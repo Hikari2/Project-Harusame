@@ -47,27 +47,27 @@ public class Sprite extends Animatable{
        
    }
    
-   public Rectangle getBount () {
+   public Rectangle getBound () {
         return new Rectangle (x, y, dx, dy);
     }
    
    @Override
-    public float getX () {
+    public int getX () {
         return x;
     }
     
    @Override
-    public float getY () {
+    public int getY () {
         return y;
     }
 
     @Override
-    public float getDX() {
+    public int getDX() {
         return dx;
     }
 
     @Override
-    public float getDY() {
+    public int getDY() {
         return dy;
     }
 
@@ -81,7 +81,8 @@ public class Sprite extends Animatable{
            Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
        }
        
-       g.drawImage(image, x, y, (int) dx, (int) dy, null);
+       g.drawImage(image, x, y, dx, dy, null);
+       g.drawString("x: "+x+ " y: "+y, x, y);
     }
 
     @Override
