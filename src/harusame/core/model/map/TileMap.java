@@ -77,8 +77,8 @@ public class TileMap
     
     private void adjustCamera (Graphics g, int x, int y) {
         
-        camX = x - CAMERA_SIZE_X / 20;
-        camY = y - CAMERA_SIZE_Y / 20;
+        camX = x - CAMERA_SIZE_X / 2;
+        camY = y - CAMERA_SIZE_Y / 2;
         
         if (camX > offsetMaxX)
             camX = offsetMaxX;

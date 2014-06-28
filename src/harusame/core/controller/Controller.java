@@ -23,7 +23,7 @@ public class Controller {
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
     public Controller () {
-        player = new Player (40, 40);
+        player = new Player (20, 20);
         map = ml.loadMap("Level1");
     }
     

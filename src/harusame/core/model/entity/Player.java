@@ -43,22 +43,22 @@ public class Player extends Sprite {
         
         switch (this.direction){
             case LEFT:               
-                this.x-=10;
+                this.x-=20;
                 setAnimation (pal.getFacingLeft());
                 break;
                 
             case RIGHT: 
-                this.x+=10;
+                this.x+=20;
                 setAnimation (pal.getFacingRight());           
                 break;
                 
             case UP: 
-                this.y-=10;
+                this.y-=20;
                 setAnimation (pal.getFacingUp());
                 break;
                 
             case DOWN: 
-                this.y+=10;
+                this.y+=20;
                 setAnimation (pal.getFacingDown());
                 break;
                 
