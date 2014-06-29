@@ -23,7 +23,7 @@ public class Controller {
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
     public Controller () {
-        player = new Player (20, 20);
+        player = new Player (24, 24);
         map = ml.loadMap("Level1");
     }
     
@@ -44,8 +44,8 @@ public class Controller {
         ch.CheckTileCollision(player, map);
     }  
     
-    public void draw(Graphics2D g) {
-        player.draw(g, (int)player.getX(), (int)player.getY());  
+    public void draw(Graphics2D g) {  
         map.draw (g, (int)player.getX(), (int)player.getY());
+        player.draw(g, (int)player.getX(), (int)player.getY());
     }
 }

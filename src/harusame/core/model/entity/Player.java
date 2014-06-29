@@ -28,7 +28,10 @@ public class Player extends Sprite {
     
     private int lastX;
     private int lastY;
-    
+   
+    private int lock;
+    private Direction lastDirection = NEUTRAL;
+    private Direction lockedDirection = NEUTRAL;
     private DirectionQueue  dQueue = new DirectionQueue ();
     
     public Player(int x, int y) {
@@ -38,37 +41,64 @@ public class Player extends Sprite {
     
     @Override
     public void update () {
+        
+        lockMovement (6, direction);
         lastX = x;
         lastY = y;
         
+        if (lock == 0)
+            return;
+        
         switch (this.direction){
-            case LEFT:               
-                this.x-=20;
+            case LEFT:                 
+                this.x-=4;
                 setAnimation (pal.getFacingLeft());
                 break;
                 
             case RIGHT: 
-                this.x+=20;
+                this.x+=4;
                 setAnimation (pal.getFacingRight());           
                 break;
                 
             case UP: 
-                this.y-=20;
+                this.y-=4;
                 setAnimation (pal.getFacingUp());
                 break;
                 
             case DOWN: 
-                this.y+=20;
+                this.y+=4;
                 setAnimation (pal.getFacingDown());
                 break;
                 
             case NEUTRAL: 
                 break;     
         }
-        if (direction != NEUTRAL)
+        if (direction != NEUTRAL) {
             updateAnimation ();
+        }
         else 
             resetAnimation ();
+    }
+    
+    private void lockMovement (int i, Direction d) { 
+        
+        if (lock > 0) {
+            direction = lockedDirection;;
+            lock--;
+            System.out.println ("Is locked " + lock + ": " + x + ", " + y);
+            if (lock == 0) {
+                direction = dQueue.getMostRecentDirection();
+                return;
+            }
+        }
+        else if (d == NEUTRAL)
+            return;
+        
+        else {
+            lock = i;
+            lockedDirection = d;
+            System.out.println ("Locked as " + d + ": " + x + ", " + y);
+        }
     }
     
     public void revert () {
@@ -84,6 +114,7 @@ public class Player extends Sprite {
     
     private void holdDirection (Direction d) 
     {
+        
         switch (d) {
             case LEFT: 
                 if (isLeftHeld) 
@@ -113,6 +144,7 @@ public class Player extends Sprite {
                     isDownHeld = true;
                 break;
         }
+        if (lock <= 0)
         direction = d;
         dQueue.addDirection(d);
     }  
@@ -121,7 +153,7 @@ public class Player extends Sprite {
     {
         Direction d = KeyCodeToDirection (keyCode);
         releaseDirection (d);
-        
+        if (lock <= 0)
         direction = dQueue.getMostRecentDirection();
     }
     

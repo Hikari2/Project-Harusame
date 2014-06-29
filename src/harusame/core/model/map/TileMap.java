@@ -1,5 +1,6 @@
 package harusame.core.model.map;
 
+import harusame.core.model.entity.Player;
 import harusame.core.view.GamePanel;
 import java.awt.Graphics;
 
@@ -68,6 +69,7 @@ public class TileMap
                 tile = tiles[row][colum];
                 if (tile != null){
                     g.drawImage (tile.getImage(), tile.getX (), tile.getY(), Tile.WIDTH, Tile.WIDTH, null);
+                                              g.drawString("" + tile.getY (), tile.getX ()+30, tile.getY()+15);
                                               g.drawString("" + camX, camX+80, camY+80);
                                               g.drawString("" + camY, camX+80, camY+90);
                 }

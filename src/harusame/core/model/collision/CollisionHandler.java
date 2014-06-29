@@ -28,7 +28,6 @@ public class CollisionHandler {
         int camY = map.getCamY();
         
         Rectangle   playerBound = p.getBound();
-        playerBound.setLocation(x+camX, y+camY);
         
         int rowCount = map.getRowCount();
         Tile    tile;

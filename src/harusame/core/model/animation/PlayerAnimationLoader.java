@@ -63,8 +63,6 @@ public class PlayerAnimationLoader {
             BufferedImage   image = sheet.getSubimage(32*i, 32*row, 32, 32);
             a.addFrame(image);
             a.addFrame(image);
-            a.addFrame(image);
-            a.addFrame(image);
         }
     }
 }
