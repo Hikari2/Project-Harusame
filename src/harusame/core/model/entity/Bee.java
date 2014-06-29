@@ -20,7 +20,7 @@ public class Bee extends Sprite {
     private int lastX;
     private int lastY;
     
-   
+    int lock;
     
     public Bee(int width, int height) {
         super(width, height);
@@ -28,17 +28,25 @@ public class Bee extends Sprite {
         setAnimation (pal.getFacingLeft());
     }
     
-    public void revert () {        
+    public void revert () {  
+        if(lock > 0)
+        {
+            lock--;
+            return;
+        }
+        
         this.x = lastX;
         this.y = lastY;       
         
         switch (this.direction){
-            case LEFT:                                     
+            case LEFT:  
+                lock = 5;
                 this.direction = RIGHT;
                 setAnimation (pal.getFacingRight());
                 break;
                 
-            case RIGHT:                
+            case RIGHT:     
+                lock = 5;
                 this.direction = LEFT;                
                 setAnimation (pal.getFacingLeft());      
                 break;         
