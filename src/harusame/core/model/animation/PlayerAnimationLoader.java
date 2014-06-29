@@ -13,14 +13,16 @@ import javax.imageio.ImageIO;
  */
 public class PlayerAnimationLoader {
     
-    private static PlayerAnimationLoader    pal = new PlayerAnimationLoader ();
+    static PlayerAnimationLoader    pal;
     
     Animation   facingRight = new Animation ();
     Animation   facingLeft = new Animation ();
     Animation   facingUp = new Animation ();
     Animation   facingDown = new Animation ();
+    String path;
     
-    private PlayerAnimationLoader () {
+    public PlayerAnimationLoader (String newPath) {
+        path = newPath;
         loadMovementAnimation ();
     }
     
@@ -46,7 +48,7 @@ public class PlayerAnimationLoader {
     
     private void loadMovementAnimation () {
         try {
-            BufferedImage   spriteSheet = ImageIO.read(new File("Resources/Sprites/Player/PlayerSprites.png"));
+            BufferedImage   spriteSheet = ImageIO.read(new File("Resources/Sprites/" + path));
             
             loadSubImage (facingLeft, spriteSheet, 1);
             loadSubImage (facingRight, spriteSheet, 2);

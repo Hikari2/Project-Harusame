@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Player extends Sprite {
     
-    private final PlayerAnimationLoader   pal = PlayerAnimationLoader.getPAL();
+    private final PlayerAnimationLoader   pal = new PlayerAnimationLoader("Player/PlayerSprites.png");
     private List<Observer> observers = new ArrayList<Observer>();
     
     private boolean isLeftHeld = false;

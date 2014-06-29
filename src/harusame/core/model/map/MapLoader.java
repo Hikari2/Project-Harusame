@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 public class MapLoader 
 {
     private String  stoneWall = "Resources/Tilesets/Stonewall1.jpg";
+    private String  blank = "Resources/Sprites/Player/blank.png";
     private TileMap tileMap;
     int w;
     int h;
