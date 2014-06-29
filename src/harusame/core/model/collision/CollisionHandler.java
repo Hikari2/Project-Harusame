@@ -52,7 +52,7 @@ public class CollisionHandler {
         int camX = map.getCamX();
         int camY = map.getCamY();
         
-        Rectangle   playerBound = b.getBound();
+        Rectangle   enemyBound = b.getBound();
         
         int rowCount = map.getRowCount();
         Tile    tile;
@@ -63,9 +63,10 @@ public class CollisionHandler {
                 if (row[j] == null)
                     continue;
                 tile = row[j];
-                if (playerBound.intersects(tile.getBound()))                 
-                    b.revert();               
-               
+                if (enemyBound.intersects(tile.getBound())){    
+                                        System.out.println ("Collision ");
+                    b.revert();                  
+                }
             }
         }
     }

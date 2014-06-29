@@ -30,6 +30,9 @@ public class Sprite extends Animatable{
    protected int y;
    protected int dx;
    protected int dy;
+   protected int lastX;
+   protected int lastY;
+   protected int MOVE_SPEED;
    
    public Sprite (int x, int y) {
        this.x = x;
@@ -45,6 +48,11 @@ public class Sprite extends Animatable{
     
    public void update () {
        
+   }
+   
+   public void revert () {
+       x = lastX;
+       y = lastY;
    }
    
    public Rectangle getBound () {
