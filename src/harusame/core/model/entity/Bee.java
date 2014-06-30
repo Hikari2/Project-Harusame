@@ -47,7 +47,7 @@ public class Bee extends Sprite {
             case DOWN:     
                 direction = LEFT;                
                 break;   
-        }        
+        }           
     }
         
     @Override
