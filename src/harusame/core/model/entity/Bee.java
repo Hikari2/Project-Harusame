@@ -32,12 +32,24 @@ public class Bee extends Sprite {
         
         switch (direction){
             case LEFT:  
-                direction = RIGHT;
+                direction = UP;
+                update ();
                 break;
                 
+            case UP:     
+                direction = RIGHT;    
+                update ();
+                break;  
+                
             case RIGHT:     
+                direction = DOWN;    
+                update ();
+                break;   
+                    
+            case DOWN:     
                 direction = LEFT;    
-                break;         
+                update ();
+                break;   
         }        
     }
         
