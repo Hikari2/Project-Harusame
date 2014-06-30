@@ -22,7 +22,7 @@ public class Bee extends Sprite {
         super(x, y);
         direction = LEFT;
         setAnimation (pal.getFacingLeft());
-        MOVE_SPEED = 5;
+        MOVE_SPEED = 1;
     }
     
     public void revert () {  

@@ -64,6 +64,8 @@ public class PlayerAnimationLoader {
             a.addFrame(image);
             a.addFrame(image);
             a.addFrame(image);
+                        a.addFrame(image);
+            a.addFrame(image);
         }
     }
 }
