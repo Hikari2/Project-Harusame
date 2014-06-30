@@ -37,8 +37,8 @@ public class Sprite extends Animatable{
    public Sprite (int x, int y) {
        this.x = x;
        this.y = y;
-       dx = 2 * Tile.WIDTH;
-       dy = 2 * Tile.WIDTH;
+       dx = 1 * Tile.WIDTH;
+       dy = 1 * Tile.WIDTH;
    }
    
    public void setPosition (int x, int y) {
@@ -48,11 +48,6 @@ public class Sprite extends Animatable{
     
    public void update () {
        
-   }
-   
-   public void revert () {
-       x = lastX;
-       y = lastY;
    }
    
    public Rectangle getBound () {

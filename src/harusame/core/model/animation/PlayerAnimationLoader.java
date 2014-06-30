@@ -3,8 +3,6 @@ package harusame.core.model.animation;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -56,13 +54,14 @@ public class PlayerAnimationLoader {
             loadSubImage (facingDown, spriteSheet, 0);
             
         } catch (IOException ex) {
-            Logger.getLogger(PlayerAnimationLoader.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
     private void loadSubImage (Animation    a, BufferedImage  sheet, int row) {
         for (int i=0; i<3; i++){
             BufferedImage   image = sheet.getSubimage(32*i, 32*row, 32, 32);
+            a.addFrame(image);
             a.addFrame(image);
             a.addFrame(image);
         }

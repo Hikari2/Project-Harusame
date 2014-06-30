@@ -25,8 +25,6 @@ public class Player extends Sprite {
     private boolean isRightHeld = false;
     private boolean isUpHeld = false;
     private boolean isDownHeld = false;
-    
-    private int lastY;
    
     private int lock;
     private Direction lockedDirection = NEUTRAL;
@@ -36,13 +34,18 @@ public class Player extends Sprite {
     public Player(int x, int y) {
         super(x, y);
         setAnimation (pal.getFacingDown());
-        MOVE_SPEED = 4;
+        MOVE_SPEED = 5;
     }
+    
+    public void revert () {
+       x = lastX;
+       y = lastY;
+   }
     
     @Override
     public void update () {
         
-        lockMovement (6, direction);
+        lockMovement (9, direction);
         lastX = x;
         lastY = y;
         

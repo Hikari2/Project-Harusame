@@ -1,8 +1,10 @@
 package harusame.core.model.map;
 
 import harusame.core.model.entity.Player;
+import harusame.core.model.entity.Sprite;
 import harusame.core.view.GamePanel;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,6 +13,9 @@ import java.awt.Graphics;
 public class TileMap 
 {
     private Tile[][] tiles;
+    private ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
+    private Player player;
+    
     private int CAMERA_SIZE_X = GamePanel.WIDTH;
     private int CAMERA_SIZE_Y = GamePanel.HEIGHT;
     
@@ -43,6 +48,22 @@ public class TileMap
     
     public int getRowCount () {
         return tiles.length;
+    }
+    
+    public  ArrayList<Sprite> getSprites () {
+        return sprites;
+    }
+    
+    public void addSprite (Sprite s) {
+        sprites.add (s);
+    }
+    
+    public Player getPlayer () {
+        return player;
+    }
+    
+    public void setPlayer (Player p) {
+        player = p;
     }
     
     public int getCamX () {
