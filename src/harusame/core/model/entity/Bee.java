@@ -23,7 +23,7 @@ public class Bee extends Sprite {
         super(x, y);
         direction = LEFT;
         setAnimation (pal.getFacingLeft());
-        MOVE_SPEED = 4;
+        MOVE_SPEED = 5;
     }
     
     public void revert () {  
@@ -33,22 +33,18 @@ public class Bee extends Sprite {
         switch (direction){
             case LEFT:  
                 direction = UP;
-                update ();
                 break;
                 
             case UP:     
                 direction = RIGHT;    
-                update ();
                 break;  
                 
             case RIGHT:     
                 direction = DOWN;    
-                update ();
                 break;   
                     
             case DOWN:     
                 direction = LEFT;    
-                update ();
                 break;   
         }        
     }
