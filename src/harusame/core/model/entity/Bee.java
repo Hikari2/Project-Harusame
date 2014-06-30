@@ -1,5 +1,6 @@
 package harusame.core.model.entity;
 
+import harusame.core.model.animation.Animation;
 import harusame.core.model.animation.PlayerAnimationLoader;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
@@ -15,8 +16,8 @@ public class Bee extends Sprite {
     
     private final PlayerAnimationLoader   pal = new PlayerAnimationLoader("Enemies/th_bee.png");
     
-    private int lastX;
-    private int lastY;
+    private Animation   facingLeft;
+    private Animation   facingRight;
     
     public Bee(int x, int y) {
         super(x, y);
@@ -26,7 +27,6 @@ public class Bee extends Sprite {
     }
     
     public void revert () {  
-        
         x = lastX;
         y = lastY;       
         
@@ -51,7 +51,6 @@ public class Bee extends Sprite {
                 update ();
                 break;   
         }        
-        System.out.println ("Bee reverse: "+ direction +" "+x+", "+y);
     }
         
     @Override
@@ -88,6 +87,7 @@ public class Bee extends Sprite {
         }
         else 
             resetAnimation ();
-        System.out.println ("Bee update: to "+direction +" "+x+", "+y);
-    } 
+    }
+    
+    
 }

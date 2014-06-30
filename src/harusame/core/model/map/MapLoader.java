@@ -6,6 +6,8 @@
 
 package harusame.core.model.map;
 
+import harusame.core.model.entity.Bee;
+import harusame.core.model.entity.Player;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,8 +21,8 @@ import javax.imageio.ImageIO;
  */
 public class MapLoader 
 {
-    private String  stoneWall = "Resources/Tilesets/Stonewall1.jpg";
-    private String  blank = "Resources/Sprites/Player/blank.png";
+    private final String  stoneWall = "Resources/Tilesets/Stonewall1.jpg";
+    private final String  blank = "Resources/Sprites/Player/blank.png";
     private TileMap tileMap;
     int w;
     int h;
@@ -79,7 +81,22 @@ public class MapLoader
                 image = ImageIO.read(new File(path));
                 tile = new Tile (image, true, colum*Tile.WIDTH, row*Tile.WIDTH);
                 return tile;
+            default:
+                symbolToSprite (symbol, colum, row);
+                break;
     }
         return null;
+    }
+    
+    private void symbolToSprite (char symbol, int colum, int row){
+        
+        switch (symbol){
+            case 'P':
+                tileMap.setPlayer(new Player (colum*Tile.WIDTH, row*Tile.WIDTH));
+                break;
+            case 'B':
+                tileMap.addSprite(new Bee (colum*Tile.WIDTH, row*Tile.WIDTH));
+                break;
+        }
     }
 }

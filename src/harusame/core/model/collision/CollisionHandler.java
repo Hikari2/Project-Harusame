@@ -64,7 +64,6 @@ public class CollisionHandler {
                     continue;
                 tile = row[j];
                 if (enemyBound.intersects(tile.getBound())){    
-                                        System.out.println ("Collision ");
                     b.revert();                  
                 }
             }

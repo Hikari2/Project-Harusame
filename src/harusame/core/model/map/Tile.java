@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 
 public class Tile {
     
-    public static int WIDTH = 24;
+    public static int WIDTH = 45;
         
     private Image image;
     private boolean BLOCKED;

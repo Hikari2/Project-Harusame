@@ -16,8 +16,8 @@ public class GamePanel extends JPanel
         private Controller ctrl;
         
 	// dimensions
-	public static final int WIDTH = 1200;
-	public static final int HEIGHT = 800;
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = 600;
 	public static final int SCALE = 1;
 	
 	// game thread
@@ -91,25 +91,6 @@ public class GamePanel extends JPanel
 		ctrl.update();
 	}
 	private void draw() {
-            /*
-              try
-              {
-                   Image in = ImageIO.read(new File("Resources/Tilesets/tilebackround1.png"));                   
-                   int imageW = in.getWidth(this);
-                   int imageH = in.getHeight(this);
-
-                   // Tile the image to fill our area.
-                   for (int x = 0; x < WIDTH; x += imageW) {
-                       for (int y = 0; y < HEIGHT; y += imageH) {
-                           g.drawImage(in, x, y, this);
-                     }
-                    }    
-              }
-              catch (Exception ex)
-              {
-                  ex.printStackTrace();
-              }         
-              */
               ctrl.draw(g);
                 
 	}
