@@ -58,6 +58,11 @@ public class Sprite extends Animatable{
        
    }
    
+   public void setImage (BufferedImage newImage)
+   {
+       image = newImage;
+   }
+   
    protected boolean isAlive () {
        return ALIVE;
    }
@@ -83,7 +88,7 @@ public class Sprite extends Animatable{
     @Override
     public int getDY() {
         return dy;
-    }
+    }    
 
     @Override
     public void draw(Graphics g, int x, int y) {

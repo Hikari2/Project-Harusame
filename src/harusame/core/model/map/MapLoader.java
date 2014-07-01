@@ -8,6 +8,7 @@ package harusame.core.model.map;
 
 import harusame.core.model.entity.Bee;
 import harusame.core.model.entity.Player;
+import harusame.core.model.entity.MovableObject;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -97,6 +98,8 @@ public class MapLoader
             case 'B':
                 tileMap.addSprite(new Bee (colum*Tile.WIDTH, row*Tile.WIDTH));
                 break;
+            case 'S':               
+                //tileMap.addSprite(new MovableObject (colum*Tile.WIDTH, row*Tile.WIDTH));
         }
     }
 }

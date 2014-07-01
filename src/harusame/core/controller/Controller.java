@@ -5,13 +5,9 @@ import harusame.core.model.entity.Bee;
 import harusame.core.model.entity.Player;
 import harusame.core.model.entity.Sprite;
 import harusame.core.model.map.MapLoader;
-import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Observer;
 import java.awt.Graphics2D;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -60,7 +56,7 @@ public class Controller {
         ch.CheckTileCollision(player, map);
         for(int i = 0; i < sprites.size(); i++)
         {
-            sprites.get(i).update();
+            sprites.get(i).update();           
             ch.CheckEnemyCollision((Bee) sprites.get(i), map);
         }
     }
