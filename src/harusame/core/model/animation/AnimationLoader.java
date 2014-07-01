@@ -9,23 +9,21 @@ import javax.imageio.ImageIO;
  *
  * @author Hikari
  */
-public class PlayerAnimationLoader {
-    
-    static PlayerAnimationLoader    pal;
+public class AnimationLoader {
     
     Animation   facingRight = new Animation ();
     Animation   facingLeft = new Animation ();
     Animation   facingUp = new Animation ();
     Animation   facingDown = new Animation ();
+    
+    Animation death = new Animation ();
+            
     String path;
     
-    public PlayerAnimationLoader (String newPath) {
+    public AnimationLoader (String newPath) {
         path = newPath;
         loadMovementAnimation ();
-    }
-    
-    public static PlayerAnimationLoader getPAL () {
-        return pal;
+        loadDeathAnimation ();
     }
     
     public  Animation   getFacingRight () {
@@ -44,9 +42,13 @@ public class PlayerAnimationLoader {
         return facingDown;
     }
     
+    public Animation getDeath () {
+        return death;
+    }
+    
     private void loadMovementAnimation () {
         try {
-            BufferedImage   spriteSheet = ImageIO.read(new File("Resources/Sprites/" + path));
+            BufferedImage   spriteSheet = ImageIO.read(new File("Resources/Sprites/" + path + ".png"));
             
             loadSubImage (facingLeft, spriteSheet, 1);
             loadSubImage (facingRight, spriteSheet, 2);
@@ -66,6 +68,27 @@ public class PlayerAnimationLoader {
             a.addFrame(image);
             a.addFrame(image);
             a.addFrame(image);
+        }
+    }
+    
+    
+    private void loadDeathAnimation () {
+        try {
+            BufferedImage   spriteSheet = ImageIO.read(new File("Resources/Sprites/" + path + "_Death.png"));
+        
+            for (int i=0; i<3; i++){
+                BufferedImage   image = spriteSheet.getSubimage(i*30, 0 , 30, 30);
+                death.addFrame(image);
+                death.addFrame(image);
+                death.addFrame(image);
+                death.addFrame(image);
+                death.addFrame(image);
+                death.addFrame(image);
+                death.addFrame(image);
+                death.addFrame(image);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }

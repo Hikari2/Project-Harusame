@@ -115,6 +115,17 @@ public class GamePanel extends JPanel
 	public void keyReleased(KeyEvent key) {
             ctrl.keyReleased(key.getKeyCode());
 	}
+
+    @Override
+    public void notifyFailure() {
+        ctrl.reloadLevel();
+        ctrl.addObserver(this);
+    }
+
+    @Override
+    public void notifySucces(String level) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 
 

@@ -2,6 +2,7 @@ package harusame.core.model.entity;
 
 import harusame.core.model.animation.Animatable;
 import harusame.core.model.animation.Animation;
+import harusame.core.model.animation.AnimationLoader;
 import harusame.core.model.map.Tile;
 import static harusame.core.model.map.Tile.WIDTH;
 import harusame.core.util.Direction;
@@ -22,7 +23,7 @@ import javax.imageio.ImageIO;
 public class Sprite extends Animatable{
    
    protected Direction  direction = NEUTRAL;
-
+   protected    AnimationLoader   al;
    protected boolean isCollidable = true;
    private BufferedImage    image;
   
@@ -32,7 +33,10 @@ public class Sprite extends Animatable{
    protected int dy;
    protected int lastX;
    protected int lastY;
+   
    protected int MOVE_SPEED;
+   protected boolean ALIVE = true;
+   protected int ANIMATION_FRAME_COUNTER;
    
    public Sprite (int x, int y) {
        this.x = x;
@@ -50,6 +54,13 @@ public class Sprite extends Animatable{
        
    }
    
+   public void kill () {
+       
+   }
+   
+   protected boolean isAlive () {
+       return ALIVE;
+   }
    public Rectangle getBound () {
         return new Rectangle (x, y, dx, dy);
     }

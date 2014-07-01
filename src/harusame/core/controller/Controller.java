@@ -24,12 +24,14 @@ public class Controller {
     private final CollisionHandler ch = CollisionHandler.getCollisionHandler();
     
     private TileMap map;
+    private String level;
     
     Player  player;
     ArrayList<Sprite>   sprites = new ArrayList<Sprite> ();
     
     public Controller () {
         loadMap("Level1");
+        level = "Level1";
     }
     
     public void loadMap (String level) {
@@ -38,8 +40,11 @@ public class Controller {
         player = map.getPlayer ();
     }
     
+    public void reloadLevel () {
+        loadMap (level);
+    }
     public void addObserver (Observer observer) {
-        //player.addObserver (observer);
+        player.addObserver (observer);
     }
     
     public void keyPressed(int keyCode) {

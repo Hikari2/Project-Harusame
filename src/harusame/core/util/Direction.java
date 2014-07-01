@@ -12,5 +12,5 @@ package harusame.core.util;
  */
 public enum Direction {
     
-    LEFT, RIGHT, UP, DOWN, NEUTRAL
+    LEFT, RIGHT, UP, DOWN, NEUTRAL, OTHER
 }

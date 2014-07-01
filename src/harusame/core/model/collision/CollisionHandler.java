@@ -39,8 +39,11 @@ public class CollisionHandler {
                 if (row[j] == null)
                     continue;
                 tile = row[j];
-                if (playerBound.intersects(tile.getBound()))
+                if (playerBound.intersects(tile.getBound())) {
                     p.revert();
+                    p.kill();
+                    return;
+                }
             }
         }
     }

@@ -6,4 +6,7 @@ package harusame.core.util;
  */
 public interface Observer {
     
+    void notifyFailure ();
+    
+    void notifySucces (String level);
 }
