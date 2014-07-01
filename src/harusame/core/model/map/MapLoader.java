@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package harusame.core.model.map;
 
+import harusame.core.model.DTO.GameLevelDTO;
 import harusame.core.model.entity.Bee;
+import harusame.core.model.entity.Enemy;
 import harusame.core.model.entity.Player;
+import harusame.core.model.entity.Projectile;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -23,17 +21,24 @@ public class MapLoader
 {
     private final String  stoneWall = "Resources/Tilesets/Stonewall1.jpg";
     private final String  blank = "Resources/Sprites/Player/blank.png";
+    
+    private GameLevelDTO    gameLevel;
     private TileMap tileMap;
+    private Player player;
+    private ArrayList<Enemy>   enemies;
+    private ArrayList<Projectile>   projectiles;
+    
     int w;
     int h;
     
-    public TileMap loadMap(String level)
+    public GameLevelDTO loadMap(String level)
     {
+        gameLevel = new GameLevelDTO ();
+        enemies = new ArrayList ();
+        
         BufferedReader br = null;
         
         try {        
-            int x;
-            int y;
             
             br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
             
@@ -54,6 +59,7 @@ public class MapLoader
                     tileMap.setTile(tile, j, i);
                 }
             }
+            
         } catch (IOException e) {
             e.printStackTrace();
         } 
@@ -66,8 +72,11 @@ public class MapLoader
                 ex.printStackTrace();
             }
         }          
-
-        return tileMap;
+        
+        gameLevel.setMap(tileMap);
+        gameLevel.setEnemies(enemies);
+        gameLevel.setPlayer(player);
+        return gameLevel;
     }
     
     private Tile symbolToTile (char symbol, int colum, int row) throws IOException {
@@ -92,10 +101,10 @@ public class MapLoader
         
         switch (symbol){
             case 'P':
-                tileMap.setPlayer(new Player (colum*Tile.WIDTH, row*Tile.WIDTH));
+                player = new Player (colum*Tile.WIDTH, row*Tile.WIDTH);
                 break;
             case 'B':
-                tileMap.addSprite(new Bee (colum*Tile.WIDTH, row*Tile.WIDTH));
+                enemies.add(new Bee (colum*Tile.WIDTH, row*Tile.WIDTH));
                 break;
         }
     }

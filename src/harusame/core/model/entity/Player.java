@@ -25,6 +25,8 @@ public class Player extends Sprite {
     private boolean isUpHeld = false;
     private boolean isDownHeld = false;
     
+    private int ammo = 3;
+    
     private DirectionQueue  dQueue = new DirectionQueue ();
     
     private int lock;
