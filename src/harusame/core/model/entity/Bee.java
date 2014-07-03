@@ -12,8 +12,7 @@ import static harusame.core.util.Direction.LEFT;
  */
 public class Bee extends Enemy {
     
-    private Direction lastDirection;
-   
+      
     public Bee(int x, int y) {
         super(x, y);
         direction = LEFT;

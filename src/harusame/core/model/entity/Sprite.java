@@ -58,6 +58,11 @@ public class Sprite extends Animatable{
        
    }
    
+   public void setImage (BufferedImage newImage)
+   {
+       image = newImage;
+   }
+   
    protected boolean isAlive () {
        return ALIVE;
    }
@@ -83,18 +88,13 @@ public class Sprite extends Animatable{
     @Override
     public int getDY() {
         return dy;
-    }
+    }    
 
     @Override
     public void draw(Graphics g, int x, int y) {
        Animation    a = getAnimation ();
        image = a.getFrame();
-       try {
-           g.drawImage(ImageIO.read(new File("Resources/Sprites/Player/blank.png")), x, y, (int) dx, (int) dy, null); //BLANKFRAME
-       } catch (IOException ex) {
-           Logger.getLogger(Sprite.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       
+      
        g.drawImage(image, x, y, dx, dy, null);
        g.drawString("x: "+x+ " y: "+y, x, y);
     }

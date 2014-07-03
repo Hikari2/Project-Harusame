@@ -65,8 +65,10 @@ public class Controller {
         ch.CheckTileCollision(player, map);
         for(int i = 0; i < enemies.size(); i++)
         {
+
             enemies.get(i).update();
             ch.CheckEnemyCollision((Bee) enemies.get(i), map);
+
         }
     }
     

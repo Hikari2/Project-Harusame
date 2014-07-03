@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import javax.imageio.ImageIO;
 
 /**
@@ -24,11 +23,16 @@ public class MapLoader
     private final String  blank = "Resources/Sprites/Player/blank.png";
     
     private GameLevelDTO    gameLevel;
+
     private TileMap tileMap;
+
     private Player player;
     private ArrayList<Enemy>   enemies;
     private ArrayList<Projectile>   projectiles;
     
+
+    private ArrayList<Tile> tempTiles = new ArrayList<Tile>();
+
     int w;
     int h;
     
@@ -39,9 +43,28 @@ public class MapLoader
         
         BufferedReader br = null;
         
-        try {        
-            Level   lvl;
+        try {
+            // Read in all the existing tiles
+            br = new BufferedReader(new FileReader("Resources/Maps/" +level +"-tiles.txt"));
+            BufferedImage   image;
+            
+            String pathLine;
+            Boolean blockedLine;
+            char symbolLine;
+            
+            pathLine = br.readLine();
+            while(pathLine != null)
+            {
+                blockedLine = Boolean.valueOf(br.readLine());
+                symbolLine = br.readLine().charAt(0);
+                image = ImageIO.read(new File(pathLine));
+                tempTiles.add(new Tile(image, blockedLine, symbolLine, 0, 0));
+                pathLine = br.readLine();
+            }
+            
             br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
+            
+            String line;
             
             w = Integer.parseInt(br.readLine());
             h = Integer.parseInt(br.readLine());
@@ -49,7 +72,7 @@ public class MapLoader
             tileMap = new TileMap (w, h);
             
             Tile    tile;
-            String line;
+            
             
             for (int i=0; i<h; i++){
                 
@@ -81,21 +104,20 @@ public class MapLoader
     }
     
     private Tile symbolToTile (char symbol, int colum, int row) throws IOException {
-        String path;
-        BufferedImage   image;
         Tile    tile;
         
-        switch (symbol) {
-            case '#': 
-                path = stoneWall;
-                image = ImageIO.read(new File(path));
-                tile = new Tile (image, true, colum*Tile.WIDTH, row*Tile.WIDTH);
+        for(int i = 0; i < tempTiles.size(); i++)
+        {
+            if(symbol == tempTiles.get(i).getSymbol())
+            {
+                tile = new Tile(tempTiles.get(i).getImage(), tempTiles.get(i).isBlocked(), 
+                                tempTiles.get(i).getSymbol(), colum*Tile.WIDTH, row*Tile.WIDTH);
                 return tile;
-            default:
-                symbolToSprite (symbol, colum, row);
-                break;
-    }
-        return null;
+            }
+            else
+                symbolToSprite (symbol, colum, row);                       
+        }
+        return null; 
     }
     
     private void symbolToSprite (char symbol, int colum, int row){
@@ -107,6 +129,8 @@ public class MapLoader
             case 'B':
                 enemies.add(new Bee (colum*Tile.WIDTH, row*Tile.WIDTH));
                 break;
+            case 'S':               
+                //tileMap.addSprite(new MovableObject (colum*Tile.WIDTH, row*Tile.WIDTH));
         }
     }
 }

@@ -11,15 +11,17 @@ public class Tile {
     
     public static int WIDTH = 45;
         
+    private char symbol;
     private Image image;
     private boolean BLOCKED;
     private int x;
     private int y;
     
     
-    public Tile(Image image, boolean type, int x, int y) {
+    public Tile(Image image, boolean type, char newSymbol, int x, int y) {
         this.image = image;
         BLOCKED = type;  
+        symbol = newSymbol;
         this.x = x;
         this.y = y;
     }
@@ -31,6 +33,16 @@ public class Tile {
     public Image getImage()
     {
         return image;
+    }
+    
+    public void setSymbol(char newSymbol)
+    {
+        symbol = newSymbol;
+    }
+    
+    public char getSymbol()
+    {
+        return symbol;
     }
     
     public int getX () {
