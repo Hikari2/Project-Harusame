@@ -8,12 +8,17 @@ import javax.swing.JPanel;
 import harusame.core.controller.Controller;
 import harusame.core.util.Observer;
 
+/**
+ * Class containing the game loop
+ */
+
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
 	implements Runnable, KeyListener, Observer{
 	
         // controller
         private Controller ctrl;
+        private GameRenderer    gr;
         
 	// dimensions
 	public static final int WIDTH = 1000;
@@ -54,6 +59,7 @@ public class GamePanel extends JPanel
                     BufferedImage.TYPE_INT_RGB);
             
             g = (Graphics2D) image.getGraphics();
+            gr = new GameRenderer (g);
             
             running = true;
 	}

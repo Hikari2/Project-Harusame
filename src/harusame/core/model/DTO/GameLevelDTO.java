@@ -12,6 +12,9 @@ import java.util.ArrayList;
  */
 public class GameLevelDTO {
     
+    private String LEVEL_CODE;
+    private String NEXT_LEVEL_CODE;
+    
     private TileMap map;
     private Player player;
     private ArrayList<Enemy>   enemies;
@@ -47,5 +50,21 @@ public class GameLevelDTO {
 
     public void setProjectiles(ArrayList<Projectile> projectiles) {
         this.projectiles = projectiles;
+    }
+
+    public String getLEVEL_CODE() {
+        return LEVEL_CODE;
+    }
+
+    public void setLEVEL_CODE(String LEVEL_CODE) {
+        this.LEVEL_CODE = LEVEL_CODE;
+    }
+
+    public String getNEXT_LEVEL_CODE() {
+        return NEXT_LEVEL_CODE;
+    }
+
+    public void setNEXT_LEVEL_CODE(String NEXT_LEVEL_CODE) {
+        this.NEXT_LEVEL_CODE = NEXT_LEVEL_CODE;
     }
 }

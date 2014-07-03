@@ -23,8 +23,8 @@ public class Controller {
     private final MapLoader ml = new MapLoader(); 
     private final CollisionHandler ch = CollisionHandler.getCollisionHandler();
     
-    private String level;
-    private Level   checkPoint;
+    private String CURRENT_LEVEL;
+    private String LAST_CHECKPOINT;
     
     private TileMap map;
     private Player  player;
@@ -33,7 +33,7 @@ public class Controller {
     
     public Controller () {
         loadMap("Level1");
-        level = "Level1";
+        CURRENT_LEVEL = "Level1";
     }
     
     public void loadMap (String level) {
@@ -46,7 +46,7 @@ public class Controller {
     }
     
     public void reloadLevel () {
-        loadMap (level);
+        loadMap (CURRENT_LEVEL);
     }
     public void addObserver (Observer observer) {
         player.addObserver (observer);

@@ -1,5 +1,6 @@
 package harusame.core.model.entity;
 
+import harusame.core.controller.Controller;
 import harusame.core.model.animation.AnimationLoader;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;

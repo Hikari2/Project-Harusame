@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.imageio.ImageIO;
 
 /**
@@ -39,7 +40,7 @@ public class MapLoader
         BufferedReader br = null;
         
         try {        
-            
+            Level   lvl;
             br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
             
             w = Integer.parseInt(br.readLine());
