@@ -62,7 +62,8 @@ public class AnimationLoader {
     
     private void loadSubImage (Animation    a, BufferedImage  sheet, int row) {
         for (int i=0; i<3; i++){
-            BufferedImage   image = sheet.getSubimage(32*i, 32*row, 32, 32);
+            BufferedImage   image = sheet.getSubimage((sheet.getWidth()/3)*i, (sheet.getHeight()/4)*row, (sheet.getWidth()/3), (sheet.getHeight()/4));
+            a.addFrame(image);
             a.addFrame(image);
             a.addFrame(image);
             a.addFrame(image);

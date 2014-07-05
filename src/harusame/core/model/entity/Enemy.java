@@ -18,14 +18,13 @@ public class Enemy extends MovableSprite{
     public Enemy(int x, int y, EnemyType    type) {
         super(x, y);
         this.type = type;
-        MOVE_SPEED = 5;
+        MOVE_SPEED = 2;
         DIRECTION = LEFT;
     }
  
     public void revert () {  
         x = lastX;
         y = lastY;       
-        LAST_DIRECTION = DIRECTION;
         
         switch (DIRECTION){
             case LEFT:  
@@ -50,6 +49,8 @@ public class Enemy extends MovableSprite{
     public void update () {
         lastX = x;
         lastY = y;   
+        
+        LAST_DIRECTION = DIRECTION;
         
         switch (DIRECTION){
             case LEFT:                 
