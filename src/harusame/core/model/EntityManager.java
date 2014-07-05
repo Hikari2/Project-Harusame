@@ -59,21 +59,56 @@ public class EntityManager {
             enemies.get(i).update();
         }
         
-        checkSpriteTileCollision ();
+        checkPlayerTileCollision (player);
+        
+        for (int i=0; i<enemies.size(); i++)
+            checkEnemyTileCollision (enemies.get(i));
     }
     
     public void addObserver (Observer o) {
         observer = o;
     }
     
-    private void checkSpriteTileCollision () {
+    private void checkPlayerTileCollision (Player player) {
         
         Rectangle playerBound = player.getBound();
         int colum = player.getX() / Tile.WIDTH;
         int row = player.getY() / Tile.WIDTH;
-        Tile    tile = map.getTile(colum, row);
         
-        if (tile != null && playerBound.intersects(tile.getBound()))
-            player.revert();
+        Tile[]  tiles = getSourroundingTiles (colum, row);
+        Tile    tile;
+        
+        for (int i=0; i<tiles.length; i++) {
+            tile = tiles[i];
+            if (tile != null && playerBound.intersects(tile.getBound()))
+                player.revert();
+        }
+    }
+    
+    private void checkEnemyTileCollision (Enemy enemy) {
+        
+        Rectangle enemyBound = enemy.getBound();
+        int colum = enemy.getX() / Tile.WIDTH;
+        int row = enemy.getY() / Tile.WIDTH;
+        
+        Tile[]  tiles = getSourroundingTiles (colum, row);
+        Tile    tile;
+        
+        for (int i=0; i<tiles.length; i++) {
+            tile = tiles[i];
+            if (tile != null && enemyBound.intersects(tile.getBound()))
+                enemy.revert();
+        }
+    }
+    
+    private Tile[]  getSourroundingTiles (int colum, int row) {
+        Tile[]  tiles = new Tile[5];
+        tiles[0] = map.getTile(colum, row);
+        tiles[1] = map.getTile(colum+1, row);
+        tiles[2] = map.getTile(colum-1, row);
+        tiles[3] = map.getTile(colum, row+1);
+        tiles[4] = map.getTile(colum, row-1);
+                                        
+        return tiles;
     }
 }
