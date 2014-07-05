@@ -1,7 +1,7 @@
 package harusame.core.model.DTO;
 
 import harusame.core.model.entity.Enemy;
-import harusame.core.model.entity.Player;
+import harusame.core.model.Player;
 import harusame.core.model.entity.Projectile;
 import harusame.core.model.map.TileMap;
 import java.util.ArrayList;

@@ -14,11 +14,11 @@ import harusame.core.util.Observer;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
-	implements Runnable, KeyListener, Observer{
+	implements Runnable, KeyListener {
 	
         // controller
         private Controller ctrl;
-        private GameRenderer    gr;
+        private RepresentationManager   repManager;
         
 	// dimensions
 	public static final int WIDTH = 1000;
@@ -37,8 +37,10 @@ public class GamePanel extends JPanel
 	
 	public GamePanel(Controller ctrl) {
 		super();
+                repManager = new RepresentationManager ();
                 this.ctrl = ctrl;
-                ctrl.addObserver (this);
+                ctrl.addObserver(repManager);
+                ctrl.startGame();
 		setPreferredSize(
 			new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setFocusable(true);               
@@ -59,7 +61,6 @@ public class GamePanel extends JPanel
                     BufferedImage.TYPE_INT_RGB);
             
             g = (Graphics2D) image.getGraphics();
-            gr = new GameRenderer (g);
             
             running = true;
 	}
@@ -95,9 +96,10 @@ public class GamePanel extends JPanel
 	
 	private void update() {
 		ctrl.update();
+                repManager.update ();
 	}
 	private void draw() {
-              ctrl.draw(g);
+              repManager.draw(g);
                 
 	}
 	private void drawToScreen() {
@@ -121,17 +123,6 @@ public class GamePanel extends JPanel
 	public void keyReleased(KeyEvent key) {
             ctrl.keyReleased(key.getKeyCode());
 	}
-
-    @Override
-    public void notifyFailure() {
-        ctrl.reloadLevel();
-        ctrl.addObserver(this);
-    }
-
-    @Override
-    public void notifySucces(String level) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
 
 

@@ -12,7 +12,7 @@ public class Projectile extends Sprite {
     }
     
     public void update () {
-        switch (direction){
+        switch (DIRECTION){
             case LEFT:                 
                 this.x-=MOVE_SPEED;
                 break;
@@ -29,6 +29,5 @@ public class Projectile extends Sprite {
                 this.y+=MOVE_SPEED;
                 break;
         }
-        updateAnimation ();
     }
 }

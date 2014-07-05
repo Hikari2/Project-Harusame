@@ -1,8 +1,7 @@
 package harusame.core.model.entity;
 
-import harusame.core.model.animation.Animatable;
-import harusame.core.model.animation.Animation;
-import harusame.core.model.animation.AnimationLoader;
+import harusame.core.view.Animation;
+import harusame.core.view.AnimationLoader;
 import harusame.core.model.map.Tile;
 import static harusame.core.model.map.Tile.WIDTH;
 import harusame.core.util.Direction;
@@ -20,12 +19,12 @@ import javax.imageio.ImageIO;
  *
  * @author Hikari
  */
-public class Sprite extends Animatable{
+public class Sprite{
    
-   protected Direction  direction = NEUTRAL;
-   protected    AnimationLoader   al;
+   protected Direction  DIRECTION = NEUTRAL;
+   protected Direction  LAST_DIRECTION = NEUTRAL;
+           
    protected boolean isCollidable = true;
-   private BufferedImage    image;
   
    protected int x;
    protected int y;
@@ -35,8 +34,6 @@ public class Sprite extends Animatable{
    protected int lastY;
    
    protected int MOVE_SPEED;
-   protected boolean ALIVE = true;
-   protected int ANIMATION_FRAME_COUNTER;
    
    public Sprite (int x, int y) {
        this.x = x;
@@ -50,56 +47,35 @@ public class Sprite extends Animatable{
        this.y = y;
    }
     
+   public void preUpdate () {
+       
+   }
+   
    public void update () {
        
    }
    
-   public void kill () {
-       
+   public Direction  getDirection () {
+       return DIRECTION;
    }
-   
-   public void setImage (BufferedImage newImage)
-   {
-       image = newImage;
-   }
-   
-   protected boolean isAlive () {
-       return ALIVE;
-   }
+
    public Rectangle getBound () {
         return new Rectangle (x, y, dx, dy);
     }
-   
-   @Override
+
     public int getX () {
         return x;
     }
-    
-   @Override
+
     public int getY () {
         return y;
     }
 
-    @Override
     public int getDX() {
         return dx;
     }
 
-    @Override
     public int getDY() {
         return dy;
     }    
-
-    @Override
-    public void draw(Graphics g, int x, int y) {
-       Animation    a = getAnimation ();
-       image = a.getFrame();
-      
-       g.drawImage(image, x, y, dx, dy, null);
-       g.drawString("x: "+x+ " y: "+y, x, y);
-    }
-
-    @Override
-    public void draw(Graphics g, int x, int y, int dx, int dy) {
-    }
 }

@@ -1,7 +1,8 @@
-package harusame.core.model.entity;
+package harusame.core.model;
 
 import harusame.core.controller.Controller;
-import harusame.core.model.animation.AnimationLoader;
+import harusame.core.view.AnimationLoader;
+import harusame.core.model.entity.Sprite;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
@@ -19,8 +20,6 @@ import java.util.List;
  */
 public class Player extends Sprite {
     
-    private List<Observer> observers = new ArrayList<Observer>();
-    
     private boolean isLeftHeld = false;
     private boolean isRightHeld = false;
     private boolean isUpHeld = false;
@@ -35,8 +34,6 @@ public class Player extends Sprite {
     
     public Player(int x, int y) {
         super(x, y);
-        al = new AnimationLoader ("Player/Player");
-        setAnimation (al.getFacingDown());
         MOVE_SPEED = 5;
     }
     
@@ -48,63 +45,43 @@ public class Player extends Sprite {
     @Override
     public void update () {
         
-        if (!isAlive () && !isLocked ())
-            notifyDeath ();
-        
-        lockMovement (9, direction);
+        lockMovement (9, DIRECTION);
         lastX = x;
         lastY = y;
         
         if (!isLocked ())
             return;
         
-        switch (this.direction){
+        switch (DIRECTION){
             case LEFT:                 
                 this.x-=MOVE_SPEED;
-                setAnimation (al.getFacingLeft());
                 break;
                 
             case RIGHT: 
-                this.x+=MOVE_SPEED;
-                setAnimation (al.getFacingRight());           
+                this.x+=MOVE_SPEED;   
                 break;
                 
             case UP: 
                 this.y-=MOVE_SPEED;
-                setAnimation (al.getFacingUp());
                 break;
                 
             case DOWN: 
                 this.y+=MOVE_SPEED;
-                setAnimation (al.getFacingDown());
                 break;
                 
             case NEUTRAL: 
                 break;     
         }
-        
-        if (direction != NEUTRAL) 
-            updateAnimation ();
-        else 
-            resetAnimation ();
-    }
-    
-    public void addObserver (Observer   observer) {
-        observers.add (observer);
-    }
-    
-    private void notifyDeath () {
-        for (int i=0; i<observers.size(); i++)
-            observers.get(i).notifyFailure();
+        LAST_DIRECTION = DIRECTION;
     }
     
     private void lockMovement (int i, Direction d) { 
         
         if (isLocked ()) {
-            direction = lockedDirection;
+            DIRECTION = lockedDirection;
             lock--;
             if (!isLocked ()) {
-                direction = dQueue.getMostRecentDirection();
+                DIRECTION = dQueue.getMostRecentDirection();
                 return;
             }
         }
@@ -122,7 +99,7 @@ public class Player extends Sprite {
             return true;
         else return false;
     }
-    
+    /*
     public void kill () {
         dQueue = new DirectionQueue ();
         setAnimation (al.getDeath());
@@ -130,12 +107,9 @@ public class Player extends Sprite {
         lock = 24;
         ALIVE = false;
     }
-    
+    */
     public void keyPressed (int keyCode) 
     {
-        if (!isAlive ())
-            return;
-        
         Direction   d = KeyCodeToDirection (keyCode);
         holdDirection (d);
     }
@@ -175,14 +149,11 @@ public class Player extends Sprite {
         dQueue.addDirection(d);
         
         if (!isLocked ())
-            direction = d;
+            DIRECTION = d;
     }  
     
     public void keyReleased (int keyCode) 
     {
-        if (!isAlive ())
-            return;
-        
         Direction d = KeyCodeToDirection (keyCode);
         releaseDirection (d);
     }
@@ -209,7 +180,7 @@ public class Player extends Sprite {
         dQueue.removeDirection(d);
         
         if (!isLocked ())
-            direction = dQueue.getMostRecentDirection();
+            DIRECTION = dQueue.getMostRecentDirection();
     }     
     
     private Direction KeyCodeToDirection (int keyCode) {

@@ -1,4 +1,4 @@
-package harusame.core.model.animation;
+package harusame.core.view;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

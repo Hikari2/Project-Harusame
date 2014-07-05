@@ -1,7 +1,7 @@
 package harusame.core.model.collision;
 
 import harusame.core.model.entity.Bee;
-import harusame.core.model.entity.Player;
+import harusame.core.model.Player;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import java.awt.Rectangle;
@@ -41,13 +41,12 @@ public class CollisionHandler {
                 tile = row[j];
                 if (playerBound.intersects(tile.getBound())) {
                     p.revert();
-                    p.kill();
                     return;
                 }
             }
         }
     }
-    
+    /*
     public void CheckEnemyCollision (Bee b, TileMap map) {
         int x = b.getX();
         int y = b.getY();
@@ -72,4 +71,5 @@ public class CollisionHandler {
             }
         }
     }
+    */
 }

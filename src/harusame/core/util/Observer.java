@@ -1,12 +1,18 @@
 package harusame.core.util;
 
+import harusame.core.model.Player;
+import harusame.core.model.entity.Enemy;
+import harusame.core.model.map.TileMap;
+
 /**
  *
  * @author Hikari
  */
 public interface Observer {
     
-    void notifyFailure ();
+    void notifyNewMap (TileMap  map);
     
-    void notifySucces (String level);
+    void notifyNewPlayer (Player p);
+    
+    void notifyNewEnemy (Enemy e);
 }

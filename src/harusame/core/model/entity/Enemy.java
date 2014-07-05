@@ -18,7 +18,7 @@ public class Enemy extends Sprite{
     public Enemy(int x, int y) {
         super(x, y);
     }
- 
+ /*
     public void revert () {  
         x = lastX;
         y = lastY;       
@@ -91,5 +91,5 @@ public class Enemy extends Sprite{
         else 
             resetAnimation ();
     }
-    
+    */
 }

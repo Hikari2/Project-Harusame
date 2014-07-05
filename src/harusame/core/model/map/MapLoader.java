@@ -1,17 +1,15 @@
 package harusame.core.model.map;
 
-import harusame.core.model.DTO.GameLevelDTO;
+import harusame.core.model.EntityManager;
 import harusame.core.model.entity.Bee;
-import harusame.core.model.entity.Enemy;
-import harusame.core.model.entity.Player;
-import harusame.core.model.entity.Projectile;
-import java.awt.image.BufferedImage;
+import harusame.core.model.Player;
+import harusame.core.util.TileType;
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
+import java.util.HashMap;
 
 /**
  *
@@ -19,60 +17,42 @@ import javax.imageio.ImageIO;
  */
 public class MapLoader 
 {
-    private final String  stoneWall = "Resources/Tilesets/Stonewall1.jpg";
-    private final String  blank = "Resources/Sprites/Player/blank.png";
+    private EntityManager   entityManager;
+
+    private TileMap map;
     
-    private GameLevelDTO    gameLevel;
-
-    private TileMap tileMap;
-
-    private Player player;
-    private ArrayList<Enemy>   enemies;
-    private ArrayList<Projectile>   projectiles;
-    
-
     private ArrayList<Tile> tempTiles = new ArrayList<Tile>();
-
+    
+    private HashMap<String, Object[]> symbolMap;
+    
     int w;
     int h;
+
+    public MapLoader(EntityManager em) {
+       entityManager = em;
+    }
     
-    public GameLevelDTO loadMap(String level)
+    public void loadMap(String level)
     {
-        gameLevel = new GameLevelDTO ();
-        enemies = new ArrayList ();
+        entityManager.clear ();
         
         BufferedReader br = null;
         
         try {
-            // Read in all the existing tiles
-            br = new BufferedReader(new FileReader("Resources/Maps/" +level +"-tiles.txt"));
-            BufferedImage   image;
             
-            String pathLine;
-            Boolean blockedLine;
-            char symbolLine;
+            br = new BufferedReader(new FileReader("Resources/Maps/" +level +"/SymbolMap.txt"));
+            LoadSymbolMap (level, br);
             
-            pathLine = br.readLine();
-            while(pathLine != null)
-            {
-                blockedLine = Boolean.valueOf(br.readLine());
-                symbolLine = br.readLine().charAt(0);
-                image = ImageIO.read(new File(pathLine));
-                tempTiles.add(new Tile(image, blockedLine, symbolLine, 0, 0));
-                pathLine = br.readLine();
-            }
-            
-            br = new BufferedReader(new FileReader("Resources/Maps/" +level +".txt"));
+            br = new BufferedReader(new FileReader("Resources/Maps/" +level +"/TileMap.txt"));
             
             String line;
             
             w = Integer.parseInt(br.readLine());
             h = Integer.parseInt(br.readLine());
             
-            tileMap = new TileMap (w, h);
+            map = new TileMap (w, h);
             
             Tile    tile;
-            
             
             for (int i=0; i<h; i++){
                 
@@ -80,9 +60,11 @@ public class MapLoader
 
                 for (int j=0; j<line.length(); j++) {
                     tile = symbolToTile(line.charAt(j), j, i);
-                    tileMap.setTile(tile, j, i);
+                    map.setTile(tile, j, i);
                 }
             }
+            
+            entityManager.setMap(map);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,38 +78,55 @@ public class MapLoader
                 ex.printStackTrace();
             }
         }          
+    }
+    
+    private void LoadSymbolMap (String level, BufferedReader br) throws FileNotFoundException, IOException {
+        symbolMap = new HashMap ();
+        br = new BufferedReader(new FileReader("Resources/Maps/" +level +"/SymbolMap.txt"));
         
-        gameLevel.setMap(tileMap);
-        gameLevel.setEnemies(enemies);
-        gameLevel.setPlayer(player);
-        return gameLevel;
+        Object[]    data;
+        String symbol = " ";
+        String type = " ";
+        String isBlocked = " ";
+        String line = " ";
+        while (line != null) {
+            symbol = br.readLine();
+            
+            data = new Object [2];
+
+            type = br.readLine();
+            data[0] = TileType.valueOf(type);
+            
+            isBlocked = br.readLine();
+            data[1] = Boolean.valueOf(isBlocked);
+            
+            symbolMap.put(symbol, data);
+            line = br.readLine();
+        }
     }
     
     private Tile symbolToTile (char symbol, int colum, int row) throws IOException {
-        Tile    tile;
+        Tile tile;
         
-        for(int i = 0; i < tempTiles.size(); i++)
-        {
-            if(symbol == tempTiles.get(i).getSymbol())
-            {
-                tile = new Tile(tempTiles.get(i).getImage(), tempTiles.get(i).isBlocked(), 
-                                tempTiles.get(i).getSymbol(), colum*Tile.WIDTH, row*Tile.WIDTH);
-                return tile;
-            }
-            else
-                symbolToSprite (symbol, colum, row);                       
+        if (symbolMap.containsKey(symbol+"")) {
+            Object[]    data;
+            data = symbolMap.get(symbol+"");
+            tile = new Tile ( TileType.valueOf (data[0].toString()), (boolean)data[1], colum*Tile.WIDTH, row*Tile.WIDTH);
+            return tile;
         }
-        return null; 
+        else 
+            symbolToSprite (symbol, colum, row);
+        return null;
     }
     
     private void symbolToSprite (char symbol, int colum, int row){
         
         switch (symbol){
             case 'P':
-                player = new Player (colum*Tile.WIDTH, row*Tile.WIDTH);
+                entityManager.setPlayer(new Player (colum*Tile.WIDTH, row*Tile.WIDTH));               
                 break;
-            case 'B':
-                enemies.add(new Bee (colum*Tile.WIDTH, row*Tile.WIDTH));
+            case 'E':
+                entityManager.addEnemy(new Bee (colum*Tile.WIDTH, row*Tile.WIDTH));
                 break;
             case 'S':               
                 //tileMap.addSprite(new MovableObject (colum*Tile.WIDTH, row*Tile.WIDTH));

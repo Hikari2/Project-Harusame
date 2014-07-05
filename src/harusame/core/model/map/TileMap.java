@@ -29,6 +29,14 @@ public class TileMap
         offsetMaxY = (h * Tile.WIDTH) - CAMERA_SIZE_Y;
     }
     
+    public int getHeight () {
+        return tiles.length;
+    }
+    
+    public int getWidth () {
+        return tiles[0].length;
+    }
+    
     public Tile getTile (int x, int y) {
         return tiles[y][x];
     }
@@ -50,31 +58,6 @@ public class TileMap
     }
     public int getCamY () {
         return camY;
-    }
-    
-    /**
-     * Draw all tiles in this TileMap
-     * @param g Graphics of target panel
-     * @param x X coordinate of player
-     * @param y Y coordinate of player
-     */
-    public void draw (Graphics g, int x, int y) {
-        
-        adjustCamera (g, x, y);
-        
-        Tile tile;
-        
-        for (int row=0; row<tiles.length; row++) {
-            for (int colum=0; colum<tiles[row].length; colum++) {
-                tile = tiles[row][colum];
-                if (tile != null){
-                    g.drawImage (tile.getImage(), tile.getX (), tile.getY(), Tile.WIDTH, Tile.WIDTH, null);
-                                              g.drawString("" + tile.getY (), tile.getX ()+30, tile.getY()+15);
-                                              g.drawString("" + camX, camX+80, camY+80);
-                                              g.drawString("" + camY, camX+80, camY+90);
-                }
-            }
-        }
     }
     
     private void adjustCamera (Graphics g, int x, int y) {
