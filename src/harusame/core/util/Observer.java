@@ -10,6 +10,8 @@ import harusame.core.model.map.TileMap;
  */
 public interface Observer {
     
+    void notifyReset ();
+    
     void notifyNewMap (TileMap  map);
     
     void notifyNewPlayer (Player p);

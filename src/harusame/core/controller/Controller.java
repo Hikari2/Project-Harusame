@@ -1,15 +1,8 @@
 package harusame.core.controller;
 
-import harusame.core.model.DTO.GameLevelDTO;
 import harusame.core.model.EntityManager;
-import harusame.core.model.collision.CollisionHandler;
-import harusame.core.model.entity.Enemy;
-import harusame.core.model.Player;
-import harusame.core.model.entity.Projectile;
 import harusame.core.model.map.MapLoader;
-import harusame.core.model.map.TileMap;
 import harusame.core.util.Observer;
-import java.util.ArrayList;
 
 /**
  *

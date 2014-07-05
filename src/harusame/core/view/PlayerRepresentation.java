@@ -15,6 +15,8 @@ public class PlayerRepresentation {
     private AnimationLoader al = new AnimationLoader ("Player/Player");
     
     private Player player;
+    private int x;
+    private int y;
     private Direction   LAST_DIRECTION;
     
     private Animation   ACTIVE_ANIMATION;
@@ -22,10 +24,12 @@ public class PlayerRepresentation {
     public PlayerRepresentation(Player p) {
         player = p;
         ACTIVE_ANIMATION = al.getFacingDown();
+        x = player.getX();
+        y = player.getY();
     }
     
     public void update () {
-        Direction   DIRECTION = player.getDirection();
+        Direction   DIRECTION = player.getDIRECTION();
         
         if (DIRECTION != LAST_DIRECTION) {
             switch (DIRECTION){
@@ -55,12 +59,22 @@ public class PlayerRepresentation {
             ACTIVE_ANIMATION.reset();
 
         LAST_DIRECTION = DIRECTION;
+        x = player.getX();
+        y = player.getY();
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
     
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
        
-       g.drawImage(image, player.getX(), player.getY(), player.getDX(), player.getDY(), null);
-       g.drawString("x: "+player.getX()+ " y: "+player.getY(), player.getDX(), player.getDY());
+       g.drawImage(image, x, y, player.getDX(), player.getDY(), null);
+       g.drawString("x: "+x+ " y: "+y, player.getDX(), player.getDY());
     }
 }

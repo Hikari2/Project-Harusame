@@ -21,7 +21,7 @@ public class GamePanel extends JPanel
         private RepresentationManager   repManager;
         
 	// dimensions
-	public static final int WIDTH = 1000;
+	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	public static final int SCALE = 1;
 	

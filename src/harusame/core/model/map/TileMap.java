@@ -59,22 +59,4 @@ public class TileMap
     public int getCamY () {
         return camY;
     }
-    
-    private void adjustCamera (Graphics g, int x, int y) {
-        
-        camX = x - CAMERA_SIZE_X / 2;
-        camY = y - CAMERA_SIZE_Y / 2;
-        
-        if (camX > offsetMaxX)
-            camX = offsetMaxX;
-        else if (camX < offsetMinX)
-            camX = offsetMinX;
-        
-        if (camY > offsetMaxY)
-            camY = offsetMaxY;
-        else if (camY < offsetMinY)
-            camY = offsetMinY;
-        
-        g.translate(-camX, -camY);
-    }
 }

@@ -5,6 +5,7 @@ import harusame.core.model.entity.Projectile;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Observer;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class EntityManager {
@@ -20,11 +21,12 @@ public class EntityManager {
         
     }
     
-    public void clear () {
+    public void reset () {
         player = null;
         map = new TileMap (0, 0);
         enemies = new ArrayList (); 
         projectiles = new ArrayList ();
+        observer.notifyReset ();
     }
     
     public void setPlayer(Player player) {
@@ -43,6 +45,7 @@ public class EntityManager {
     
     public void addEnemy(Enemy enemy) {
         enemies.add (enemy);
+        observer.notifyNewEnemy(enemy);
     }
 
     public void setProjectiles(ArrayList<Projectile> projectiles) {
@@ -51,9 +54,26 @@ public class EntityManager {
     
     public void update () {
         player.update ();
+        
+        for (int i=0; i<enemies.size(); i++) {
+            enemies.get(i).update();
+        }
+        
+        checkSpriteTileCollision ();
     }
     
     public void addObserver (Observer o) {
         observer = o;
+    }
+    
+    private void checkSpriteTileCollision () {
+        
+        Rectangle playerBound = player.getBound();
+        int colum = player.getX() / Tile.WIDTH;
+        int row = player.getY() / Tile.WIDTH;
+        Tile    tile = map.getTile(colum, row);
+        
+        if (tile != null && playerBound.intersects(tile.getBound()))
+            player.revert();
     }
 }

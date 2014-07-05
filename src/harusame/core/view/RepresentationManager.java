@@ -14,6 +14,17 @@ import java.util.ArrayList;
  */
 public class RepresentationManager implements Observer{
 
+    private int CAMERA_SIZE_X = GamePanel.WIDTH;
+    private int CAMERA_SIZE_Y = GamePanel.HEIGHT;
+    
+    private int offsetMaxX;
+    private int offsetMaxY;
+    private int offsetMinX;
+    private int offsetMinY;
+    
+    private int camX;
+    private int camY;
+    
     private PlayerRepresentation    player;
 
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
@@ -24,7 +35,6 @@ public class RepresentationManager implements Observer{
         player.update ();
     }
     
-    
     @Override
     public void notifyNewPlayer(Player p) {
         player = new PlayerRepresentation (p);
@@ -32,16 +42,22 @@ public class RepresentationManager implements Observer{
 
     @Override
     public void notifyNewEnemy(Enemy e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enemies.add(new EnemyRepresentation (e));
     }
     
     public void draw(Graphics g) {
+        
+        adjustCamera (g, player.getX (), player.getY ());
         
         for (int i=0; i<tiles.length; i++) {
             for (int j=0; j<tiles[i].length; j++){
                 if (tiles[i][j] != null)
                     tiles[i][j].draw(g);
             }
+        }
+        
+        for (int i=0; i<enemies.size(); i++) {
+            enemies.get(i).draw(g);
         }
         
         player.draw (g);
@@ -60,5 +76,33 @@ public class RepresentationManager implements Observer{
                     tiles[i][j] = new TileRepresentation (map.getTile(j, i));
             }
         }
+        
+        offsetMaxX = (w * Tile.WIDTH ) - CAMERA_SIZE_X;
+        offsetMaxY = (h * Tile.WIDTH) - CAMERA_SIZE_Y;
+    }
+    
+        private void adjustCamera (Graphics g, int x, int y) {
+        
+        camX = x - CAMERA_SIZE_X / 2;
+        camY = y - CAMERA_SIZE_Y / 2;
+        
+        if (camX > offsetMaxX)
+            camX = offsetMaxX;
+        else if (camX < offsetMinX)
+            camX = offsetMinX;
+        
+        if (camY > offsetMaxY)
+            camY = offsetMaxY;
+        else if (camY < offsetMinY)
+            camY = offsetMinY;
+        
+        g.translate(-camX, -camY);
+    }
+
+    @Override
+    public void notifyReset() {
+        player = null;
+        enemies = new ArrayList ();
+        tiles = null;
     }
 }

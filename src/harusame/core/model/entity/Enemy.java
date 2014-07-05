@@ -3,42 +3,45 @@ package harusame.core.model.entity;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
-import static harusame.core.util.Direction.NEUTRAL;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
+import harusame.core.util.EnemyType;
 
 /**
  *
  * @author Hikari
  */
-public class Enemy extends Sprite{
+public class Enemy extends MovableSprite{
     
-    private Direction lastDirection;
+    private EnemyType   type;
     
-    public Enemy(int x, int y) {
+    public Enemy(int x, int y, EnemyType    type) {
         super(x, y);
+        this.type = type;
+        MOVE_SPEED = 5;
+        DIRECTION = LEFT;
     }
- /*
+ 
     public void revert () {  
         x = lastX;
         y = lastY;       
-        lastDirection = direction;
+        LAST_DIRECTION = DIRECTION;
         
-        switch (direction){
+        switch (DIRECTION){
             case LEFT:  
-                direction = UP;                
+                DIRECTION = UP;                
                 break;
                 
             case UP:     
-                direction = RIGHT;                
+                DIRECTION = RIGHT;                
                 break;  
                 
             case RIGHT:     
-                direction = DOWN;               
+                DIRECTION = DOWN;               
                 break;   
                     
             case DOWN:     
-                direction = LEFT;                
+                DIRECTION = LEFT;                
                 break;   
         }           
     }
@@ -48,48 +51,26 @@ public class Enemy extends Sprite{
         lastX = x;
         lastY = y;   
         
-
-        switch (direction){
+        switch (DIRECTION){
             case LEFT:                 
                 this.x-=MOVE_SPEED;
-                if(lastDirection == direction)
-                    setAnimation (al.getFacingLeft());
-                else
-                    lastDirection = direction;
                 break;
                 
             case RIGHT: 
-                this.x+=MOVE_SPEED;
-                if(lastDirection == direction)
-                    setAnimation (al.getFacingRight());
-                else
-                    lastDirection = direction;        
+                this.x+=MOVE_SPEED;     
                 break;
                 
             case UP: 
                 this.y-=MOVE_SPEED;
-                if(lastDirection == direction)
-                    setAnimation (al.getFacingUp());
-                else
-                    lastDirection = direction;
                 break;
                 
             case DOWN: 
                 this.y+=MOVE_SPEED;
-                if(lastDirection == direction)
-                    setAnimation (al.getFacingDown());
-                else
-                    lastDirection = direction;
-                break;
-                
-            case NEUTRAL: 
-                break;     
+                break; 
         }
-        if (direction != NEUTRAL) {
-            updateAnimation ();
-        }
-        else 
-            resetAnimation ();
     }
-    */
+    
+    public EnemyType    getType () {
+        return type;
+    }
 }

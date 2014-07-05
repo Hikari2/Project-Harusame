@@ -1,24 +1,18 @@
 package harusame.core.model;
 
-import harusame.core.controller.Controller;
-import harusame.core.view.AnimationLoader;
-import harusame.core.model.entity.Sprite;
+import harusame.core.model.entity.MovableSprite;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.NEUTRAL;
-import static harusame.core.util.Direction.OTHER;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
-import harusame.core.util.Observer;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 
  */
-public class Player extends Sprite {
+public class Player extends MovableSprite {
     
     private boolean isLeftHeld = false;
     private boolean isRightHeld = false;
@@ -42,7 +36,6 @@ public class Player extends Sprite {
        y = lastY;
     }
     
-    @Override
     public void update () {
         
         lockMovement (9, DIRECTION);

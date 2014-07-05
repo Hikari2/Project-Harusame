@@ -4,13 +4,13 @@ package harusame.core.model.entity;
  *
  * @author Hikari
  */
-public class Projectile extends Sprite {
+public class Projectile extends MovableSprite {
 
     public Projectile (int x, int y) {
         super(x, y);
         MOVE_SPEED = 8;
     }
-    
+    /*
     public void update () {
         switch (DIRECTION){
             case LEFT:                 
@@ -30,4 +30,5 @@ public class Projectile extends Sprite {
                 break;
         }
     }
+    */
 }
