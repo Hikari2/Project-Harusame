@@ -1,4 +1,6 @@
-package harusame.core.model.entity;
+package harusame.core.model;
+
+import harusame.core.model.MovableSprite;
 
 /**
  *

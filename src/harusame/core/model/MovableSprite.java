@@ -1,4 +1,4 @@
-package harusame.core.model.entity;
+package harusame.core.model;
 
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;

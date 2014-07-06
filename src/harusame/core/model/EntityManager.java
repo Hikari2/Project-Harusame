@@ -1,7 +1,5 @@
 package harusame.core.model;
 
-import harusame.core.model.entity.Enemy;
-import harusame.core.model.entity.Projectile;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Observer;
@@ -59,17 +57,19 @@ public class EntityManager {
             enemies.get(i).update();
         }
         
-        checkPlayerTileCollision (player);
+        checkPlayerTileCollision ();
         
-        for (int i=0; i<enemies.size(); i++)
+        for (int i=0; i<enemies.size(); i++) {
             checkEnemyTileCollision (enemies.get(i));
+            checkPlayerEnemyCollision (enemies.get(i));
+        }
     }
     
     public void addObserver (Observer o) {
         observer = o;
     }
     
-    private void checkPlayerTileCollision (Player player) {
+    private void checkPlayerTileCollision () {
         
         Rectangle playerBound = player.getBound();
         int colum = player.getX() / Tile.WIDTH;
@@ -110,5 +110,13 @@ public class EntityManager {
         tiles[4] = map.getTile(colum, row-1);
                                         
         return tiles;
+    }
+    
+    private void checkPlayerEnemyCollision (Enemy enemy) {
+        Rectangle playerBound = player.getBound();
+        Rectangle enemyBound = enemy.getBound();
+        
+        if (playerBound.intersects(enemyBound))
+            player.kill();
     }
 }

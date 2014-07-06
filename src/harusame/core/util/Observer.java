@@ -1,7 +1,7 @@
 package harusame.core.util;
 
 import harusame.core.model.Player;
-import harusame.core.model.entity.Enemy;
+import harusame.core.model.Enemy;
 import harusame.core.model.map.TileMap;
 
 /**

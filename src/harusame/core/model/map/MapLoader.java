@@ -2,7 +2,7 @@ package harusame.core.model.map;
 
 import harusame.core.model.EntityManager;
 import harusame.core.model.Player;
-import harusame.core.model.entity.Enemy;
+import harusame.core.model.Enemy;
 import harusame.core.util.EnemyType;
 import harusame.core.util.TileType;
 import java.io.BufferedReader;

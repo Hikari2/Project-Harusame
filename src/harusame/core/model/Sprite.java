@@ -1,4 +1,4 @@
-package harusame.core.model.entity;
+package harusame.core.model;
 
 import harusame.core.model.map.Tile;
 import java.awt.Rectangle;
@@ -8,8 +8,6 @@ import java.awt.Rectangle;
  * @author Hikari
  */
 public class Sprite{
-           
-   protected boolean isCollidable = true;
   
    protected int x;
    protected int y;
@@ -20,20 +18,22 @@ public class Sprite{
    protected int lastX;
    protected int lastY;
    
+   private boolean ACTIVE = true;
+   
    public Sprite (int x, int y) {
        this.x = x;
        this.y = y;
        dx = Tile.WIDTH;
        dy = Tile.WIDTH;
    }
-
+   
    public Rectangle getBound () {
         return new Rectangle (x, y, dx, dy);
-    }
-
-    public int getX() {
+   }
+   
+   public int getX() {
         return x;
-    }
+   }
 
     public void setX(int x) {
         this.x = x;
@@ -61,5 +61,13 @@ public class Sprite{
 
     public void setDY(int dy) {
         this.dy = dy;
+    }
+
+    public boolean isACTIVE() {
+        return ACTIVE;
+    }
+
+    public void setACTIVE(boolean ACTIVE) {
+        this.ACTIVE = ACTIVE;
     }
 }

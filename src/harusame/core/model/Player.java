@@ -1,10 +1,10 @@
 package harusame.core.model;
 
-import harusame.core.model.entity.MovableSprite;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.NEUTRAL;
+import static harusame.core.util.Direction.OTHER;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.Direction.UP;
 import java.awt.event.KeyEvent;
@@ -34,6 +34,13 @@ public class Player extends MovableSprite {
     public void revert () {
        x = lastX;
        y = lastY;
+    }
+    
+    public void kill () {
+        setACTIVE (false);
+        dQueue = new DirectionQueue ();
+        DIRECTION = OTHER;
+        lock = 24;
     }
     
     public void update () {
@@ -92,15 +99,7 @@ public class Player extends MovableSprite {
             return true;
         else return false;
     }
-    /*
-    public void kill () {
-        dQueue = new DirectionQueue ();
-        setAnimation (al.getDeath());
-        lockedDirection = OTHER;
-        lock = 24;
-        ALIVE = false;
-    }
-    */
+
     public void keyPressed (int keyCode) 
     {
         Direction   d = KeyCodeToDirection (keyCode);

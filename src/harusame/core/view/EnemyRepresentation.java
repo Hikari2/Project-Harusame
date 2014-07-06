@@ -1,6 +1,6 @@
 package harusame.core.view;
 
-import harusame.core.model.entity.Enemy;
+import harusame.core.model.Enemy;
 import harusame.core.util.Direction;
 import harusame.core.util.EnemyType;
 import java.awt.Graphics;
