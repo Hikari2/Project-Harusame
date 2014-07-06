@@ -66,9 +66,6 @@ public class AnimationLoader {
             a.addFrame(image);
             a.addFrame(image);
             a.addFrame(image);
-            a.addFrame(image);
-            a.addFrame(image);
-            a.addFrame(image);
         }
     }
     
