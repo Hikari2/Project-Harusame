@@ -2,6 +2,7 @@ package harusame.core.view;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.io.File;
 import javax.imageio.ImageIO;
 
 public class BackGround {
@@ -18,9 +19,7 @@ public class BackGround {
 	public BackGround(String s, double ms) {
 		
 		try {
-			image = ImageIO.read(
-				getClass().getResourceAsStream(s)
-			);
+			image = ImageIO.read(new File(s));
 			moveScale = ms;
 		}
 		catch(Exception e) {
@@ -46,8 +45,8 @@ public class BackGround {
 	
 	public void draw(Graphics g) {
 		
-		g.drawImage(image, (int)x, (int)y, null);
-		
+		g.drawImage(image, 0, 0, GamePanel.WIDTH, GamePanel.HEIGHT, null);
+		/*
 		if(x < 0) {
 			g.drawImage(
 				image,
@@ -64,6 +63,7 @@ public class BackGround {
 				null
 			);
 		}
+                        */
 	}
 	
 }

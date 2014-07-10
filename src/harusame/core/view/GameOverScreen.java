@@ -1,5 +1,6 @@
 package harusame.core.view;
 
+import harusame.core.model.map.Tile;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -34,9 +35,9 @@ public class GameOverScreen implements Menu {
             titleFont = new Font(
                             "Century Gothic",
                             Font.PLAIN,
-                            28);
+                            46);
 
-            font = new Font("Arial", Font.PLAIN, 12);
+            font = new Font("Arial", Font.PLAIN, 32);
 
         }
         catch(Exception e) {
@@ -50,7 +51,7 @@ public class GameOverScreen implements Menu {
         // draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("Fuck you", 80, 70);
+        g.drawString("Fuck you", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
 
         // draw menu options
         g.setFont(font);
@@ -59,9 +60,9 @@ public class GameOverScreen implements Menu {
                         g.setColor(Color.BLACK);
                 }
                 else {
-                        g.setColor(Color.RED);
+                        g.setColor(Color.WHITE);
                 }
-                g.drawString(options[i], 145, 140 + i * 15);
+                g.drawString(options[i], GamePanel.WIDTH/4, GamePanel.HEIGHT/4 + 70 * i);
         }
     }
 }
