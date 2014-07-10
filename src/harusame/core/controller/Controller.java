@@ -46,10 +46,11 @@ public class Controller {
 
     public void update() {
         em.update();
-        if(em.getPlayer().isACTIVE() == false)
-            tempDeathCounterSkit++;
-        if(tempDeathCounterSkit == 40)
-            startGame();
+        
+        //if(em.getPlayer().isACTIVE() == false)
+        //    tempDeathCounterSkit++;
+       // if(tempDeathCounterSkit == 40)
+           // startGame();
     }
     
     public void addObserver (Observer o) {

@@ -45,6 +45,23 @@ public class GameOverScreen implements Menu {
     }
     
     public void draw (Graphics g) {
-        
+        bg.draw(g);
+
+        // draw title
+        g.setColor(titleColor);
+        g.setFont(titleFont);
+        g.drawString("Fuck you", 80, 70);
+
+        // draw menu options
+        g.setFont(font);
+        for(int i = 0; i < options.length; i++) {
+                if(i == currentChoice) {
+                        g.setColor(Color.BLACK);
+                }
+                else {
+                        g.setColor(Color.RED);
+                }
+                g.drawString(options[i], 145, 140 + i * 15);
+        }
     }
 }

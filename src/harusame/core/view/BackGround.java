@@ -44,7 +44,7 @@ public class BackGround {
 		y += dy;
 	}
 	
-	public void draw(Graphics2D g) {
+	public void draw(Graphics g) {
 		
 		g.drawImage(image, (int)x, (int)y, null);
 		
