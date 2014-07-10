@@ -46,4 +46,20 @@ public class Animation {
     public void reset () {
         count = 0;
     }
+    
+    /*
+    Get the length of the animation
+    */
+    public int getLength()
+    {
+        return frames.size();
+    }
+    
+    /*
+    Get the the counter value
+    */
+    public int getCounter()
+    {
+        return count;
+    }
 }
