@@ -25,6 +25,10 @@ public class RepresentationManager implements Observer{
     private int camX;
     private int camY;
     
+    private int MENUSTATE = -1;
+    
+    private GameOverScreen  gos;
+    
     private PlayerRepresentation    player;
 
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
@@ -50,6 +54,11 @@ public class RepresentationManager implements Observer{
     }
     
     public void draw(Graphics g) {
+        
+        if (isInMenu ()) {
+            getCurrentMenu ().draw (g);
+            return;
+        }
         
         adjustCamera (g, player.getX (), player.getY ());
         
@@ -108,5 +117,26 @@ public class RepresentationManager implements Observer{
         player = null;
         enemies = new ArrayList ();
         tiles = null;
+    }
+    
+    @Override
+    public void notifyGameOver () {
+        gos = new GameOverScreen ();
+        MENUSTATE = 1;
+    }
+    
+    private boolean isInMenu () {
+        if (MENUSTATE >= 0)
+            return true;
+        else
+            return false;
+    }
+    
+    private Menu    getCurrentMenu () {
+        switch (MENUSTATE) {
+            case 1:
+                return gos;
+        }
+        return null;
     }
 }

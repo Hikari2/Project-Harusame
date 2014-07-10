@@ -51,6 +51,10 @@ public class EntityManager {
     }
     
     public void update () {
+        
+        if (!player.isACTIVE () && !player.isLocked())
+            observer.notifyGameOver();
+        
         player.update ();
         
         for (int i=0; i<enemies.size(); i++) {

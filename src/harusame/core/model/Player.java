@@ -86,7 +86,7 @@ public class Player extends MovableSprite {
         }
     }
     
-    private boolean isLocked () {
+    public boolean isLocked () {
         if (lock > 0)
             return true;
         else return false;
