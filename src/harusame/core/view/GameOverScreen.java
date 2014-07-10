@@ -1,6 +1,5 @@
 package harusame.core.view;
 
-import harusame.core.model.map.Tile;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -55,14 +54,14 @@ public class GameOverScreen implements Menu {
 
         // draw menu options
         g.setFont(font);
-        for(int i = 0; i < options.length; i++) {
+        for(int i = 1; i < options.length+1; i++) {
                 if(i == currentChoice) {
                         g.setColor(Color.BLACK);
                 }
                 else {
                         g.setColor(Color.WHITE);
                 }
-                g.drawString(options[i], GamePanel.WIDTH/4, GamePanel.HEIGHT/4 + 70 * i);
+                g.drawString(options[i-1], GamePanel.WIDTH/4, GamePanel.HEIGHT/4 + 70 * i);
         }
     }
 }

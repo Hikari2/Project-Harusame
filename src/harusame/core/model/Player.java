@@ -27,7 +27,7 @@ public class Player extends MovableSprite {
     
     public Player(int x, int y) {
         super(x, y);
-        MOVE_SPEED = 5;
+        MOVE_SPEED = 9;
     }
     
     public void revert () {
@@ -37,11 +37,11 @@ public class Player extends MovableSprite {
     
     public void update () {
 
-        lockMovement (9, DIRECTION);
+        lockMovement (5, DIRECTION);
         lastX = x;
         lastY = y;
         
-        if (!isLocked () || !isACTIVE ())
+        if (!isLocked () || !isACTIVE ()) 
             return;
         
         switch (DIRECTION){

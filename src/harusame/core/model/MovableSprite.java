@@ -29,7 +29,7 @@ public class MovableSprite extends Sprite {
         setACTIVE (false);
         DIRECTION = OTHER;
         LAST_DIRECTION = OTHER;
-        lock = 24;
+        lock = 15;
     }
     
     
