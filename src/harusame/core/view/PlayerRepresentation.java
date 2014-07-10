@@ -17,16 +17,13 @@ public class PlayerRepresentation {
     private Player player;
     private int x;
     private int y;
-    
-    private int deathCounter;
-    
+
     private Direction   LAST_DIRECTION;
     
     private Animation   ACTIVE_ANIMATION;
     
     public PlayerRepresentation(Player p) {
         player = p;
-        deathCounter = 0;
         ACTIVE_ANIMATION = al.getFacingDown();
         x = player.getX();
         y = player.getY();
@@ -82,22 +79,13 @@ public class PlayerRepresentation {
         return y;
     }
     
-    public int getDeathCounter()
-    {
-        return deathCounter;
-    }
     
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
-       
+
        g.drawImage(image, x, y, player.getDX(), player.getDY(), null);
        g.drawString("x: "+x+ " y: "+y, player.getX(), player.getY()-5);
        
-       if(deathCounter < ACTIVE_ANIMATION.getLength())
-            g.drawImage(image, x, y, player.getDX(), player.getDY(), null);       
-       g.drawString("x: "+x+ " y: "+y, player.getDX(), player.getDY());
-       
-       if (player.isACTIVE() == false)
-           deathCounter++;          
+       g.drawString("x: "+x+ " y: "+y, player.getDX(), player.getDY());         
     }
 }
