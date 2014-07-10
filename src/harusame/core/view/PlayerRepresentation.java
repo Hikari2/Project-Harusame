@@ -34,8 +34,11 @@ public class PlayerRepresentation {
     
     public void update () {
         
-        if (player.isACTIVE() == false)
+        if (player.isACTIVE() == false) {
             ACTIVE_ANIMATION = al.getDeath();
+            ACTIVE_ANIMATION.nextFrame ();
+            return;
+        }
         
         Direction   DIRECTION = player.getDIRECTION();
         
