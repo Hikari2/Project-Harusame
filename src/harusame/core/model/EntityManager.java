@@ -14,6 +14,7 @@ public class EntityManager {
     private TileMap map;
     private ArrayList<Enemy>    enemies = new ArrayList ();
     private ArrayList<Projectile>   projectiles = new ArrayList ();
+    private ArrayList<Interactable> interactables = new ArrayList ();
     
     public EntityManager () {
         
@@ -24,6 +25,7 @@ public class EntityManager {
         map = new TileMap (0, 0);
         enemies = new ArrayList (); 
         projectiles = new ArrayList ();
+        interactables = new ArrayList ();
         observer.notifyReset ();
     }
     
@@ -44,6 +46,12 @@ public class EntityManager {
     public void addEnemy(Enemy enemy) {
         enemies.add (enemy);
         observer.notifyNewEnemy(enemy);
+    }
+    
+    public void addInteractable(Interactable interactable)
+    {
+        interactables.add(interactable);
+        //observer.
     }
 
     public void setProjectiles(ArrayList<Projectile> projectiles) {
