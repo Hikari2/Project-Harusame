@@ -27,9 +27,9 @@ public class MovableSprite extends Sprite {
     
     public void kill () {
         setACTIVE (false);
+        lock = 15;
         DIRECTION = OTHER;
         LAST_DIRECTION = OTHER;
-        lock = 15;
     }
     
     public boolean isLocked () {

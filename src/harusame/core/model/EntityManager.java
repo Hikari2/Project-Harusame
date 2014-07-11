@@ -64,6 +64,8 @@ public class EntityManager {
         checkPlayerTileCollision ();
         
         for (int i=0; i<enemies.size(); i++) {
+            if (!enemies.get(i).isACTIVE ())
+                    continue;
             checkEnemyTileCollision (enemies.get(i));
             checkPlayerEnemyCollision (enemies.get(i));
         }
