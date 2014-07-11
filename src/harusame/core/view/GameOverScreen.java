@@ -3,13 +3,16 @@ package harusame.core.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author Admin
  */
 public class GameOverScreen implements Menu {
-    private BackGround bg;
+    private BufferedImage backGround;
 
     private int currentChoice = 0;
     
@@ -26,9 +29,7 @@ public class GameOverScreen implements Menu {
 
     public GameOverScreen() {
         try {    
-            
-            bg = new BackGround("Resources/Menu/GameOver_Background.png", 1);
-            bg.setVector(-0.1, 0);
+            backGround = ImageIO.read(new File("Resources/Menu/GameOver_Background.png"));
 
             titleColor = new Color(128, 0, 0);
             titleFont = new Font(
@@ -45,12 +46,12 @@ public class GameOverScreen implements Menu {
     }
     
     public void draw (Graphics g) {
-        bg.draw(g);
+        		g.drawImage(backGround, 0, 0, GamePanel.WIDTH, GamePanel.HEIGHT, null);
 
         // draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("Fuck you", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
+        g.drawString("It appear you suck", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
 
         // draw menu options
         g.setFont(font);
