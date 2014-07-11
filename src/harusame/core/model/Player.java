@@ -41,7 +41,7 @@ public class Player extends MovableSprite {
         lastX = x;
         lastY = y;
         
-        if (!isLocked () || !isACTIVE ()) 
+        if (!isLocked () && !isACTIVE ()) 
             return;
         
         switch (DIRECTION){
@@ -84,12 +84,6 @@ public class Player extends MovableSprite {
             lock = i;
             lockedDirection = d;    
         }
-    }
-    
-    public boolean isLocked () {
-        if (lock > 0)
-            return true;
-        else return false;
     }
 
     public void keyPressed (int keyCode) 

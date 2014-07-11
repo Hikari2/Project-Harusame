@@ -32,7 +32,12 @@ public class MovableSprite extends Sprite {
         lock = 15;
     }
     
-    
+    public boolean isLocked () {
+        if (lock > 0)
+            return true;
+        else return false;
+    }
+        
     public Direction getDIRECTION() {
         return DIRECTION;
     }

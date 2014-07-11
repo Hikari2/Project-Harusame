@@ -120,7 +120,9 @@ public class EntityManager {
         Rectangle playerBound = player.getBound();
         Rectangle enemyBound = enemy.getBound();
         
-        if (playerBound.intersects(enemyBound))
+        if (playerBound.intersects(enemyBound)){
             player.kill();
+            enemy.kill();
+        }
     }
 }
