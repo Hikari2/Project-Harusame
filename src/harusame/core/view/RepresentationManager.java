@@ -34,6 +34,12 @@ public class RepresentationManager implements Observer{
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
     
     private TileRepresentation[][]  tiles;
+    private TileImageLoader tl;
+    
+    public RepresentationManager(String level)
+    {
+        tl = new TileImageLoader(level);
+    }
     
     public void update () {
         player.update ();
@@ -80,13 +86,15 @@ public class RepresentationManager implements Observer{
     public void notifyNewMap(TileMap map) {
         int h = map.getHeight();
         int w = map.getWidth();
-        tiles = new TileRepresentation[h][w];
-        
+        tiles = new TileRepresentation[h][w];        
         for (int i=0; i<h; i++) {
             
             for (int j=0; j<w; j++){
                 if (map.getTile(j, i) != null)
+                {                    
                     tiles[i][j] = new TileRepresentation (map.getTile(j, i));
+                    tiles[i][j].setImage(tl.getImage(tiles[i][j].getType()));
+                }
             }
         }
         
