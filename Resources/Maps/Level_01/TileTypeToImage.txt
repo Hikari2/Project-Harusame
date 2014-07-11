@@ -1,0 +1,23 @@
+STONEWALL_UPPER_LEFT
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\7
+---------------------------
+STONEWALL_UPPER_MIDDLE
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\8
+---------------------------
+STONEWALL_UPPER_RIGHT
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\9
+---------------------------
+STONEWALL_LEFT
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\4
+---------------------------
+STONEWALL_RIGHT
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\6
+---------------------------
+STONEWALL_BOTTOM_LEFT
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\1
+---------------------------
+STONEWALL_BOTTOM_MIDDLE
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\2
+---------------------------
+STONEWALL_BOTTOM_RIGHT
+C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\3

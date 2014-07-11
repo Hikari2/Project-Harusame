@@ -66,9 +66,6 @@ public class AnimationLoader {
             a.addFrame(image);
             a.addFrame(image);
             a.addFrame(image);
-            a.addFrame(image);
-            a.addFrame(image);
-            a.addFrame(image);
         }
     }
     
@@ -78,13 +75,19 @@ public class AnimationLoader {
             BufferedImage   sheet = ImageIO.read(new File("Resources/Sprites/" + path + "_Death.png"));
         
             for (int i=0; i<5; i++){
-            BufferedImage   image = sheet.getSubimage((sheet.getWidth()/5)*i, (sheet.getHeight()/2)*1, (sheet.getWidth()/5), (sheet.getHeight()/2));
+            BufferedImage   image = sheet.getSubimage((sheet.getWidth()/5)*i, 0, (sheet.getWidth()/5), (sheet.getHeight()/2));
                 death.addFrame(image);
+                death.addFrame(image);
+            }
+            
+            for (int i=0; i<5; i++){
+            BufferedImage   image = sheet.getSubimage((sheet.getWidth()/5)*i, (sheet.getHeight()/2), (sheet.getWidth()/5), (sheet.getHeight()/2));
                 death.addFrame(image);
                 death.addFrame(image);
                 death.addFrame(image);
                 death.addFrame(image);
             }
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -17,4 +17,6 @@ public interface Observer {
     void notifyNewPlayer (Player p);
     
     void notifyNewEnemy (Enemy e);
+    
+    void notifyGameOver ();
 }

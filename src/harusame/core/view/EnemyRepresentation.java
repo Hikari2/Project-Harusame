@@ -71,6 +71,6 @@ public class EnemyRepresentation {
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
        g.drawImage(image, x, y, enemy.getDX(), enemy.getDY(), null);
-       g.drawString("x: "+x+ " y: "+y, enemy.getDX(), enemy.getDY());
+       g.drawString("x: "+x+ " y: "+y, enemy.getX(), enemy.getY()-5);
     }
 }

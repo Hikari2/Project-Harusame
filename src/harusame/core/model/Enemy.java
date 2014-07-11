@@ -18,7 +18,7 @@ public class Enemy extends MovableSprite{
     public Enemy(int x, int y, EnemyType    type) {
         super(x, y);
         this.type = type;
-        MOVE_SPEED = 2;
+        MOVE_SPEED = 5;
         DIRECTION = LEFT;
     }
  
