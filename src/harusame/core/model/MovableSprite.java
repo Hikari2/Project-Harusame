@@ -27,12 +27,17 @@ public class MovableSprite extends Sprite {
     
     public void kill () {
         setACTIVE (false);
+        lock = 15;
         DIRECTION = OTHER;
         LAST_DIRECTION = OTHER;
-        lock = 15;
     }
     
-    
+    public boolean isLocked () {
+        if (lock > 0)
+            return true;
+        else return false;
+    }
+        
     public Direction getDIRECTION() {
         return DIRECTION;
     }

@@ -72,6 +72,8 @@ public class EntityManager {
         checkPlayerTileCollision ();
         
         for (int i=0; i<enemies.size(); i++) {
+            if (!enemies.get(i).isACTIVE ())
+                    continue;
             checkEnemyTileCollision (enemies.get(i));
             checkPlayerEnemyCollision (enemies.get(i));
         }
@@ -128,7 +130,9 @@ public class EntityManager {
         Rectangle playerBound = player.getBound();
         Rectangle enemyBound = enemy.getBound();
         
-        if (playerBound.intersects(enemyBound))
+        if (playerBound.intersects(enemyBound)){
             player.kill();
+            enemy.kill();
+        }
     }
 }

@@ -27,7 +27,7 @@ public class Player extends MovableSprite {
     
     public Player(int x, int y) {
         super(x, y);
-        MOVE_SPEED = 9;
+        MOVE_SPEED = 5;
     }
     
     public void revert () {
@@ -37,11 +37,11 @@ public class Player extends MovableSprite {
     
     public void update () {
 
-        lockMovement (5, DIRECTION);
+        lockMovement (9, DIRECTION);
         lastX = x;
         lastY = y;
         
-        if (!isLocked () || !isACTIVE ()) 
+        if (!isLocked () && !isACTIVE ()) 
             return;
         
         switch (DIRECTION){
@@ -84,12 +84,6 @@ public class Player extends MovableSprite {
             lock = i;
             lockedDirection = d;    
         }
-    }
-    
-    public boolean isLocked () {
-        if (lock > 0)
-            return true;
-        else return false;
     }
 
     public void keyPressed (int keyCode) 

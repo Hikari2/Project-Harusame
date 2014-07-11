@@ -50,6 +50,13 @@ public class Enemy extends MovableSprite{
         lastX = x;
         lastY = y;   
         
+        if (isLocked ()) {
+            lock--;
+            return;
+        }
+        else if (!isLocked () && !isACTIVE ())
+                return;
+        
         LAST_DIRECTION = DIRECTION;
         
         switch (DIRECTION){

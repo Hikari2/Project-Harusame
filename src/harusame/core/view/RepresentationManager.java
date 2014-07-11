@@ -126,7 +126,7 @@ public class RepresentationManager implements Observer{
     }
     
     private boolean isInMenu () {
-        if (MENUSTATE >= 0)
+        if (MENUSTATE != -1)
             return true;
         else
             return false;

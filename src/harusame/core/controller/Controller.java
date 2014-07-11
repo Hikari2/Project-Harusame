@@ -13,7 +13,6 @@ public class Controller {
     EntityManager   em;
     
     private final MapLoader ml; 
-    private int tempDeathCounterSkit;
     
     private String CURRENT_LEVEL;
     private String LAST_CHECKPOINT;
@@ -24,7 +23,6 @@ public class Controller {
     }
     
     public void startGame () {
-        tempDeathCounterSkit = 0;
         loadMap("Level_01");
         CURRENT_LEVEL = "Level_01";
     }
@@ -46,11 +44,6 @@ public class Controller {
 
     public void update() {
         em.update();
-        
-        //if(em.getPlayer().isACTIVE() == false)
-        //    tempDeathCounterSkit++;
-       // if(tempDeathCounterSkit == 40)
-           // startGame();
     }
     
     public void addObserver (Observer o) {
