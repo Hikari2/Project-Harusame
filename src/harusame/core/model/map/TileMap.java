@@ -38,7 +38,7 @@ public class TileMap
     }
     
     public Tile getTile (int x, int y) {
-        if (y >= tiles.length || x >= tiles[y].length )
+        if (y >= tiles.length ||    y < 0 ||    x < 0   || x >= tiles[y].length )
             return null;
         return tiles[y][x];
     }

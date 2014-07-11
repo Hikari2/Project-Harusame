@@ -94,8 +94,7 @@ public class EntityManager {
         
         for (int i=0; i<tiles.length; i++) {
             tile = tiles[i];
-            if (tile == null);
-            else if (tile != null && playerBound.intersects(tile.getBound()))
+            if (tile != null && playerBound.intersects(tile.getBound()))
                 player.revert();
         }
     }
