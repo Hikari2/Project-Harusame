@@ -84,8 +84,6 @@ public class PlayerRepresentation {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
 
        g.drawImage(image, x, y, player.getDX(), player.getDY(), null);
-       g.drawString("x: "+x+ " y: "+y, player.getX(), player.getY()-5);
-       
-       g.drawString("x: "+x+ " y: "+y, player.getDX(), player.getDY());         
+       g.drawString("x: "+x+ " y: "+y, player.getX(), player.getY()-5);        
     }
 }
