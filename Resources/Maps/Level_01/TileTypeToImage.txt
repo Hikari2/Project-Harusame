@@ -1,23 +1,23 @@
 STONEWALL_UPPER_LEFT
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\7
+STONE_WALLS/7.png
 ---------------------------
 STONEWALL_UPPER_MIDDLE
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\8
+STONE_WALLS/8.png
 ---------------------------
 STONEWALL_UPPER_RIGHT
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\9
+STONE_WALLS/9.png
 ---------------------------
 STONEWALL_LEFT
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\4
+STONE_WALLS/4.png
 ---------------------------
 STONEWALL_RIGHT
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\6
+STONE_WALLS/6.png
 ---------------------------
 STONEWALL_BOTTOM_LEFT
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\1
+STONE_WALLS/1.png
 ---------------------------
 STONEWALL_BOTTOM_MIDDLE
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\2
+STONE_WALLS/2.png
 ---------------------------
 STONEWALL_BOTTOM_RIGHT
-C:\Documents and Settings\Admin\My Documents\NetBeansProjects\Project-Harusame\Resources\Tilesets\STONE_WALLS\3
+STONE_WALLS/3.png

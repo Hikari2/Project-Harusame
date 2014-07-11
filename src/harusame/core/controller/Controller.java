@@ -12,9 +12,10 @@ public class Controller {
     
     EntityManager   em;
     
-    private final MapLoader ml; 
+    private final MapLoader ml;
     
-    private String CURRENT_LEVEL;
+    
+    private String CURRENT_LEVEL = "Level_01";
     private String LAST_CHECKPOINT;
     
     public Controller () {
@@ -23,8 +24,7 @@ public class Controller {
     }
     
     public void startGame () {
-        loadMap("Level_01");
-        CURRENT_LEVEL = "Level_01";
+        loadMap(CURRENT_LEVEL);        
     }
     public void loadMap (String level) {
         ml.loadMap(level);
@@ -32,6 +32,11 @@ public class Controller {
     
     public void reloadLevel () {
         loadMap (CURRENT_LEVEL);
+    }
+    
+    public String getLevel()
+    {
+        return CURRENT_LEVEL;
     }
     
     public void keyPressed(int keyCode) {

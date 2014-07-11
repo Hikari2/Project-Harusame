@@ -51,7 +51,7 @@ public class GameOverScreen implements Menu {
         // draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("It appear you suck", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
+        g.drawString("It appears you suck", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
 
         // draw menu options
         g.setFont(font);

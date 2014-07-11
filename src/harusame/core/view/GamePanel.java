@@ -37,7 +37,7 @@ public class GamePanel extends JPanel
 	
 	public GamePanel(Controller ctrl) {
 		super();
-                repManager = new RepresentationManager ();
+                repManager = new RepresentationManager (ctrl.getLevel());
                 this.ctrl = ctrl;
                 ctrl.addObserver(repManager);
                 ctrl.startGame();
