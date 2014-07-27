@@ -28,7 +28,7 @@ public class EnemyRepresentation {
     
     private void init () {
 
-        if (enemy.getType() == EnemyType.BEE) {
+        if (enemy.getEnemyType() == EnemyType.BEE) {
             al = new AnimationLoader ("Enemy/th_bee");
         }
         

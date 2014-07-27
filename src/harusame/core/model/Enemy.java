@@ -1,6 +1,5 @@
 package harusame.core.model;
 
-import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
@@ -78,7 +77,8 @@ public class Enemy extends MovableSprite{
         }
     }
     
-    public EnemyType    getType () {
+    
+    public EnemyType getEnemyType () {
         return type;
     }
 }

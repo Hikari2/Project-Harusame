@@ -2,6 +2,8 @@ package harusame.core.model;
 
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
+import static harusame.core.util.Direction.LEFT;
+import static harusame.core.util.Direction.RIGHT;
 import harusame.core.util.Observer;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class EntityManager {
     private TileMap map;
     private ArrayList<Enemy>    enemies = new ArrayList ();
     private ArrayList<Projectile>   projectiles = new ArrayList ();
-    private ArrayList<Interactable> interactables = new ArrayList ();
+    private ArrayList<MovableSprite> movables = new ArrayList ();
     
     public EntityManager () {
         
@@ -25,7 +27,7 @@ public class EntityManager {
         map = new TileMap (0, 0);
         enemies = new ArrayList (); 
         projectiles = new ArrayList ();
-        interactables = new ArrayList ();
+        movables = new ArrayList ();
         observer.notifyReset ();
     }
     
@@ -48,10 +50,10 @@ public class EntityManager {
         observer.notifyNewEnemy(enemy);
     }
     
-    public void addInteractable(Interactable interactable)
+    public void addMovable(MovableSprite movable)
     {
-        interactables.add(interactable);
-        //observer.
+        movables.add(movable);
+        observer.notifyNewMovable(movable);       
     }
 
     public void setProjectiles(ArrayList<Projectile> projectiles) {
@@ -75,7 +77,16 @@ public class EntityManager {
             if (!enemies.get(i).isACTIVE ())
                     continue;
             checkEnemyTileCollision (enemies.get(i));
-            checkPlayerEnemyCollision (enemies.get(i));
+            checkPlayerEnemyCollision (enemies.get(i));            
+        }
+        
+        for(int i=0; i<movables.size(); i++)
+        {
+            if (!movables.get(i).isACTIVE ())
+                    continue;
+            checkPlayerMovableCollision (movables.get(i));
+            movables.get(i).update();
+            checkMovableFallCollision(movables.get(i));            
         }
     }
     
@@ -116,6 +127,57 @@ public class EntityManager {
         }
     }
     
+    
+    // Falling
+    private void checkMovableFallCollision (MovableSprite movable) {
+        
+        Rectangle movableBound = movable.getBound();
+        int colum = movable.getX() / Tile.WIDTH;
+        int row = movable.getY() / Tile.WIDTH;
+                        
+        Tile[]  tiles = new Tile[3];
+        Tile tile;
+        
+        // Checks Tile collision on bottom
+        tiles[0] = map.getTile(colum-1, row+1);
+        tiles[1] = map.getTile(colum, row+1);
+        tiles[2] = map.getTile(colum+1, row+1);
+        
+        
+         for (int i=0; i<tiles.length; i++) {
+            tile = tiles[i];                       
+            if (tile != null && movableBound.intersects(tile.getBound()))
+            {
+                movable.revert();
+                movable.setFalling(false);
+                return;
+            }
+        }
+         // Checks other movable objecs collision 
+        if(checkMovableInternalCollision(movable) == false)
+        {
+            movable.revert();
+            movable.setFalling(false);
+            return;
+        }
+        // Checks player collision
+        Rectangle playerBound = player.getBound();       
+        if (playerBound.intersects(movableBound))
+        {
+            if(movable.isFalling() == false)
+                movable.revert();
+            else
+            {
+                movable.kill();
+                player.kill();
+            }
+            return;
+        }
+        
+        movable.setFalling(true);        
+    }
+    
+    // GODRIKE ENGRISH DETECTED
     private Tile[]  getSourroundingTiles (int colum, int row) {
         Tile[]  tiles = new Tile[5];
         tiles[0] = map.getTile(colum, row);
@@ -136,4 +198,61 @@ public class EntityManager {
             enemy.kill();
         }
     }
+    
+    private void checkPlayerMovableCollision (MovableSprite movable) {
+        Rectangle playerBound = player.getBound();
+        Rectangle movableBound = movable.getBound();
+       
+       
+        if (playerBound.intersects(movableBound)){
+            if(player.getDIRECTION() == RIGHT)
+            {
+                if(movable.isFalling() == false)
+                {
+                    movable.setX(player.getX()+ 45);
+                        if(checkMovableInternalCollision(movable) == false)
+                        {                            
+                            movable.revert();
+                            player.revert();   
+                        } 
+                }
+                else                
+                    player.revert();                 
+                // TESTA KOMMENTERA BORT ELSE SATSEN MED REVERT
+                // BLir skönare kontroll men kan skapa problem då
+                // man vill hindra playern från att gå igenom fallande block från sidan               
+            }            
+            else if(player.getDIRECTION() == LEFT)
+            {
+                if(movable.isFalling() == false)
+                {
+                    movable.setX(player.getX()- 45);
+                    if(checkMovableInternalCollision(movable) == false)
+                        {                            
+                            movable.revert();
+                            player.revert();   
+                        } 
+                }
+                else                
+                    player.revert();
+            }
+            else
+                 player.revert();
+        }
+    }
+    
+    private boolean checkMovableInternalCollision(MovableSprite movable)
+    {       
+        Rectangle movableBound = movable.getBound();
+        Rectangle tempBound;
+        
+        
+        for(int i = 0; i < movables.size(); i++)
+        {            
+            tempBound = movables.get(i).getBound();
+            if(movable != movables.get(i) && movableBound.intersects(tempBound)) 
+                return false;                                    
+        }
+        return true;
+    }    
 }

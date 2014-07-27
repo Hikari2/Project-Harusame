@@ -2,6 +2,7 @@ package harusame.core.view;
 
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
+import harusame.core.model.MovableSprite;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Observer;
@@ -32,6 +33,7 @@ public class RepresentationManager implements Observer{
     private PlayerRepresentation    player;
 
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
+    private ArrayList<MovableRepresentation> movables = new ArrayList ();
     
     private TileRepresentation[][]  tiles;
     private TileImageLoader tl;
@@ -59,6 +61,11 @@ public class RepresentationManager implements Observer{
         enemies.add(new EnemyRepresentation (e));
     }
     
+    @Override
+    public void notifyNewMovable(MovableSprite e) {
+        movables.add(new MovableRepresentation (e));
+    }
+    
     public void draw(Graphics g) {
         
         if (isInMenu ()) {
@@ -77,6 +84,10 @@ public class RepresentationManager implements Observer{
         
         for (int i=0; i<enemies.size(); i++) {
             enemies.get(i).draw(g);
+        }
+        
+        for (int i=0; i<movables.size(); i++) {
+            movables.get(i).draw(g);
         }
         
         player.draw (g);
