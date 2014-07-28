@@ -76,7 +76,7 @@ public class EntityManager {
         for (int i=0; i<enemies.size(); i++) {
             if (!enemies.get(i).isACTIVE ())
                     continue;
-            checkEnemyTileCollision (enemies.get(i));
+            checkEnemyCollision (enemies.get(i));
             checkPlayerEnemyCollision (enemies.get(i));            
         }
         
@@ -110,7 +110,7 @@ public class EntityManager {
         }
     }
     
-    private void checkEnemyTileCollision (Enemy enemy) {
+    private void checkEnemyCollision (Enemy enemy) {
         
         Rectangle enemyBound = enemy.getBound();
         int colum = enemy.getX() / Tile.WIDTH;
@@ -119,12 +119,24 @@ public class EntityManager {
         Tile[]  tiles = getSourroundingTiles (colum, row);
         Tile    tile;
         
+        // Tiles
         for (int i=0; i<tiles.length; i++) {
             tile = tiles[i];
             if (tile == null);
             else if (tile != null && enemyBound.intersects(tile.getBound()))
+            {
                 enemy.revert();
+                return;
+            }
         }
+        // Movables
+        Rectangle movableBound;
+        for(int i=0; i<movables.size(); i++)
+        {
+            movableBound = movables.get(i).getBound();
+            if(enemyBound.intersects(movableBound))
+                enemy.revert();
+        }        
     }
     
     
@@ -173,7 +185,26 @@ public class EntityManager {
             }
             return;
         }
-        
+        // Checks Enemy collision
+        Rectangle enemyBound;
+        for(int i=0; i<enemies.size(); i++)
+        {
+            enemyBound = enemies.get(i).getBound();
+            if(movableBound.intersects(enemyBound))
+            {
+                if(movable.isFalling() == true)
+                {
+                     enemies.get(i).kill();
+                     //movable.kill();
+                     return;
+                }
+                else
+                {
+                    movable.revert();
+                    return;
+                }
+            }
+        }        
         movable.setFalling(true);        
     }
     
@@ -197,11 +228,13 @@ public class EntityManager {
             player.kill();
             enemy.kill();
         }
-    }
-    
+    }  
+   
     private void checkPlayerMovableCollision (MovableSprite movable) {
         Rectangle playerBound = player.getBound();
         Rectangle movableBound = movable.getBound();
+        int colum = movable.getX() / Tile.WIDTH;
+        int row = movable.getY() / Tile.WIDTH;
        
        
         if (playerBound.intersects(movableBound)){
@@ -210,11 +243,30 @@ public class EntityManager {
                 if(movable.isFalling() == false)
                 {
                     movable.setX(player.getX()+ 45);
-                        if(checkMovableInternalCollision(movable) == false)
+                    if(checkMovableInternalCollision(movable) == false)
+                    {                            
+                         movable.revert();
+                         player.revert();
+                         return;
+                    }                    
+                    Rectangle enemyBound;        
+                    for(int i=0; i<enemies.size(); i++)
+                    {            
+                        enemyBound = enemies.get(i).getBound();
+                        if(movableBound.intersects(enemyBound))           
                         {                            
-                            movable.revert();
-                            player.revert();   
-                        } 
+                            colum = enemies.get(i).getX() / Tile.WIDTH;
+                            row = enemies.get(i).getY() / Tile.WIDTH;                            
+                            if(map.getTile(colum + 1, row) == null)                            
+                                enemies.get(i).setX(movable.getX() + 45); 
+                            else
+                            {
+                                movable.revert();
+                                player.revert();
+                            }
+                        }
+                    }
+                    
                 }
                 else                
                     player.revert();                 
@@ -231,6 +283,7 @@ public class EntityManager {
                         {                            
                             movable.revert();
                             player.revert();   
+                            return;
                         } 
                 }
                 else                
