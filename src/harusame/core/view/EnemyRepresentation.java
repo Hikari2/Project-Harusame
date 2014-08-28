@@ -28,7 +28,7 @@ public class EnemyRepresentation {
     
     private void init () {
 
-        if (enemy.getType() == EnemyType.BEE) {
+        if (enemy.getEnemyType() == EnemyType.BEE) {
             al = new AnimationLoader ("Enemy/th_bee");
         }
         
@@ -38,6 +38,12 @@ public class EnemyRepresentation {
     }
     
     public void update () {
+        
+        if (enemy.isACTIVE() == false) {
+            ACTIVE_ANIMATION = al.getDeath();
+            ACTIVE_ANIMATION.nextFrame ();
+            return;
+        }
         
         DIRECTION = enemy.getDIRECTION();
         LAST_DIRECTION = enemy.getLAST_DIRECTION();
@@ -71,6 +77,6 @@ public class EnemyRepresentation {
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
        g.drawImage(image, x, y, enemy.getDX(), enemy.getDY(), null);
-       g.drawString("x: "+x+ " y: "+y, enemy.getDX(), enemy.getDY());
+       g.drawString("x: "+x+ " y: "+y, enemy.getX(), enemy.getY()-5);
     }
 }

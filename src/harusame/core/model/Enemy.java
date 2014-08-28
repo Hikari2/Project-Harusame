@@ -1,6 +1,5 @@
 package harusame.core.model;
 
-import harusame.core.util.Direction;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
@@ -18,7 +17,7 @@ public class Enemy extends MovableSprite{
     public Enemy(int x, int y, EnemyType    type) {
         super(x, y);
         this.type = type;
-        MOVE_SPEED = 2;
+        MOVE_SPEED = 5;
         DIRECTION = LEFT;
     }
  
@@ -50,6 +49,13 @@ public class Enemy extends MovableSprite{
         lastX = x;
         lastY = y;   
         
+        if (isLocked ()) {
+            lock--;
+            return;
+        }
+        else if (!isLocked () && !isACTIVE ())
+                return;
+        
         LAST_DIRECTION = DIRECTION;
         
         switch (DIRECTION){
@@ -71,7 +77,8 @@ public class Enemy extends MovableSprite{
         }
     }
     
-    public EnemyType    getType () {
+    
+    public EnemyType getEnemyType () {
         return type;
     }
 }

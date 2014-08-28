@@ -17,6 +17,7 @@ public class PlayerRepresentation {
     private Player player;
     private int x;
     private int y;
+
     private Direction   LAST_DIRECTION;
     
     private Animation   ACTIVE_ANIMATION;
@@ -30,8 +31,11 @@ public class PlayerRepresentation {
     
     public void update () {
         
-        if (player.isACTIVE() == false)
+        if (player.isACTIVE() == false) {
             ACTIVE_ANIMATION = al.getDeath();
+            ACTIVE_ANIMATION.nextFrame ();
+            return;
+        }
         
         Direction   DIRECTION = player.getDIRECTION();
         
@@ -75,10 +79,11 @@ public class PlayerRepresentation {
         return y;
     }
     
+    
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
-       
+
        g.drawImage(image, x, y, player.getDX(), player.getDY(), null);
-       g.drawString("x: "+x+ " y: "+y, player.getDX(), player.getDY());
+       g.drawString("x: "+x+ " y: "+y, player.getX(), player.getY()-5);        
     }
 }

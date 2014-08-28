@@ -4,11 +4,6 @@ import harusame.core.model.map.Tile;
 import harusame.core.util.TileType;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -17,20 +12,20 @@ import javax.imageio.ImageIO;
 public class TileRepresentation {
     
     private Tile tile;
-    private BufferedImage   image;
-    
+    private BufferedImage   image;    
+    private TileType type;
     public TileRepresentation (Tile t) {
         tile = t;
-        TileType    type = tile.getType ();
-        typeToImage (type);
+        type = tile.getType ();        
     }
     
-    private void typeToImage (TileType type) {
-        try {
-            image = ImageIO.read(new File ("Resources/Tilesets/D.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(TileRepresentation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void setImage (BufferedImage newImage) {
+        image = newImage;
+    }
+    
+    public TileType getType()
+    {
+        return type;
     }
     
     public void draw (Graphics g) {

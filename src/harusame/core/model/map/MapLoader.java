@@ -3,7 +3,9 @@ package harusame.core.model.map;
 import harusame.core.model.EntityManager;
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
+import harusame.core.model.MovableSprite;
 import harusame.core.util.EnemyType;
+import harusame.core.util.MovableType;
 import harusame.core.util.TileType;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -130,7 +132,7 @@ public class MapLoader
                 entityManager.addEnemy(new Enemy (colum*Tile.WIDTH, row*Tile.WIDTH, EnemyType.BEE));
                 break;
             case 'S':               
-                //tileMap.addSprite(new MovableObject (colum*Tile.WIDTH, row*Tile.WIDTH));
+                entityManager.addMovable(new MovableSprite (colum*Tile.WIDTH, row*Tile.WIDTH, MovableType.STONE));
         }
     }
 }

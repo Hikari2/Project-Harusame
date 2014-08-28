@@ -2,6 +2,7 @@ package harusame.core.view;
 
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
+import harusame.core.model.MovableSprite;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Observer;
@@ -25,11 +26,22 @@ public class RepresentationManager implements Observer{
     private int camX;
     private int camY;
     
+    private int MENUSTATE = -1;
+    
+    private GameOverScreen  gos;
+    
     private PlayerRepresentation    player;
 
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
+    private ArrayList<MovableRepresentation> movables = new ArrayList ();
     
     private TileRepresentation[][]  tiles;
+    private TileImageLoader tl;
+    
+    public RepresentationManager(String level)
+    {
+        tl = new TileImageLoader(level);
+    }
     
     public void update () {
         player.update ();
@@ -49,7 +61,17 @@ public class RepresentationManager implements Observer{
         enemies.add(new EnemyRepresentation (e));
     }
     
+    @Override
+    public void notifyNewMovable(MovableSprite e) {
+        movables.add(new MovableRepresentation (e));
+    }
+    
     public void draw(Graphics g) {
+        
+        if (isInMenu ()) {
+            getCurrentMenu ().draw (g);
+            return;
+        }
         
         adjustCamera (g, player.getX (), player.getY ());
         
@@ -64,6 +86,10 @@ public class RepresentationManager implements Observer{
             enemies.get(i).draw(g);
         }
         
+        for (int i=0; i<movables.size(); i++) {
+            movables.get(i).draw(g);
+        }
+        
         player.draw (g);
     }
 
@@ -71,13 +97,15 @@ public class RepresentationManager implements Observer{
     public void notifyNewMap(TileMap map) {
         int h = map.getHeight();
         int w = map.getWidth();
-        tiles = new TileRepresentation[h][w];
-        
+        tiles = new TileRepresentation[h][w];        
         for (int i=0; i<h; i++) {
             
             for (int j=0; j<w; j++){
                 if (map.getTile(j, i) != null)
+                {                    
                     tiles[i][j] = new TileRepresentation (map.getTile(j, i));
+                    tiles[i][j].setImage(tl.getImage(tiles[i][j].getType()));
+                }
             }
         }
         
@@ -108,5 +136,26 @@ public class RepresentationManager implements Observer{
         player = null;
         enemies = new ArrayList ();
         tiles = null;
+    }
+    
+    @Override
+    public void notifyGameOver () {
+        gos = new GameOverScreen ();
+        MENUSTATE = 1;
+    }
+    
+    private boolean isInMenu () {
+        if (MENUSTATE != -1)
+            return true;
+        else
+            return false;
+    }
+    
+    private Menu    getCurrentMenu () {
+        switch (MENUSTATE) {
+            case 1:
+                return gos;
+        }
+        return null;
     }
 }
