@@ -19,7 +19,8 @@ public class EntityManager {
     
     private Level CURRENT_LEVEL = Level_1;
     
-    private Player  player;
+    private Player  player = new Player (0, 0);
+    
     private TileMap map;
     private ArrayList<Enemy>    enemies = new ArrayList ();
     private ArrayList<Projectile>   projectiles = new ArrayList ();
@@ -38,10 +39,9 @@ public class EntityManager {
         
         player.update ();
         
-        for (int i=0; i<enemies.size(); i++) {
+        for (int i=0; i<enemies.size(); i++) 
             enemies.get(i).update();
-        }
-        
+
         if (!player.isACTIVE ()) {
             
             for (int i=0; i<enemies.size(); i++) 
@@ -81,17 +81,15 @@ public class EntityManager {
         reset ();
         observer.notifyReset();
         MapLoader.loadMap(CURRENT_LEVEL);
-        player.setLife(p.getLife());
-        setPlayer (player);
     }
     
     private void gameOver () {
         reset ();
+        player = null;
         observer.notifyGameOver ();
     }
     
     private void reset (){
-        player = null;
         map = new TileMap (0, 0);
         enemies = new ArrayList (); 
         projectiles = new ArrayList ();

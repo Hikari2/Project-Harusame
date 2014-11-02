@@ -126,7 +126,7 @@ public class MapLoader
         
         switch (symbol){
             case 'P':
-                entityManager.setPlayer(new Player (colum*Tile.WIDTH, row*Tile.WIDTH));               
+                entityManager.setPlayer(new Player (entityManager.getPlayer(), colum*Tile.WIDTH, row*Tile.WIDTH));               
                 break;
             case 'E':
                 entityManager.addEnemy(new Enemy (colum*Tile.WIDTH, row*Tile.WIDTH, EnemyType.BEE));

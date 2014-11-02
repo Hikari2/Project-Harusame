@@ -31,6 +31,12 @@ public class Player extends MovableSprite {
         MOVE_SPEED = 5;
     }
     
+    public Player(Player p, int x, int y) {
+        super(x, y);
+        life = p.getLife();
+        MOVE_SPEED = 5;
+    }
+    
     public boolean isLifeLeft (){
         return life > 0;
     }
