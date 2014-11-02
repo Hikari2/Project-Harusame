@@ -116,13 +116,17 @@ public class GamePanel extends JPanel
 	public void keyTyped(KeyEvent key) {}
         
         @Override
-	public void keyPressed(KeyEvent key) {          
-            ctrl.keyPressed(key.getKeyCode());
+	public void keyPressed(KeyEvent key) { 
+            if(repManager.getMenuState() != 1)
+                 ctrl.keyPressed(key.getKeyCode());            
+            else if(repManager.getMenuState() == 1)
+                repManager.getGameOverMenu().KeyPressed(key.getKeyCode());
 	}
         
         @Override
 	public void keyReleased(KeyEvent key) {
-            ctrl.keyReleased(key.getKeyCode());
+            if(repManager.getMenuState() != 1)
+                ctrl.keyReleased(key.getKeyCode());
 	}
 }
 

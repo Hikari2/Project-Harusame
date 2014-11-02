@@ -144,8 +144,19 @@ public class RepresentationManager implements Observer{
     
     @Override
     public void notifyGameOver () {
-        GAME_OVER_SCREEN = new GameOverScreen ();
+        if(MENUSTATE != 1)        
+            GAME_OVER_SCREEN = new GameOverScreen ();
         MENUSTATE = 1;
+    }
+    
+    public int getMenuState()
+    {
+        return MENUSTATE;
+    }
+    
+    public GameOverScreen getGameOverMenu()
+    {
+        return GAME_OVER_SCREEN;
     }
     
     private boolean isInMenu () {
