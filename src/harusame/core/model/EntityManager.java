@@ -1,5 +1,6 @@
 package harusame.core.model;
 
+import harusame.core.model.map.MapLoader;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import static harusame.core.util.Direction.LEFT;
@@ -12,7 +13,11 @@ import java.util.ArrayList;
 
 public class EntityManager {
 
+    private boolean GAME_IS_ACTIVE;
+    
     private Observer observer;
+    
+    private MapLoader   MapLoader;
     
     private Level CURRENT_LEVEL = Level_1;
     
@@ -23,16 +28,33 @@ public class EntityManager {
     private ArrayList<MovableSprite> movables = new ArrayList ();
     
     public EntityManager () {
-        
+        MapLoader = new MapLoader (this);
     }
     
-    public void reset () {
+    public void startGame () {
+        MapLoader.loadMap(Level.Level_1);
+        GAME_IS_ACTIVE = true;
+    }
+    
+    private void reloadGame (Player p){
+        reset ();
+        observer.notifyReset();
+        MapLoader.loadMap(CURRENT_LEVEL);
+        player.setLife(p.getLife());
+    }
+    
+    private void gameOver () {
+        GAME_IS_ACTIVE = false;
+        reset ();
+        observer.notifyGameOver ();
+    }
+    
+    private void reset (){
         player = null;
         map = new TileMap (0, 0);
         enemies = new ArrayList (); 
         projectiles = new ArrayList ();
         movables = new ArrayList ();
-        observer.notifyReset ();
     }
     
     /**
@@ -40,8 +62,8 @@ public class EntityManager {
      */
     public void update () {
         
-        if (!player.isACTIVE () && !player.isLocked())
-            observer.notifyGameOver();
+        if (!GAME_IS_ACTIVE)
+            return;
         
         player.update ();
         
@@ -49,13 +71,23 @@ public class EntityManager {
             enemies.get(i).update();
         }
         
+        if (!player.isACTIVE ()) {
+            
+            for (int i=0; i<enemies.size(); i++) 
+                checkEnemyCollision (enemies.get(i));   
+            
+            if (!player.isLocked() && player.isLifeLeft()) 
+                reloadGame (player);
+                
+            else if (!player.isLocked() && !player.isLifeLeft()) 
+                gameOver ();
+            
+            return;
+        }
+
         checkPlayerTileCollision ();
         
         for (int i=0; i<enemies.size(); i++) {
-            if (!enemies.get(i).isACTIVE ()){
-                enemies.remove(i);
-                continue;
-            }
             checkEnemyCollision (enemies.get(i));
             checkPlayerEnemyCollision (enemies.get(i));            
         }
@@ -71,6 +103,7 @@ public class EntityManager {
     
     public void addObserver (Observer o) {
         observer = o;
+        observer.notifyNewLevel (CURRENT_LEVEL);
     }
     
     private void checkPlayerTileCollision () {
@@ -174,6 +207,7 @@ public class EntityManager {
                 if(movable.isFalling() == true)
                 {
                      enemies.get(i).kill();
+                     enemies.remove(i);
                      //movable.kill();
                      return;
                 }
@@ -204,7 +238,6 @@ public class EntityManager {
         
         if (playerBound.intersects(enemyBound)){
             player.kill();
-            enemy.kill();
         }
     }  
    

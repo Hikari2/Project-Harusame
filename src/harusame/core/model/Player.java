@@ -24,17 +24,24 @@ public class Player extends MovableSprite {
     private DirectionQueue  dQueue = new DirectionQueue ();
     
     private Direction lockedDirection = NEUTRAL;
-    
+
     public Player(int x, int y) {
         super(x, y);
+        life = 3;
         MOVE_SPEED = 5;
     }
     
+    public boolean isLifeLeft (){
+        return life > 0;
+    }
+    
+    @Override
     public void revert () {
        x = lastX;
        y = lastY;
     }
     
+    @Override
     public void update () {
 
         lockMovement (9, DIRECTION);
@@ -75,10 +82,10 @@ public class Player extends MovableSprite {
         if (isLocked ()) {
             DIRECTION = lockedDirection;
             lock--;
-            System.out.println ("DIRECTION : " + DIRECTION + "   Lock : " + lock);
+            //System.out.println ("DIRECTION : " + DIRECTION + "   Lock : " + lock);
             if (!isLocked ()) {
                 DIRECTION = dQueue.getMostRecentDirection();
-                            System.out.println ("DIRECTION : " + DIRECTION + "   Lock : " + lock);
+                            //System.out.println ("DIRECTION : " + DIRECTION + "   Lock : " + lock);
                 return;
             }
         }

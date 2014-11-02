@@ -20,6 +20,7 @@ public class MovableSprite extends Sprite {
     
     protected int lock;
     
+    int life;
     private MovableType type;
     private boolean falling;
     
@@ -77,13 +78,12 @@ public class MovableSprite extends Sprite {
                 this.y+=MOVE_SPEED;
                 break; 
         }
-        
-        
     }
     
     public void kill () {
         setACTIVE (false);
         lock = 15;
+        life--;
         DIRECTION = OTHER;
         LAST_DIRECTION = OTHER;
     }
@@ -112,5 +112,13 @@ public class MovableSprite extends Sprite {
     
      public MovableType  getType () {
         return type;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
     }
 }

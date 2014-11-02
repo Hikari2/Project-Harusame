@@ -5,6 +5,7 @@ import harusame.core.model.Enemy;
 import harusame.core.model.MovableSprite;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
+import harusame.core.util.Level;
 import harusame.core.util.Observer;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
  * model.
  */
 public class RepresentationManager implements Observer{
+    
+    private boolean GAME_IS_ACTIVE;
     
     private int CAMERA_SIZE_X = GamePanel.WIDTH;
     private int CAMERA_SIZE_Y = GamePanel.HEIGHT;
@@ -38,12 +41,16 @@ public class RepresentationManager implements Observer{
     private TileRepresentation[][]  tiles;
     private TileImageLoader tl;
     
-    public RepresentationManager(String level)
+    public RepresentationManager()
     {
-        tl = new TileImageLoader(level);
+
     }
     
     public void update () {
+        
+        if (!GAME_IS_ACTIVE)
+            return;
+        
         player.update ();
         
         for (int i=0; i<enemies.size(); i++) {
@@ -115,6 +122,8 @@ public class RepresentationManager implements Observer{
         
         offsetMaxX = (w * Tile.WIDTH ) - CAMERA_SIZE_X;
         offsetMaxY = (h * Tile.WIDTH) - CAMERA_SIZE_Y;
+        
+        GAME_IS_ACTIVE = true;
     }
     
         private void adjustCamera (Graphics g, int x, int y) {
@@ -146,6 +155,12 @@ public class RepresentationManager implements Observer{
     public void notifyGameOver () {
         GAME_OVER_SCREEN = new GameOverScreen ();
         MENUSTATE = 1;
+        notifyReset();
+        GAME_IS_ACTIVE = false;
+    }
+    
+    public void notifyNewLevel (Level level) {
+        tl = new TileImageLoader(level);
     }
     
     private boolean isInMenu () {

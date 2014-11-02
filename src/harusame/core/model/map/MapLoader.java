@@ -5,6 +5,7 @@ import harusame.core.model.Player;
 import harusame.core.model.Enemy;
 import harusame.core.model.MovableSprite;
 import harusame.core.util.EnemyType;
+import harusame.core.util.Level;
 import harusame.core.util.MovableType;
 import harusame.core.util.TileType;
 import java.io.BufferedReader;
@@ -35,9 +36,8 @@ public class MapLoader
        entityManager = em;
     }
     
-    public void loadMap(String level)
+    public void loadMap(Level level)
     {
-        entityManager.reset ();
         
         BufferedReader br = null;
         
@@ -83,7 +83,7 @@ public class MapLoader
         }          
     }
     
-    private void LoadSymbolMap (String level, BufferedReader br) throws FileNotFoundException, IOException {
+    private void LoadSymbolMap (Level level, BufferedReader br) throws FileNotFoundException, IOException {
         symbolMap = new HashMap ();
         br = new BufferedReader(new FileReader("Resources/Maps/" +level +"/SymbolMap.txt"));
         

@@ -1,5 +1,6 @@
 package harusame.core.view;
 
+import harusame.core.util.Level;
 import harusame.core.util.TileType;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -14,17 +15,17 @@ import javax.imageio.ImageIO;
 public class TileImageLoader {
         
     private BufferedReader br;    
-    private String currentLevel;
-    public TileImageLoader (String level)
+    private Level CURRENT_LEVEL;
+    public TileImageLoader (Level level)
     {
-        currentLevel = level;        
+        CURRENT_LEVEL = level;        
     }
     
     public BufferedImage getImage(TileType type)
     {
         try
         {       
-            br = new BufferedReader(new FileReader("Resources/Maps/" + currentLevel +"/TileTypeToImage.txt")); 
+            br = new BufferedReader(new FileReader("Resources/Maps/" + CURRENT_LEVEL +"/TileTypeToImage.txt")); 
             String line = br.readLine();
             while (line != null) 
             {

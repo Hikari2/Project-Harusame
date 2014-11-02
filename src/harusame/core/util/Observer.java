@@ -22,4 +22,6 @@ public interface Observer {
     void notifyNewMovable (MovableSprite e);
     
     void notifyGameOver ();
+    
+    void notifyNewLevel (Level level);
 }
