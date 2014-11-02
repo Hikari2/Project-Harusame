@@ -10,11 +10,11 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- *
- * @author Hikari
+ * This class holds and handles all visual representations of entities in the 
+ * model.
  */
 public class RepresentationManager implements Observer{
-
+    
     private int CAMERA_SIZE_X = GamePanel.WIDTH;
     private int CAMERA_SIZE_Y = GamePanel.HEIGHT;
     
@@ -28,7 +28,7 @@ public class RepresentationManager implements Observer{
     
     private int MENUSTATE = -1;
     
-    private GameOverScreen  gos;
+    private GameOverScreen  GAME_OVER_SCREEN;
     
     private PlayerRepresentation    player;
 
@@ -47,6 +47,10 @@ public class RepresentationManager implements Observer{
         player.update ();
         
         for (int i=0; i<enemies.size(); i++) {
+            if (!enemies.get(i).isACTIVE()) {
+                enemies.remove(i);
+                continue;
+            }
             enemies.get(i).update();
         }
     }
@@ -140,7 +144,7 @@ public class RepresentationManager implements Observer{
     
     @Override
     public void notifyGameOver () {
-        gos = new GameOverScreen ();
+        GAME_OVER_SCREEN = new GameOverScreen ();
         MENUSTATE = 1;
     }
     
@@ -151,10 +155,10 @@ public class RepresentationManager implements Observer{
             return false;
     }
     
-    private Menu    getCurrentMenu () {
+    private Menu getCurrentMenu () {
         switch (MENUSTATE) {
             case 1:
-                return gos;
+                return GAME_OVER_SCREEN;
         }
         return null;
     }

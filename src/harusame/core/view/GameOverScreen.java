@@ -35,7 +35,7 @@ public class GameOverScreen implements Menu {
             titleFont = new Font(
                             "Century Gothic",
                             Font.PLAIN,
-                            46);
+                            90);
 
             font = new Font("Arial", Font.PLAIN, 32);
 
@@ -51,7 +51,7 @@ public class GameOverScreen implements Menu {
         // draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("It appears you suck", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
+        g.drawString("Nigga you dead", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
 
         // draw menu options
         g.setFont(font);

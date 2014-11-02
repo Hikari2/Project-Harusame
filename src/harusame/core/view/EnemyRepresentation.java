@@ -7,41 +7,53 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /**
- *
- * @author Hikari
+ * This class handles the visual representation of a enemy
  */
 public class EnemyRepresentation {
     
-    private AnimationLoader al;
+    private AnimationLoader animationLoader;
     private Enemy   enemy;
     private int x;
     private int y;
     private Direction   DIRECTION;
     private Direction   LAST_DIRECTION;
-    
+    private boolean ACTIVE;
     private Animation   ACTIVE_ANIMATION;
     
+    private int counter = 20;
+   
+    /**
+     * Constructor for the class EnemyRepresentation
+     * @param e The actual entity this class represent
+     */
     public EnemyRepresentation (Enemy e) {
         enemy = e;
         init ();
     }
     
     private void init () {
-
+        ACTIVE = true;
+        
         if (enemy.getEnemyType() == EnemyType.BEE) {
-            al = new AnimationLoader ("Enemy/th_bee");
+            animationLoader = new AnimationLoader ("Enemy/th_bee");
         }
         
-        ACTIVE_ANIMATION = al.getFacingLeft();
+        ACTIVE_ANIMATION = animationLoader.getFacingLeft();
         x = enemy.getX();
         y = enemy.getY();
     }
     
+    /**
+     * Change to the next frame corresponding to the current status of the sprite
+     */
     public void update () {
         
         if (enemy.isACTIVE() == false) {
-            ACTIVE_ANIMATION = al.getDeath();
+            counter--;
+            ACTIVE_ANIMATION = animationLoader.getDeath();
             ACTIVE_ANIMATION.nextFrame ();
+            if (counter == 0)
+                ACTIVE = false;
             return;
         }
         
@@ -53,19 +65,19 @@ public class EnemyRepresentation {
         
         switch (DIRECTION){
             case LEFT:                 
-                ACTIVE_ANIMATION = al.getFacingLeft();
+                ACTIVE_ANIMATION = animationLoader.getFacingLeft();
                 break;
                 
             case RIGHT: 
-                ACTIVE_ANIMATION = al.getFacingRight();
+                ACTIVE_ANIMATION = animationLoader.getFacingRight();
                 break;
                 
             case UP: 
-                ACTIVE_ANIMATION = al.getFacingUp();
+                ACTIVE_ANIMATION = animationLoader.getFacingUp();
                 break;
                 
             case DOWN: 
-                ACTIVE_ANIMATION = al.getFacingDown();
+                ACTIVE_ANIMATION = animationLoader.getFacingDown();
                 break;
         }
         ACTIVE_ANIMATION.nextFrame();
@@ -74,6 +86,14 @@ public class EnemyRepresentation {
         y = enemy.getY();
     }
     
+    public boolean isACTIVE() {
+        return ACTIVE;
+    }
+    
+    /**
+     * Draw the current active animation frame
+     * @param g 
+     */
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
        g.drawImage(image, x, y, enemy.getDX(), enemy.getDY(), null);

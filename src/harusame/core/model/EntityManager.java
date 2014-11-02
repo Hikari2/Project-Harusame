@@ -4,6 +4,8 @@ import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
+import harusame.core.util.Level;
+import static harusame.core.util.Level.Level_1;
 import harusame.core.util.Observer;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.ArrayList;
 public class EntityManager {
 
     private Observer observer;
+    
+    private Level CURRENT_LEVEL = Level_1;
     
     private Player  player;
     private TileMap map;
@@ -31,35 +35,9 @@ public class EntityManager {
         observer.notifyReset ();
     }
     
-    public void setPlayer(Player player) {
-        this.player = player;
-        observer.notifyNewPlayer(player);
-    }
-    
-    public Player getPlayer () {
-        return player;
-    }
-    
-    public void setMap(TileMap map) {
-        this.map = map;
-        observer.notifyNewMap(map);
-    }
-    
-    public void addEnemy(Enemy enemy) {
-        enemies.add (enemy);
-        observer.notifyNewEnemy(enemy);
-    }
-    
-    public void addMovable(MovableSprite movable)
-    {
-        movables.add(movable);
-        observer.notifyNewMovable(movable);       
-    }
-
-    public void setProjectiles(ArrayList<Projectile> projectiles) {
-        this.projectiles = projectiles;
-    }
-    
+    /**
+     * Update all objects in the model
+     */
     public void update () {
         
         if (!player.isACTIVE () && !player.isLocked())
@@ -74,14 +52,15 @@ public class EntityManager {
         checkPlayerTileCollision ();
         
         for (int i=0; i<enemies.size(); i++) {
-            if (!enemies.get(i).isACTIVE ())
-                    continue;
+            if (!enemies.get(i).isACTIVE ()){
+                enemies.remove(i);
+                continue;
+            }
             checkEnemyCollision (enemies.get(i));
             checkPlayerEnemyCollision (enemies.get(i));            
         }
         
-        for(int i=0; i<movables.size(); i++)
-        {
+        for(int i=0; i<movables.size(); i++){
             if (!movables.get(i).isACTIVE ())
                     continue;
             checkPlayerMovableCollision (movables.get(i));
@@ -100,7 +79,7 @@ public class EntityManager {
         int colum = player.getX() / Tile.WIDTH;
         int row = player.getY() / Tile.WIDTH;
         
-        Tile[]  tiles = getSourroundingTiles (colum, row);
+        Tile[]  tiles = getSurroundingTiles (colum, row);
         Tile    tile;
         
         for (int i=0; i<tiles.length; i++) {
@@ -116,7 +95,7 @@ public class EntityManager {
         int colum = enemy.getX() / Tile.WIDTH;
         int row = enemy.getY() / Tile.WIDTH;
         
-        Tile[]  tiles = getSourroundingTiles (colum, row);
+        Tile[]  tiles = getSurroundingTiles (colum, row);
         Tile    tile;
         
         // Tiles
@@ -208,8 +187,7 @@ public class EntityManager {
         movable.setFalling(true);        
     }
     
-    // GODRIKE ENGRISH DETECTED
-    private Tile[]  getSourroundingTiles (int colum, int row) {
+    private Tile[]  getSurroundingTiles (int colum, int row) {
         Tile[]  tiles = new Tile[5];
         tiles[0] = map.getTile(colum, row);
         tiles[1] = map.getTile(colum+1, row);
@@ -308,4 +286,33 @@ public class EntityManager {
         }
         return true;
     }    
+    
+    public void setPlayer(Player player) {
+        this.player = player;
+        observer.notifyNewPlayer(player);
+    }
+    
+    public Player getPlayer () {
+        return player;
+    }
+    
+    public void setMap(TileMap map) {
+        this.map = map;
+        observer.notifyNewMap(map);
+    }
+    
+    public void addEnemy(Enemy enemy) {
+        enemies.add (enemy);
+        observer.notifyNewEnemy(enemy);
+    }
+    
+    public void addMovable(MovableSprite movable)
+    {
+        movables.add(movable);
+        observer.notifyNewMovable(movable);       
+    }
+
+    public void setProjectiles(ArrayList<Projectile> projectiles) {
+        this.projectiles = projectiles;
+    }
 }

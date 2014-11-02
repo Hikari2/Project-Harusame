@@ -14,6 +14,7 @@ public class TileRepresentation {
     private Tile tile;
     private BufferedImage   image;    
     private TileType type;
+    
     public TileRepresentation (Tile t) {
         tile = t;
         type = tile.getType ();        

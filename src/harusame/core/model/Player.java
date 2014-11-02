@@ -41,6 +41,9 @@ public class Player extends MovableSprite {
         lastX = x;
         lastY = y;
         
+        if (!isLocked ())
+            return;
+        
         if (!isLocked () && !isACTIVE ()) 
             return;
         
@@ -72,8 +75,10 @@ public class Player extends MovableSprite {
         if (isLocked ()) {
             DIRECTION = lockedDirection;
             lock--;
+            System.out.println ("DIRECTION : " + DIRECTION + "   Lock : " + lock);
             if (!isLocked ()) {
                 DIRECTION = dQueue.getMostRecentDirection();
+                            System.out.println ("DIRECTION : " + DIRECTION + "   Lock : " + lock);
                 return;
             }
         }

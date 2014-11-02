@@ -14,6 +14,7 @@ import harusame.core.util.Observer;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
+
 	implements Runnable, KeyListener {
 	
         // controller
@@ -21,8 +22,8 @@ public class GamePanel extends JPanel
         private RepresentationManager   repManager;
         
 	// dimensions
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 800;
 	public static final int SCALE = 1;
 	
 	// game thread
