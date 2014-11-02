@@ -12,8 +12,6 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class EntityManager {
-
-    private boolean GAME_IS_ACTIVE;
     
     private Observer observer;
     
@@ -31,38 +29,11 @@ public class EntityManager {
         MapLoader = new MapLoader (this);
     }
     
-    public void startGame () {
-        MapLoader.loadMap(Level.Level_1);
-        GAME_IS_ACTIVE = true;
-    }
-    
-    private void reloadGame (Player p){
-        reset ();
-        observer.notifyReset();
-        MapLoader.loadMap(CURRENT_LEVEL);
-        player.setLife(p.getLife());
-    }
-    
-    private void gameOver () {
-        GAME_IS_ACTIVE = false;
-        reset ();
-        observer.notifyGameOver ();
-    }
-    
-    private void reset (){
-        player = null;
-        map = new TileMap (0, 0);
-        enemies = new ArrayList (); 
-        projectiles = new ArrayList ();
-        movables = new ArrayList ();
-    }
-    
     /**
      * Update all objects in the model
      */
     public void update () {
-        
-        if (!GAME_IS_ACTIVE)
+        if (player == null)
             return;
         
         player.update ();
@@ -101,9 +72,30 @@ public class EntityManager {
         }
     }
     
-    public void addObserver (Observer o) {
-        observer = o;
-        observer.notifyNewLevel (CURRENT_LEVEL);
+        
+    public void startGame () {
+        MapLoader.loadMap(Level.Level_1);
+    }
+    
+    private void reloadGame (Player p){
+        reset ();
+        observer.notifyReset();
+        MapLoader.loadMap(CURRENT_LEVEL);
+        player.setLife(p.getLife());
+        setPlayer (player);
+    }
+    
+    private void gameOver () {
+        reset ();
+        observer.notifyGameOver ();
+    }
+    
+    private void reset (){
+        player = null;
+        map = new TileMap (0, 0);
+        enemies = new ArrayList (); 
+        projectiles = new ArrayList ();
+        movables = new ArrayList ();
     }
     
     private void checkPlayerTileCollision () {
@@ -347,5 +339,10 @@ public class EntityManager {
 
     public void setProjectiles(ArrayList<Projectile> projectiles) {
         this.projectiles = projectiles;
+    }
+    
+    public void addObserver (Observer o) {
+        observer = o;
+        observer.notifyNewLevel (CURRENT_LEVEL);
     }
 }
