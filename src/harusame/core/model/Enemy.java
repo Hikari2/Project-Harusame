@@ -21,6 +21,7 @@ public class Enemy extends MovableSprite{
         DIRECTION = LEFT;
     }
  
+    @Override
     public void revert () {  
         x = lastX;
         y = lastY;       
