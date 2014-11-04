@@ -74,7 +74,7 @@ public class CollisionHandler {
             }
         
         for (int i=0; i<enemies.size(); i++)
-            if (stoneBound.intersects(enemies.get(i).getBound())){
+            if (stoneBound.intersects(enemies.get(i).getBound())){                
                 stone.revert();
                 return true;
             }
@@ -144,7 +144,7 @@ public class CollisionHandler {
                 tile = t;
                 if (tile != null && enemyBound.intersects(tile.getBound()))
                 {
-                    enemy.revert();
+                    enemy.revert();                   
                     return;
                 }
             }
