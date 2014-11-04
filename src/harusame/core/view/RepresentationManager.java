@@ -3,6 +3,7 @@ package harusame.core.view;
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
 import harusame.core.model.MovableSprite;
+import harusame.core.model.Stone;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Level;
@@ -36,7 +37,7 @@ public class RepresentationManager implements Observer{
     private PlayerRepresentation    player;
 
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
-    private ArrayList<MovableRepresentation> movables = new ArrayList ();
+    private ArrayList<StoneRepresentation> movables = new ArrayList ();
     
     private TileRepresentation[][]  tiles;
     private TileImageLoader tl;
@@ -73,8 +74,8 @@ public class RepresentationManager implements Observer{
     }
     
     @Override
-    public void notifyNewMovable(MovableSprite e) {
-        movables.add(new MovableRepresentation (e));
+    public void notifyNewStone (Stone s) {
+        movables.add(new StoneRepresentation (s));
     }
     
     public void draw(Graphics g) {
@@ -148,6 +149,7 @@ public class RepresentationManager implements Observer{
     public void notifyReset() {
         player = null;
         enemies = new ArrayList ();
+        movables = new ArrayList ();
         tiles = null;
     }
     

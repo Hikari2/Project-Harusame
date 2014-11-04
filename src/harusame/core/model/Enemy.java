@@ -14,7 +14,7 @@ public class Enemy extends MovableSprite{
     
     private EnemyType   type;
     
-    public Enemy(int x, int y, EnemyType    type) {
+    public Enemy(int x, int y, EnemyType type) {
         super(x, y);
         this.type = type;
         MOVE_SPEED = 5;
@@ -77,7 +77,6 @@ public class Enemy extends MovableSprite{
                 break; 
         }
     }
-    
     
     public EnemyType getEnemyType () {
         return type;

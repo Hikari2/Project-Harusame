@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  *
  * @author Hikari
  */
-public class MovableRepresentation {
+public class StoneRepresentation {
     
     private AnimationLoader al;
     private BufferedImage image;    
@@ -22,7 +22,7 @@ public class MovableRepresentation {
     
     private Animation   ACTIVE_ANIMATION;
     
-    public MovableRepresentation (MovableSprite e) {
+    public StoneRepresentation (MovableSprite e) {
         movable = e;
         init ();
     }
@@ -30,9 +30,7 @@ public class MovableRepresentation {
     private void init () {
         try
         {
-            if (movable.getType() == MovableType.STONE) {
-                image = ImageIO.read(new File("Resources/Sprites/Misc/Stone.png"));
-            }
+            image = ImageIO.read(new File("Resources/Sprites/Misc/Stone.png"));
         }
         catch (Exception e)
         {

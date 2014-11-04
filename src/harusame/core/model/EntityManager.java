@@ -13,9 +13,12 @@ import java.util.ArrayList;
 
 public class EntityManager {
     
+    private boolean GAME_PAUSED;
+    
     private Observer observer;
     
-    private MapLoader   MapLoader;
+    private MapLoader   mapLoader;
+    private CollisionHandler collisionHandler;
     
     private Level CURRENT_LEVEL = Level_1;
     
@@ -24,125 +27,102 @@ public class EntityManager {
     private TileMap map;
     private ArrayList<Enemy>    enemies = new ArrayList ();
     private ArrayList<Projectile>   projectiles = new ArrayList ();
-    private ArrayList<MovableSprite> movables = new ArrayList ();
+    
+    private ArrayList<Stone> stones = new ArrayList ();
+    
+    private ArrayList<MovableSprite> objectives = new ArrayList ();
     
     public EntityManager () {
-        MapLoader = new MapLoader (this);
+        mapLoader = new MapLoader (this);
+        collisionHandler = new CollisionHandler ();
     }
     
     /**
      * Update all objects in the model
      */
     public void update () {
-        if (player == null)
+        
+        if (GAME_PAUSED)
             return;
         
         player.update ();
         
-        for (int i=0; i<enemies.size(); i++) 
-            enemies.get(i).update();
-
         if (!player.isACTIVE ()) {
             
-            for (int i=0; i<enemies.size(); i++) 
-                checkEnemyCollision (enemies.get(i));   
-            
             if (!player.isLocked() && player.isLifeLeft()) 
-                reloadGame (player);
+                reloadGame ();
                 
             else if (!player.isLocked() && !player.isLifeLeft()) 
                 gameOver ();
             
             return;
         }
-
-        checkPlayerTileCollision ();
         
-        for (int i=0; i<enemies.size(); i++) {
-            checkEnemyCollision (enemies.get(i));
-            checkPlayerEnemyCollision (enemies.get(i));            
-        }
+        for (int i=0; i<enemies.size(); i++) 
+            enemies.get(i).update();
         
-        for(int i=0; i<movables.size(); i++){
-            if (!movables.get(i).isACTIVE ())
-                    continue;
-            checkPlayerMovableCollision (movables.get(i));
-            movables.get(i).update();
-            checkMovableFallCollision(movables.get(i));            
+        collisionHandler.checkPlayerTileCollision(player, map);
+        collisionHandler.checkEnemyCollision (enemies, stones, map); 
+        
+        collisionHandler.checkPlayerEnemyCollision(player, enemies);
+        
+        collisionHandler.checkPlayerStoneCollision (player, map, stones, enemies);
+        
+        for (int i=0; i<stones.size(); i++){
+            Stone stone = stones.get (i);
+            if (stone.isFalling()){
+                stone.update();
+                collisionHandler.checkFallingStoneCollision (player, stone, map, stones, enemies);
+            }
+            else {
+                handleGravityOnStones (stone);
+            } 
         }
     }
-    
         
     public void startGame () {
-        MapLoader.loadMap(Level.Level_1);
+        mapLoader.loadMap(Level.Level_1);
+        GAME_PAUSED = false;
     }
     
-    private void reloadGame (Player p){
+    private void reloadGame (){
         reset ();
         observer.notifyReset();
-        MapLoader.loadMap(CURRENT_LEVEL);
+        mapLoader.loadMap(CURRENT_LEVEL);
     }
     
     private void gameOver () {
         reset ();
         player = null;
         observer.notifyGameOver ();
+        GAME_PAUSED = true;
     }
     
     private void reset (){
         map = new TileMap (0, 0);
         enemies = new ArrayList (); 
         projectiles = new ArrayList ();
-        movables = new ArrayList ();
+        stones = new ArrayList ();
     }
     
-    private void checkPlayerTileCollision () {
-        
-        Rectangle playerBound = player.getBound();
-        int colum = player.getX() / Tile.WIDTH;
-        int row = player.getY() / Tile.WIDTH;
-        
-        Tile[]  tiles = getSurroundingTiles (colum, row);
-        Tile    tile;
-        
-        for (int i=0; i<tiles.length; i++) {
-            tile = tiles[i];
-            if (tile != null && playerBound.intersects(tile.getBound()))
-                player.revert();
-        }
-    }
-    
-    private void checkEnemyCollision (Enemy enemy) {
-        
-        Rectangle enemyBound = enemy.getBound();
-        int colum = enemy.getX() / Tile.WIDTH;
-        int row = enemy.getY() / Tile.WIDTH;
-        
-        Tile[]  tiles = getSurroundingTiles (colum, row);
-        Tile    tile;
-        
-        // Tiles
-        for (int i=0; i<tiles.length; i++) {
-            tile = tiles[i];
-            if (tile == null);
-            else if (tile != null && enemyBound.intersects(tile.getBound()))
-            {
-                enemy.revert();
+    private void handleGravityOnStones (Stone stone){
+        int y = stone.getY();
+        int x = stone.getX();
+        for (int i=0; i<stones.size(); i++){
+            if (y == stones.get(i).getY()-Tile.WIDTH && x == stones.get(i).getX())
                 return;
-            }
         }
-        // Movables
-        Rectangle movableBound;
-        for(int i=0; i<movables.size(); i++)
-        {
-            movableBound = movables.get(i).getBound();
-            if(enemyBound.intersects(movableBound))
-                enemy.revert();
-        }        
+        
+        int COLUMN = stone.getX() / Tile.WIDTH;
+        int ROW = stone.getY() / Tile.WIDTH;
+        
+        Tile t = map.getTile(COLUMN, ROW+1);
+        
+        if (t == null)
+            stone.setFalling(true);
+        
     }
-    
-    
-    // Falling
+    /*
     private void checkMovableFallCollision (MovableSprite movable) {
         
         Rectangle movableBound = movable.getBound();
@@ -210,34 +190,14 @@ public class EntityManager {
         }        
         movable.setFalling(true);        
     }
-    
-    private Tile[]  getSurroundingTiles (int colum, int row) {
-        Tile[]  tiles = new Tile[5];
-        tiles[0] = map.getTile(colum, row);
-        tiles[1] = map.getTile(colum+1, row);
-        tiles[2] = map.getTile(colum-1, row);
-        tiles[3] = map.getTile(colum, row+1);
-        tiles[4] = map.getTile(colum, row-1);
-                                        
-        return tiles;
-    }
-    
-    private void checkPlayerEnemyCollision (Enemy enemy) {
-        Rectangle playerBound = player.getBound();
-        Rectangle enemyBound = enemy.getBound();
-        
-        if (playerBound.intersects(enemyBound)){
-            player.kill();
-        }
-    }  
-   
+   /*
     private void checkPlayerMovableCollision (MovableSprite movable) {
         Rectangle playerBound = player.getBound();
         Rectangle movableBound = movable.getBound();
         int colum = movable.getX() / Tile.WIDTH;
         int row = movable.getY() / Tile.WIDTH;
        
-       
+      
         if (playerBound.intersects(movableBound)){
             if(player.getDIRECTION() == RIGHT)
             {
@@ -258,7 +218,7 @@ public class EntityManager {
                         {                            
                             colum = enemies.get(i).getX() / Tile.WIDTH;
                             row = enemies.get(i).getY() / Tile.WIDTH;                            
-                            if(map.getTile(colum + 1, row) == null)                            
+                            if(map.getTile(colum + 1, row) == null)                          
                                 enemies.get(i).setX(movable.getX() + 45); 
                             else
                             {
@@ -309,9 +269,9 @@ public class EntityManager {
         }
         return true;
     }    
-    
-    public void setPlayer(Player player) {
-        this.player = player;
+    */
+    public void setPlayer(int x, int y) {
+        player = new Player(player, x, y);
         observer.notifyNewPlayer(player);
     }
     
@@ -329,10 +289,10 @@ public class EntityManager {
         observer.notifyNewEnemy(enemy);
     }
     
-    public void addMovable(MovableSprite movable)
+    public void addStone(Stone stone)
     {
-        movables.add(movable);
-        observer.notifyNewMovable(movable);       
+        stones.add(stone);
+        observer.notifyNewStone(stone);       
     }
 
     public void setProjectiles(ArrayList<Projectile> projectiles) {
@@ -341,6 +301,7 @@ public class EntityManager {
     
     public void addObserver (Observer o) {
         observer = o;
+        collisionHandler.setObserver(o);
         observer.notifyNewLevel (CURRENT_LEVEL);
     }
 }

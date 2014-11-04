@@ -1,9 +1,9 @@
 package harusame.core.model.map;
 
 import harusame.core.model.EntityManager;
-import harusame.core.model.Player;
 import harusame.core.model.Enemy;
 import harusame.core.model.MovableSprite;
+import harusame.core.model.Stone;
 import harusame.core.util.EnemyType;
 import harusame.core.util.Level;
 import harusame.core.util.MovableType;
@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -21,6 +22,8 @@ import java.util.HashMap;
  */
 public class MapLoader 
 {
+    List<Level>    levelMap = new ArrayList<> ();
+    
     private EntityManager   entityManager;
 
     private TileMap map;
@@ -34,6 +37,13 @@ public class MapLoader
 
     public MapLoader(EntityManager em) {
        entityManager = em;
+       
+       levelMap.add(Level.Level_1);
+       levelMap.add(Level.Level_2);
+    }
+    
+    public void loadNextMap (Level level){
+        
     }
     
     public void loadMap(Level level)
@@ -85,7 +95,6 @@ public class MapLoader
     
     private void LoadSymbolMap (Level level, BufferedReader br) throws FileNotFoundException, IOException {
         symbolMap = new HashMap ();
-        br = new BufferedReader(new FileReader("Resources/Maps/" +level +"/SymbolMap.txt"));
         
         Object[]    data;
         String symbol = " ";
@@ -126,13 +135,16 @@ public class MapLoader
         
         switch (symbol){
             case 'P':
-                entityManager.setPlayer(new Player (entityManager.getPlayer(), colum*Tile.WIDTH, row*Tile.WIDTH));               
+                entityManager.setPlayer(colum*Tile.WIDTH, row*Tile.WIDTH);               
                 break;
             case 'E':
                 entityManager.addEnemy(new Enemy (colum*Tile.WIDTH, row*Tile.WIDTH, EnemyType.BEE));
                 break;
+            case 'e':
+                entityManager.addEnemy(new Enemy (colum*Tile.WIDTH, row*Tile.WIDTH, EnemyType.BEE_LARVA));
+                break;
             case 'S':               
-                entityManager.addMovable(new MovableSprite (colum*Tile.WIDTH, row*Tile.WIDTH, MovableType.STONE));
+                entityManager.addStone(new Stone (colum*Tile.WIDTH, row*Tile.WIDTH));
         }
     }
 }

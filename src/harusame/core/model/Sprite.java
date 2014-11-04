@@ -23,6 +23,8 @@ public class Sprite{
    public Sprite (int x, int y) {
        this.x = x;
        this.y = y;
+       lastX = x;
+       lastY = y;
        dx = Tile.WIDTH;
        dy = Tile.WIDTH;
    }

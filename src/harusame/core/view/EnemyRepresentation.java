@@ -38,6 +38,10 @@ public class EnemyRepresentation {
             animationLoader = new AnimationLoader ("Enemy/th_bee");
         }
         
+        if (enemy.getEnemyType() == EnemyType.BEE_LARVA) {
+            animationLoader = new AnimationLoader ("Enemy/th_bee_larva");
+        }
+        
         ACTIVE_ANIMATION = animationLoader.getFacingLeft();
         x = enemy.getX();
         y = enemy.getY();

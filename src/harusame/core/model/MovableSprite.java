@@ -21,39 +21,19 @@ public class MovableSprite extends Sprite {
     protected int lock;
     
     int life;
-    private MovableType type;
-    private boolean falling;
-    
+
     public MovableSprite(int x, int y) {
         super(x, y);
-        type = null;
         MOVE_SPEED = 5;
     }
     
     public MovableSprite(int x, int y, MovableType newType) {
         super(x, y);
-        type = newType;
-        if(type == STONE)
-        {
-            MOVE_SPEED = 15;
-            DIRECTION = DOWN;
-            falling = false;
-        }
     }
     
     public void revert () {  
         x = lastX;
         y = lastY;       
-    }
-    
-    public boolean isFalling()
-    {
-        return falling;
-    }
-    
-    public void setFalling(boolean newFall)
-    {
-        falling = newFall;
     }
     
     public void update () 
@@ -108,10 +88,6 @@ public class MovableSprite extends Sprite {
 
     public void setLAST_DIRECTION(Direction LAST_DIRECTION) {
         this.LAST_DIRECTION = LAST_DIRECTION;
-    }
-    
-     public MovableType  getType () {
-        return type;
     }
 
     public int getLife() {
