@@ -25,13 +25,13 @@ public class Stone extends MovableSprite {
         this.falling = falling;
     }
     
-    public void moveLeft (){
+    public void moveLeft (int playerX){
         lastX = x;
-        x = x - Tile.WIDTH;
+        x = playerX - Tile.WIDTH;
     }
     
-    public void moveRight (){
+    public void moveRight (int playerX){
         lastX = x;
-        x = x + Tile.WIDTH;
+        x = playerX + Tile.WIDTH;
     }
 }

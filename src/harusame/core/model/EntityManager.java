@@ -106,21 +106,27 @@ public class EntityManager {
     }
     
     private void handleGravityOnStones (Stone stone){
-        int y = stone.getY();
+        int y = stone.getY();   
         int x = stone.getX();
         for (int i=0; i<stones.size(); i++){
             if (y == stones.get(i).getY()-Tile.WIDTH && x == stones.get(i).getX())
                 return;
         }
         
+        stone.update();
+        if (stone.getBound().intersects(player.getBound())){
+            stone.revert();
+            return;
+        }
+        stone.revert();
+        
         int COLUMN = stone.getX() / Tile.WIDTH;
         int ROW = stone.getY() / Tile.WIDTH;
         
         Tile t = map.getTile(COLUMN, ROW+1);
         
-        if (t == null)
+        if (t == null && stone.getX() % Tile.WIDTH == 0)
             stone.setFalling(true);
-        
     }
     
     public void setPlayer(int x, int y) {
