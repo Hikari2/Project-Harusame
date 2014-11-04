@@ -101,10 +101,10 @@ public class CollisionHandler {
                 enemies.get(i).kill();
                 enemies.remove(i);
             }
-        /*
+        
         if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - stone.getY())) < 20)
             player.kill();
-        */
+        
         int COLUMN = stone.getX() / Tile.WIDTH;
         int ROW = (stone.getY() - stone.getY() % Tile.WIDTH)/ Tile.WIDTH;
         
