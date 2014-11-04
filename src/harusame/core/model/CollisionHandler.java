@@ -77,7 +77,13 @@ public class CollisionHandler {
         
         int COLUMN = stone.getX() / Tile.WIDTH;
         int ROW = stone.getY() / Tile.WIDTH;
-        Tile t = map.getTile(COLUMN, ROW);
+        
+        Tile t = null;
+        
+        if (player.getDIRECTION() == LEFT)
+            t = map.getTile(COLUMN, ROW);
+        else if (player.getDIRECTION() == RIGHT)
+            t = map.getTile(COLUMN+1, ROW);
 
         if (t != null && stoneBound.intersects(t.getBound())){
             stone.revert();
@@ -85,28 +91,21 @@ public class CollisionHandler {
             return;
         }
         
-        
-    }
-    
-    private boolean checkStoneEnviromentCollision (Stone stone, Direction direction, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies){
-        
-        Rectangle stoneBound = stone.getBound();
-        
-        for (int i=0; i<stones.size(); i++)
-            if (stoneBound.intersects(stones.get(i).getBound()) && stone != stones.get(i)){
-                return true;
+        Rectangle   enemyBound;
+        Enemy   enemy;
+        for (int i=0; i<enemies.size(); i++){
+            enemy = enemies.get(i);
+            enemyBound = enemy.getBound();
+            
+            if (stoneBound.intersects(enemyBound)){
+                enemy.pushBack();
+                enemyBound = enemy.getBound();
+                if (stoneBound.intersects(enemyBound)){
+                    enemy.kill();
+                    enemies.remove(i);
+                }
             }
-        
-        for (int i=0; i<enemies.size(); i++)
-            if (stoneBound.intersects(enemies.get(i).getBound())){
-                return true;
-            }
-       
-        int COLUMN = stone.getX() / Tile.WIDTH;
-        int ROW = stone.getY() / Tile.WIDTH;
-        Tile t = map.getTile(COLUMN, ROW);
-
-        return (t != null && stoneBound.intersects(t.getBound()));
+        }
     }
     
     void checkFallingStoneCollision (Player player, Stone stone, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies){
