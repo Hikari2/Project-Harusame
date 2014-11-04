@@ -1,8 +1,10 @@
 package harusame.core.view;
 
 import harusame.core.model.Player;
+import harusame.core.model.map.Tile;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.NEUTRAL;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -84,6 +86,10 @@ public class PlayerRepresentation {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
 
        g.drawImage(image, x, y, player.getDX(), player.getDY(), null);
+       
+       if (x % Tile.WIDTH != 0 || y % Tile.WIDTH != 0)
+           g.setColor(Color.red);
+       
        g.drawString("x: "+x+ " y: "+y, player.getX(), player.getY()-5);        
     }
 }

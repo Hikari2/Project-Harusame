@@ -1,8 +1,10 @@
 package harusame.core.view;
 
 import harusame.core.model.Enemy;
+import harusame.core.model.map.Tile;
 import harusame.core.util.Direction;
 import harusame.core.util.EnemyType;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -101,6 +103,8 @@ public class EnemyRepresentation {
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();
        g.drawImage(image, x, y, enemy.getDX(), enemy.getDY(), null);
+       g.drawRect(x, y, enemy.getDX(), enemy.getDY());
+
        g.drawString("x: "+x+ " y: "+y, enemy.getX(), enemy.getY()-5);
     }
 }

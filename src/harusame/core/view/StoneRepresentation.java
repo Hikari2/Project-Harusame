@@ -50,11 +50,12 @@ public class StoneRepresentation {
         }
         x = movable.getX();
         y = movable.getY();  
-        
     }
     
-    public void draw(Graphics g) {       
-       g.drawImage(image, movable.getX(), movable.getY(), movable.getDX(), movable.getDY(), null);
-       g.drawString("x: "+movable.getX()+ " y: "+movable.getY(), movable.getX(), movable.getY()-5);
+    public void draw(Graphics g) { 
+
+       g.drawImage(image, x, y, movable.getDX(), movable.getDY(), null);
+       g.drawRect(x, y, movable.getDX(), movable.getDY());
+       g.drawString("x: "+x+ " y: "+y, movable.getX(), movable.getY()-5);
     }
 }

@@ -61,6 +61,9 @@ public class RepresentationManager implements Observer{
             }
             enemies.get(i).update();
         }
+        
+        for (int j=0; j<movables.size(); j++)
+            movables.get(j).update();
     }
     
     @Override

@@ -48,42 +48,64 @@ public class CollisionHandler {
             stoneBound = stone.getBound();
             
             if (playerBound.intersects(stoneBound)){
+                
                 if (player.getDIRECTION() == RIGHT)
                     stone.moveRight(player.getX());
+                
                 else if (player.getDIRECTION() == LEFT)
                     stone.moveLeft(player.getX());
+                
                 else {
                     player.revert();
+                    return;
                 }
-                
-                if (checkStoneEnviromentCollision (stone, player.getDIRECTION(), map, stones, enemies)){
-                    stone.revert();
-                    player.revert();
-                }
+                handlePushedStoneCollision (stone, player, map, stones, enemies);
             }
         }
     }
     
-    private boolean checkStoneEnviromentCollision (Stone stone, Direction direction, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies){
-        
+    private void handlePushedStoneCollision (Stone stone, Player player, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies) {
+       
         Rectangle stoneBound = stone.getBound();
         
         for (int i=0; i<stones.size(); i++)
             if (stoneBound.intersects(stones.get(i).getBound()) && stone != stones.get(i)){
-                return true;
+                stone.revert();
+                player.revert();
+                return;
             }
         
-        for (int i=0; i<enemies.size(); i++)
-            if (stoneBound.intersects(enemies.get(i).getBound())){                
-                stone.revert();
-                return true;
-            }
-       
         int COLUMN = stone.getX() / Tile.WIDTH;
         int ROW = stone.getY() / Tile.WIDTH;
-        Tile t = map.getTile(COLUMN, ROW);
+        
+        Tile t = null;
+        
+        if (player.getDIRECTION() == LEFT)
+            t = map.getTile(COLUMN, ROW);
+        else if (player.getDIRECTION() == RIGHT)
+            t = map.getTile(COLUMN+1, ROW);
 
-        return (t != null && stoneBound.intersects(t.getBound()));
+        if (t != null && stoneBound.intersects(t.getBound())){
+            stone.revert();
+            player.revert();
+            return;
+        }
+        
+        Rectangle   enemyBound;
+        Enemy   enemy;
+        for (int i=0; i<enemies.size(); i++){
+            enemy = enemies.get(i);
+            enemyBound = enemy.getBound();
+            
+            if (stoneBound.intersects(enemyBound)){
+                enemy.pushBack();
+                enemyBound = enemy.getBound();
+                if (stoneBound.intersects(enemyBound)){
+                    enemy.kill();
+                    enemies.remove(i);
+                }
+            }
+        }
     }
     
     void checkFallingStoneCollision (Player player, Stone stone, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies){
@@ -102,7 +124,7 @@ public class CollisionHandler {
                 enemies.remove(i);
             }
         
-        if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - stone.getY())) < 20)
+        if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - stone.getY())) < 30)
             player.kill();
         
         int COLUMN = stone.getX() / Tile.WIDTH;
@@ -149,12 +171,12 @@ public class CollisionHandler {
                 }
             }
             
-            Rectangle movableBound;
+            Rectangle stoneBound;
             
             for(int j=0; j<stones.size(); j++)
             {
-                movableBound = stones.get(j).getBound();
-                if(enemyBound.intersects(movableBound))
+                stoneBound = stones.get(j).getBound();
+                if(enemyBound.intersects(stoneBound))
                     enemy.revert();
             } 
         }       

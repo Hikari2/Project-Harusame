@@ -62,8 +62,6 @@ public class EntityManager {
             enemies.get(i).update();
         
         collisionHandler.checkPlayerTileCollision(player, map);
-        collisionHandler.checkEnemyCollision (enemies, stones, map); 
-        
         collisionHandler.checkPlayerEnemyCollision(player, enemies);
         
         collisionHandler.checkPlayerStoneCollision (player, map, stones, enemies);
@@ -78,6 +76,8 @@ public class EntityManager {
                 handleGravityOnStones (stone);
             } 
         }
+        
+        collisionHandler.checkEnemyCollision (enemies, stones, map); 
     }
         
     public void startGame () {

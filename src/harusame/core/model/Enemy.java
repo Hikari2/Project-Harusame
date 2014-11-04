@@ -1,5 +1,6 @@
 package harusame.core.model;
 
+import harusame.core.model.map.Tile;
 import static harusame.core.util.Direction.DOWN;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
@@ -80,5 +81,12 @@ public class Enemy extends MovableSprite{
     
     public EnemyType getEnemyType () {
         return type;
+    }
+    
+    public void pushBack (){
+        if (DIRECTION == LEFT)
+            x = x + Tile.WIDTH/3;
+        else if (DIRECTION == RIGHT)
+            x = x - Tile.WIDTH/3;
     }
 }
