@@ -48,20 +48,44 @@ public class CollisionHandler {
             stoneBound = stone.getBound();
             
             if (playerBound.intersects(stoneBound)){
+                
                 if (player.getDIRECTION() == RIGHT)
                     stone.moveRight(player.getX());
+                
                 else if (player.getDIRECTION() == LEFT)
                     stone.moveLeft(player.getX());
+                
                 else {
                     player.revert();
+                    return;
                 }
-                
-                if (checkStoneEnviromentCollision (stone, player.getDIRECTION(), map, stones, enemies)){
-                    stone.revert();
-                    player.revert();
-                }
+                handlePushedStoneCollision (stone, player, map, stones, enemies);
             }
         }
+    }
+    
+    private void handlePushedStoneCollision (Stone stone, Player player, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies) {
+       
+        Rectangle stoneBound = stone.getBound();
+        
+        for (int i=0; i<stones.size(); i++)
+            if (stoneBound.intersects(stones.get(i).getBound()) && stone != stones.get(i)){
+                stone.revert();
+                player.revert();
+                return;
+            }
+        
+        int COLUMN = stone.getX() / Tile.WIDTH;
+        int ROW = stone.getY() / Tile.WIDTH;
+        Tile t = map.getTile(COLUMN, ROW);
+
+        if (t != null && stoneBound.intersects(t.getBound())){
+            stone.revert();
+            player.revert();
+            return;
+        }
+        
+        
     }
     
     private boolean checkStoneEnviromentCollision (Stone stone, Direction direction, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies){
@@ -75,7 +99,6 @@ public class CollisionHandler {
         
         for (int i=0; i<enemies.size(); i++)
             if (stoneBound.intersects(enemies.get(i).getBound())){
-                stone.revert();
                 return true;
             }
        
@@ -102,7 +125,7 @@ public class CollisionHandler {
                 enemies.remove(i);
             }
         
-        if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - stone.getY())) < 20)
+        if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - stone.getY())) < 30)
             player.kill();
         
         int COLUMN = stone.getX() / Tile.WIDTH;
@@ -149,12 +172,12 @@ public class CollisionHandler {
                 }
             }
             
-            Rectangle movableBound;
+            Rectangle stoneBound;
             
             for(int j=0; j<stones.size(); j++)
             {
-                movableBound = stones.get(j).getBound();
-                if(enemyBound.intersects(movableBound))
+                stoneBound = stones.get(j).getBound();
+                if(enemyBound.intersects(stoneBound))
                     enemy.revert();
             } 
         }       
