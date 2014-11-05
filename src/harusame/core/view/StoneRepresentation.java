@@ -19,6 +19,7 @@ public class StoneRepresentation {
     private MovableSprite   movable;
     private int x;
     private int y;    
+    private boolean ACTIVE;
     
     private Animation   ACTIVE_ANIMATION;
     
@@ -28,9 +29,13 @@ public class StoneRepresentation {
     }
     
     private void init () {
+        ACTIVE = true;
         try
         {
-            image = ImageIO.read(new File("Resources/Sprites/Misc/Stone.png"));
+            if(movable.isLarva())
+                image = ImageIO.read(new File("Resources/Sprites/Misc/Larva.png"));
+            else 
+                image = ImageIO.read(new File("Resources/Sprites/Misc/Stone.png"));
         }
         catch (Exception e)
         {
@@ -44,12 +49,15 @@ public class StoneRepresentation {
     public void update () {
         
         if (movable.isACTIVE() == false) {
-            ACTIVE_ANIMATION = al.getDeath();
-            ACTIVE_ANIMATION.nextFrame ();
+            ACTIVE = false;
             return;
         }
         x = movable.getX();
         y = movable.getY();  
+    }
+    
+    public boolean isACTIVE() {
+        return ACTIVE;
     }
     
     public void draw(Graphics g) { 

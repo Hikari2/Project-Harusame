@@ -21,6 +21,7 @@ public class MovableSprite extends Sprite {
     protected int lock;
     
     int life;
+    boolean isLarva = false;
 
     public MovableSprite(int x, int y) {
         super(x, y);
@@ -29,6 +30,12 @@ public class MovableSprite extends Sprite {
     
     public MovableSprite(int x, int y, MovableType newType) {
         super(x, y);
+    }
+    
+    public MovableSprite(int x, int y, boolean larva)
+    {
+        super(x, y);
+        isLarva = larva;
     }
     
     public void revert () {  
@@ -67,7 +74,7 @@ public class MovableSprite extends Sprite {
         DIRECTION = OTHER;
         LAST_DIRECTION = OTHER;
     }
-    
+            
     public boolean isLocked () {
         if (lock > 0)
             return true;
@@ -96,5 +103,9 @@ public class MovableSprite extends Sprite {
 
     public void setLife(int life) {
         this.life = life;
+    }
+    
+     public boolean isLarva() {
+        return isLarva;
     }
 }

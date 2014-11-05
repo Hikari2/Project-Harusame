@@ -10,17 +10,18 @@ import static harusame.core.util.Direction.DOWN;
 public class Stone extends MovableSprite {
     
     private boolean falling;
+   
 
-    public Stone(int x, int y) {
-        super(x, y);
+    public Stone(int x, int y, boolean larva) {
+        super(x, y, larva);
         DIRECTION = DOWN;
-        MOVE_SPEED = 15;
+        MOVE_SPEED = 15;        
     }
 
     public boolean isFalling() {
         return falling;
-    }
-
+    }   
+   
     public void setFalling(boolean falling) {
         this.falling = falling;
     }
