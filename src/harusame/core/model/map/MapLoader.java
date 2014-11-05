@@ -144,7 +144,10 @@ public class MapLoader
                 entityManager.addEnemy(new Enemy (colum*Tile.WIDTH, row*Tile.WIDTH, EnemyType.BEE_LARVA));
                 break;
             case 'S':               
-                entityManager.addStone(new Stone (colum*Tile.WIDTH, row*Tile.WIDTH));
+                entityManager.addStone(new Stone (colum*Tile.WIDTH, row*Tile.WIDTH, false));
+                break;
+            case 'L':               
+                entityManager.addStone(new Stone (colum*Tile.WIDTH, row*Tile.WIDTH, true));
         }
     }
 }

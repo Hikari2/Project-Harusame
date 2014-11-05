@@ -63,7 +63,13 @@ public class RepresentationManager implements Observer{
         }
         
         for (int j=0; j<movables.size(); j++)
+        {
+            if (!movables.get(j).isACTIVE()) {
+                movables.remove(j);
+                continue;
+            }
             movables.get(j).update();
+        }
     }
     
     @Override

@@ -49,6 +49,14 @@ public class CollisionHandler {
             
             if (playerBound.intersects(stoneBound)){
                 
+                if(stone.isLarva() == true)
+                {
+                    stone.kill();
+                    stones.remove(stone);
+                    // ADD POINTO SYSTEM HERE
+                    return;
+                }
+                
                 if (player.getDIRECTION() == RIGHT)
                     stone.moveRight(player.getX());
                 
