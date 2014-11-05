@@ -84,13 +84,11 @@ public class Enemy extends MovableSprite{
     }
     
     public void pushBack (){
-        if (DIRECTION == LEFT)
-        {
+        if (DIRECTION == LEFT){
             x = x + Tile.WIDTH/3;
             DIRECTION = RIGHT;
         }
-        else if (DIRECTION == RIGHT)
-        {
+        else if (DIRECTION == RIGHT){
             x = x - Tile.WIDTH/3;
             DIRECTION = LEFT;
         }

@@ -174,11 +174,11 @@ public class CollisionHandler {
                 tile = t;
                 if (tile != null && enemyBound.intersects(tile.getBound()))
                 {
-                    enemy.revert();                   
+                    enemy.revert();
                     break;
                 }
             }
-            
+
             Rectangle stoneBound;
             
             for(int j=0; j<stones.size(); j++)

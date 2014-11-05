@@ -75,7 +75,7 @@ public class EntityManager {
             else {
                 handleGravityOnStones (stone);
             } 
-        }
+        }   
         
         collisionHandler.checkEnemyCollision (enemies, stones, map); 
     }
