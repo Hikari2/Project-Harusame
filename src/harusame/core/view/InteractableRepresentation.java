@@ -40,7 +40,7 @@ public class InteractableRepresentation {
             switch (type){
                 case STONE: image = ImageIO.read(new File("Resources/Sprites/Misc/Stone.png"));
                     break;
-                case LARVA: image = ImageIO.read(new File("Resources/Sprites/Misc/Larva.png"));
+                case LARVA: image = ImageIO.read(new File("Resources/Sprites/Misc/Larva.gif"));
                     break;
             }
         }
