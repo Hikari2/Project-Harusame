@@ -5,6 +5,7 @@ import harusame.core.model.map.TileMap;
 import harusame.core.util.Direction;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
+import static harusame.core.util.ObjectType.STONE;
 import harusame.core.util.Observer;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -118,21 +119,21 @@ public class CollisionHandler {
     
     void checkFallingStoneCollision (Player player, Interactable interactable, TileMap map, ArrayList<Interactable> interactables, ArrayList<Enemy> enemies){
 
-        Rectangle stoneBound = interactable.getBound();
+        Rectangle interactableBound = interactable.getBound();
         
         for (int i=0; i<interactables.size(); i++)
-            if (stoneBound.intersects(interactables.get(i).getBound()) && interactable != interactables.get (i)){
+            if (interactableBound.intersects(interactables.get(i).getBound()) && interactable != interactables.get (i)){
                 interactable.revert();
                 interactable.setFalling(false);
             }
         
         for (int i=0; i<enemies.size(); i++)
-            if (stoneBound.intersects(enemies.get(i).getBound())){
+            if (interactableBound.intersects(enemies.get(i).getBound())){
                 enemies.get(i).kill();
                 enemies.remove(i);
             }
         
-        if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - interactable.getY())) < 30)
+        if (interactableBound.intersects(player.getBound()) && (Math.abs(player.getY() - interactable.getY())) < 30 && interactable.getType() == STONE)
             player.kill();
         
         int COLUMN = interactable.getX() / Tile.WIDTH;
@@ -140,7 +141,7 @@ public class CollisionHandler {
         
         Tile t = map.getTile(COLUMN, ROW+1);
         
-        if (t != null && stoneBound.intersects(t.getBound())){
+        if (t != null && interactableBound.intersects(t.getBound())){
             interactable.revert();
             interactable.setFalling(false);
         }
