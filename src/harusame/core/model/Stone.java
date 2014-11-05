@@ -1,5 +1,6 @@
 package harusame.core.model;
 
+import harusame.core.model.MovableSprite;
 import harusame.core.model.map.Tile;
 import static harusame.core.util.Direction.DOWN;
 
