@@ -28,9 +28,7 @@ public class EntityManager {
     private ArrayList<Enemy>    enemies = new ArrayList ();
     private ArrayList<Projectile>   projectiles = new ArrayList ();
     
-    private ArrayList<Stone> stones = new ArrayList ();
-    
-    private ArrayList<MovableSprite> objectives = new ArrayList ();
+    private ArrayList<Interactable> interactables = new ArrayList ();
     
     public EntityManager () {
         mapLoader = new MapLoader (this);
@@ -64,20 +62,20 @@ public class EntityManager {
         collisionHandler.checkPlayerTileCollision(player, map);
         collisionHandler.checkPlayerEnemyCollision(player, enemies);
         
-        collisionHandler.checkPlayerStoneCollision (player, map, stones, enemies);
+        collisionHandler.checkPlayerStoneCollision (player, map, interactables, enemies);
         
-        for (int i=0; i<stones.size(); i++){
-            Stone stone = stones.get (i);
-            if (stone.isFalling()){
-                stone.update();
-                collisionHandler.checkFallingStoneCollision (player, stone, map, stones, enemies);
+        for (int i=0; i<interactables.size(); i++){
+            Interactable interactable = interactables.get (i);
+            if (interactable.isFalling()){
+                interactable.update();
+                collisionHandler.checkFallingStoneCollision (player, interactable, map, interactables, enemies);
             }
             else {
-                handleGravityOnStones (stone);
+                handleGravity (interactable);
             } 
         }   
         
-        collisionHandler.checkEnemyCollision (enemies, stones, map); 
+        collisionHandler.checkEnemyCollision (enemies, interactables, map); 
     }
         
     public void startGame () {
@@ -102,31 +100,31 @@ public class EntityManager {
         map = new TileMap (0, 0);
         enemies = new ArrayList (); 
         projectiles = new ArrayList ();
-        stones = new ArrayList ();
+        interactables = new ArrayList ();
     }
     
-    private void handleGravityOnStones (Stone stone){
-        int y = stone.getY();   
-        int x = stone.getX();
-        for (int i=0; i<stones.size(); i++){
-            if (y == stones.get(i).getY()-Tile.WIDTH && x == stones.get(i).getX())
+    private void handleGravity (Interactable interactable){
+        int y = interactable.getY();   
+        int x = interactable.getX();
+        for (int i=0; i<interactables.size(); i++){
+            if (y == interactables.get(i).getY()-Tile.WIDTH && x == interactables.get(i).getX())
                 return;
         }
         
-        stone.update();
-        if (stone.getBound().intersects(player.getBound())){
-            stone.revert();
+        interactable.update();
+        if (interactable.getBound().intersects(player.getBound())){
+            interactable.revert();
             return;
         }
-        stone.revert();
+        interactable.revert();
         
-        int COLUMN = stone.getX() / Tile.WIDTH;
-        int ROW = stone.getY() / Tile.WIDTH;
+        int COLUMN = interactable.getX() / Tile.WIDTH;
+        int ROW = interactable.getY() / Tile.WIDTH;
         
         Tile t = map.getTile(COLUMN, ROW+1);
         
-        if (t == null && stone.getX() % Tile.WIDTH == 0)
-            stone.setFalling(true);
+        if (t == null && interactable.getX() % Tile.WIDTH == 0)
+            interactable.setFalling(true);
     }
     
     public void setPlayer(int x, int y) {
@@ -148,10 +146,9 @@ public class EntityManager {
         observer.notifyNewEnemy(enemy);
     }
     
-    public void addStone(Stone stone)
-    {
-        stones.add(stone);
-        observer.notifyNewStone(stone);       
+    public void addInteractable (Interactable i){
+        interactables.add(i);
+        observer.notifyNewInteractable (i);
     }
 
     public void setProjectiles(ArrayList<Projectile> projectiles) {

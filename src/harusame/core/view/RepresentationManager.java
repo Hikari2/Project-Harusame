@@ -2,8 +2,8 @@ package harusame.core.view;
 
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
+import harusame.core.model.Interactable;
 import harusame.core.model.MovableSprite;
-import harusame.core.model.Stone;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Level;
@@ -37,7 +37,7 @@ public class RepresentationManager implements Observer{
     private PlayerRepresentation    player;
 
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
-    private ArrayList<StoneRepresentation> movables = new ArrayList ();
+    private ArrayList<InteractableRepresentation> interactables = new ArrayList ();
     
     private TileRepresentation[][]  tiles;
     private TileImageLoader tl;
@@ -62,13 +62,13 @@ public class RepresentationManager implements Observer{
             enemies.get(i).update();
         }
         
-        for (int j=0; j<movables.size(); j++)
+        for (int j=0; j<interactables.size(); j++)
         {
-            if (!movables.get(j).isACTIVE()) {
-                movables.remove(j);
+            if (!interactables.get(j).isACTIVE()) {
+                interactables.remove(j);
                 continue;
             }
-            movables.get(j).update();
+            interactables.get(j).update();
         }
     }
     
@@ -83,8 +83,8 @@ public class RepresentationManager implements Observer{
     }
     
     @Override
-    public void notifyNewStone (Stone s) {
-        movables.add(new StoneRepresentation (s));
+    public void notifyNewInteractable (Interactable i) {
+        interactables.add(new InteractableRepresentation (i));
     }
     
     public void draw(Graphics g) {
@@ -107,8 +107,8 @@ public class RepresentationManager implements Observer{
             enemies.get(i).draw(g);
         }
         
-        for (int i=0; i<movables.size(); i++) {
-            movables.get(i).draw(g);
+        for (int i=0; i<interactables.size(); i++) {
+            interactables.get(i).draw(g);
         }
         
         player.draw (g);
@@ -158,7 +158,7 @@ public class RepresentationManager implements Observer{
     public void notifyReset() {
         player = null;
         enemies = new ArrayList ();
-        movables = new ArrayList ();
+        interactables = new ArrayList ();
         tiles = null;
     }
     

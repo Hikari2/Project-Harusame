@@ -35,56 +35,56 @@ public class CollisionHandler {
         }
     }
     
-    void checkPlayerStoneCollision (Player player, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies){
+    void checkPlayerStoneCollision (Player player, TileMap map, ArrayList<Interactable> interactables, ArrayList<Enemy> enemies){
         Rectangle playerBound = player.getBound();
-        Rectangle stoneBound;
-        Stone stone;
+        Rectangle interactableBound;
+        Interactable interactable;
         
-        for (int i=0; i<stones.size(); i++){
-            if (stones.get(i).isFalling())
+        for (int i=0; i<interactables.size(); i++){
+            if (interactables.get(i).isFalling())
                 continue;
             
-            stone = stones.get(i);
-            stoneBound = stone.getBound();
+            interactable = interactables.get(i);
+            interactableBound = interactable.getBound();
             
-            if (playerBound.intersects(stoneBound)){
+            if (playerBound.intersects(interactableBound)){
                 
-                if(stone.isLarva() == true)
-                {
-                    stone.kill();
-                    stones.remove(stone);
-                    // ADD POINTO SYSTEM HERE
-                    return;
+                switch (interactable.getType()){
+                    case STONE:
+                        if (player.getDIRECTION() == RIGHT)
+                            interactable.moveRight(player.getX());
+                
+                        else if (player.getDIRECTION() == LEFT)
+                            interactable.moveLeft(player.getX());
+                        else {
+                            player.revert();
+                            return;
+                        }
+                        handlePushedStoneCollision (interactable, player, map, interactables, enemies);
+                        break;
+                        
+                    case LARVA:
+                        interactable.kill();
+                        interactables.remove(i);
+                        return;
                 }
-                
-                if (player.getDIRECTION() == RIGHT)
-                    stone.moveRight(player.getX());
-                
-                else if (player.getDIRECTION() == LEFT)
-                    stone.moveLeft(player.getX());
-                
-                else {
-                    player.revert();
-                    return;
-                }
-                handlePushedStoneCollision (stone, player, map, stones, enemies);
             }
         }
     }
     
-    private void handlePushedStoneCollision (Stone stone, Player player, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies) {
+    private void handlePushedStoneCollision (Interactable interactable, Player player, TileMap map, ArrayList<Interactable> interactables, ArrayList<Enemy> enemies) {
        
-        Rectangle stoneBound = stone.getBound();
+        Rectangle interactableBound = interactable.getBound();
         
-        for (int i=0; i<stones.size(); i++)
-            if (stoneBound.intersects(stones.get(i).getBound()) && stone != stones.get(i)){
-                stone.revert();
+        for (int i=0; i<interactables.size(); i++)
+            if (interactableBound.intersects(interactables.get(i).getBound()) && interactable != interactables.get(i)){
+                interactable.revert();
                 player.revert();
                 return;
             }
         
-        int COLUMN = stone.getX() / Tile.WIDTH;
-        int ROW = stone.getY() / Tile.WIDTH;
+        int COLUMN = interactable.getX() / Tile.WIDTH;
+        int ROW = interactable.getY() / Tile.WIDTH;
         
         Tile t = null;
         
@@ -93,8 +93,8 @@ public class CollisionHandler {
         else if (player.getDIRECTION() == RIGHT)
             t = map.getTile(COLUMN+1, ROW);
 
-        if (t != null && stoneBound.intersects(t.getBound())){
-            stone.revert();
+        if (t != null && interactableBound.intersects(t.getBound())){
+            interactable.revert();
             player.revert();
             return;
         }
@@ -105,10 +105,10 @@ public class CollisionHandler {
             enemy = enemies.get(i);
             enemyBound = enemy.getBound();
             
-            if (stoneBound.intersects(enemyBound)){
+            if (interactableBound.intersects(enemyBound)){
                 enemy.pushBack();
                 enemyBound = enemy.getBound();
-                if (stoneBound.intersects(enemyBound)){
+                if (interactableBound.intersects(enemyBound)){
                     enemy.kill();
                     enemies.remove(i);
                 }
@@ -116,14 +116,14 @@ public class CollisionHandler {
         }
     }
     
-    void checkFallingStoneCollision (Player player, Stone stone, TileMap map, ArrayList<Stone> stones, ArrayList<Enemy> enemies){
+    void checkFallingStoneCollision (Player player, Interactable interactable, TileMap map, ArrayList<Interactable> interactables, ArrayList<Enemy> enemies){
 
-        Rectangle stoneBound = stone.getBound();
+        Rectangle stoneBound = interactable.getBound();
         
-        for (int i=0; i<stones.size(); i++)
-            if (stoneBound.intersects(stones.get(i).getBound()) && stone != stones.get (i)){
-                stone.revert();
-                stone.setFalling(false);
+        for (int i=0; i<interactables.size(); i++)
+            if (stoneBound.intersects(interactables.get(i).getBound()) && interactable != interactables.get (i)){
+                interactable.revert();
+                interactable.setFalling(false);
             }
         
         for (int i=0; i<enemies.size(); i++)
@@ -132,17 +132,17 @@ public class CollisionHandler {
                 enemies.remove(i);
             }
         
-        if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - stone.getY())) < 30)
+        if (stoneBound.intersects(player.getBound()) && (Math.abs(player.getY() - interactable.getY())) < 30)
             player.kill();
         
-        int COLUMN = stone.getX() / Tile.WIDTH;
-        int ROW = (stone.getY() - stone.getY() % Tile.WIDTH)/ Tile.WIDTH;
+        int COLUMN = interactable.getX() / Tile.WIDTH;
+        int ROW = (interactable.getY() - interactable.getY() % Tile.WIDTH)/ Tile.WIDTH;
         
         Tile t = map.getTile(COLUMN, ROW+1);
         
         if (t != null && stoneBound.intersects(t.getBound())){
-            stone.revert();
-            stone.setFalling(false);
+            interactable.revert();
+            interactable.setFalling(false);
         }
     }
     
@@ -157,7 +157,7 @@ public class CollisionHandler {
         }
     } 
     
-    void checkEnemyCollision (ArrayList<Enemy>    enemies, ArrayList<Stone> stones, TileMap map) {
+    void checkEnemyCollision (ArrayList<Enemy>    enemies, ArrayList<Interactable> interactables, TileMap map) {
         
         Enemy enemy;
 
@@ -181,9 +181,9 @@ public class CollisionHandler {
 
             Rectangle stoneBound;
             
-            for(int j=0; j<stones.size(); j++)
+            for(int j=0; j<interactables.size(); j++)
             {
-                stoneBound = stones.get(j).getBound();
+                stoneBound = interactables.get(j).getBound();
                 if(enemyBound.intersects(stoneBound))
                     enemy.revert();
             } 

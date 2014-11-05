@@ -2,11 +2,12 @@ package harusame.core.model.map;
 
 import harusame.core.model.EntityManager;
 import harusame.core.model.Enemy;
+import harusame.core.model.Interactable;
 import harusame.core.model.MovableSprite;
-import harusame.core.model.Stone;
 import harusame.core.util.EnemyType;
 import harusame.core.util.Level;
 import harusame.core.util.MovableType;
+import harusame.core.util.ObjectType;
 import harusame.core.util.TileType;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -144,10 +145,10 @@ public class MapLoader
                 entityManager.addEnemy(new Enemy (colum*Tile.WIDTH, row*Tile.WIDTH, EnemyType.BEE_LARVA));
                 break;
             case 'S':               
-                entityManager.addStone(new Stone (colum*Tile.WIDTH, row*Tile.WIDTH, false));
+                entityManager.addInteractable(new Interactable (colum*Tile.WIDTH, row*Tile.WIDTH, ObjectType.STONE));
                 break;
             case 'L':               
-                entityManager.addStone(new Stone (colum*Tile.WIDTH, row*Tile.WIDTH, true));
+                entityManager.addInteractable(new Interactable (colum*Tile.WIDTH, row*Tile.WIDTH, ObjectType.LARVA));
         }
     }
 }

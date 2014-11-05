@@ -1,26 +1,44 @@
 package harusame.core.model;
 
+import harusame.core.model.map.Tile;
+import static harusame.core.util.Direction.DOWN;
+import harusame.core.util.ObjectType;
 
 
-/**
- * 
- */
-public class Interactable extends MovableSprite {
+public class Interactable extends MovableSprite implements GravityAffectedObject {
     
-    private boolean movable;
+    private final ObjectType type;
     
-    public Interactable(int x, int y, boolean solid) {
+    private boolean falling;
+    
+    public Interactable(int x, int y, ObjectType t) {
         super(x, y);
-        movable = solid;
+        type = t;
+        MOVE_SPEED = 15; 
+        DIRECTION = DOWN;
+    }
+
+    @Override
+    public boolean isFalling() {
+        return falling;
+    }   
+   
+    @Override
+    public void setFalling(boolean falling) {
+        this.falling = falling;
     }
     
-    public boolean isSolid()
-    {
-        return movable;
+    public void moveLeft (int playerX){
+        lastX = x;
+        x = playerX - Tile.WIDTH;
     }
     
-    public void setSolid(boolean solid)
-    {
-        movable = solid;
+    public void moveRight (int playerX){
+        lastX = x;
+        x = playerX + Tile.WIDTH;
+    }
+
+    public ObjectType getType() {
+        return type;
     }
 }
