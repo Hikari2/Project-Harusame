@@ -17,6 +17,13 @@ public class Interactable extends MovableSprite implements GravityAffectedObject
         MOVE_SPEED = 15; 
         DIRECTION = DOWN;
     }
+    
+    // Immovable interactables, DIRT
+    public Interactable(ObjectType t, int x, int y) {
+        super(x, y);
+        type = t;
+        MOVE_SPEED = 0;        
+    }
 
     @Override
     public boolean isFalling() {

@@ -6,6 +6,7 @@ import harusame.core.util.Direction;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.ObjectType.STONE;
+import static harusame.core.util.ObjectType.DIRT;
 import harusame.core.util.Observer;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -41,14 +42,18 @@ public class CollisionHandler {
         Rectangle interactableBound;
         Interactable interactable;
         
-        for (int i=0; i<interactables.size(); i++){
-            if (interactables.get(i).isFalling())
-                continue;
+        for (int i=0; i<interactables.size(); i++){           
             
             interactable = interactables.get(i);
             interactableBound = interactable.getBound();
             
             if (playerBound.intersects(interactableBound)){
+                
+                 if (interactable.isFalling())
+                 {                     
+                     player.revert();
+                     return;
+                 }               
                 
                 switch (interactable.getType()){
                     case STONE:
@@ -62,6 +67,11 @@ public class CollisionHandler {
                             return;
                         }
                         handlePushedStoneCollision (interactable, player, map, interactables, enemies);
+                        break;
+                        
+                    case DIRT:
+                        interactable.kill();
+                        interactables.remove(i);
                         break;
                         
                     case LARVA:
@@ -118,7 +128,7 @@ public class CollisionHandler {
     }
     
     void checkFallingStoneCollision (Player player, Interactable interactable, TileMap map, ArrayList<Interactable> interactables, ArrayList<Enemy> enemies){
-
+               
         Rectangle interactableBound = interactable.getBound();
         
         for (int i=0; i<interactables.size(); i++)

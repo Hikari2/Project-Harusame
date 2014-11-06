@@ -147,6 +147,9 @@ public class MapLoader
             case 'S':               
                 entityManager.addInteractable(new Interactable (colum*Tile.WIDTH, row*Tile.WIDTH, ObjectType.STONE));
                 break;
+            case 'D':               
+                entityManager.addInteractable(new Interactable (ObjectType.DIRT, colum*Tile.WIDTH, row*Tile.WIDTH));
+                break;
             case 'L':               
                 entityManager.addInteractable(new Interactable (colum*Tile.WIDTH, row*Tile.WIDTH, ObjectType.LARVA));
         }

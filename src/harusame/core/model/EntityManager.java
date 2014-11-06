@@ -7,6 +7,7 @@ import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
 import harusame.core.util.Level;
 import static harusame.core.util.Level.Level_1;
+import static harusame.core.util.ObjectType.DIRT;
 import harusame.core.util.Observer;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -64,15 +65,18 @@ public class EntityManager {
         
         collisionHandler.checkPlayerStoneCollision (player, map, interactables, enemies);
         
-        for (int i=0; i<interactables.size(); i++){
+        for (int i=0; i<interactables.size(); i++){          
             Interactable interactable = interactables.get (i);
-            if (interactable.isFalling()){
-                interactable.update();
-                collisionHandler.checkFallingStoneCollision (player, interactable, map, interactables, enemies);
+            if(interactable.getType() != DIRT)
+            {
+                if (interactable.isFalling()){
+                    interactable.update();
+                    collisionHandler.checkFallingStoneCollision (player, interactable, map, interactables, enemies);
+                }
+                else {
+                    handleGravity (interactable);
+                } 
             }
-            else {
-                handleGravity (interactable);
-            } 
         }   
         
         collisionHandler.checkEnemyCollision (enemies, interactables, map); 

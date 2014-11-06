@@ -45,6 +45,7 @@ public class Player extends MovableSprite {
     public void revert () {
        x = lastX;
        y = lastY;
+       lock = 0;
     }
     
     @Override
