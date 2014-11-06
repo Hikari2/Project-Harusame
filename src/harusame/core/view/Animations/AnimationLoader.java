@@ -1,5 +1,6 @@
-package harusame.core.view;
+package harusame.core.view.Animations;
 
+import harusame.core.view.Animations.Animation;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

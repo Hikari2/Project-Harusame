@@ -3,10 +3,8 @@ package harusame.core.model.map;
 import harusame.core.model.EntityManager;
 import harusame.core.model.Enemy;
 import harusame.core.model.Interactable;
-import harusame.core.model.MovableSprite;
 import harusame.core.util.EnemyType;
 import harusame.core.util.Level;
-import harusame.core.util.MovableType;
 import harusame.core.util.ObjectType;
 import harusame.core.util.TileType;
 import java.io.BufferedReader;
@@ -16,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,7 +43,25 @@ public class MapLoader
     }
     
     public void loadNextMap (Level level){
-        
+        String line = "";
+        try {
+            
+            BufferedReader br = new BufferedReader(new FileReader("Resources/Maps/LevelPath.txt"));
+            
+            while (!line.equals(level.toString())){
+                line = br.readLine();
+            }
+            line = br.readLine();
+            
+            entityManager.setCurrentLevel(Level.valueOf(line));
+            
+            loadMap (Level.valueOf(line));
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MapLoader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MapLoader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
     
     public void loadMap(Level level)
