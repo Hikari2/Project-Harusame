@@ -7,6 +7,9 @@ import java.awt.event.*;
 import javax.swing.JPanel;
 import harusame.core.controller.Controller;
 import harusame.core.util.Observer;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class containing the game loop
@@ -38,7 +41,7 @@ public class GamePanel extends JPanel
 	
 	public GamePanel(Controller ctrl) {
 		super();
-                repManager = new RepresentationManager ();
+                repManager = new RepresentationManager (ctrl);
                 this.ctrl = ctrl;
                 ctrl.addObserver(repManager);
                 ctrl.startGame();
@@ -75,27 +78,33 @@ public class GamePanel extends JPanel
 		
             // game loop
             while(running) {
-                start = System.nanoTime();
-			
-		update();
-		draw();
-		drawToScreen();
-			
-		elapsed = System.nanoTime() - start;
-			
-		wait = targetTime - elapsed / 1000000;
-		if(wait < 0) wait = 5;
 			
 		try {
-                    Thread.sleep(wait);
-		}
-		catch(Exception e) {
-                    e.printStackTrace();
-		}	
+                    start = System.nanoTime();
+                    
+                    update();
+                    draw();	
+                    drawToScreen();
+                    
+                    elapsed = System.nanoTime() - start;
+                    
+                    wait = targetTime - elapsed / 1000000;
+                    if(wait < 0) wait = 5;
+                    
+                    try {
+                        Thread.sleep(wait);
+                    }
+                    catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+		catch(IOException ex) {
+                    Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);	
+	}	
             }	
         }
 	
-	private void update() {
+	private void update() throws IOException {
 		ctrl.update();
                 repManager.update ();
 	}

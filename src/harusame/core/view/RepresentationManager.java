@@ -1,12 +1,12 @@
 package harusame.core.view;
 
+import harusame.core.controller.Controller;
 import harusame.core.view.Representations.TileRepresentation;
 import harusame.core.view.Representations.InteractableRepresentation;
 import harusame.core.view.Representations.EnemyRepresentation;
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
 import harusame.core.model.Interactable;
-import harusame.core.model.MovableSprite;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Level;
@@ -34,8 +34,12 @@ public class RepresentationManager implements Observer{
     private int camY;
     
     private int MENUSTATE = -1;
+    private int lock = 0;
     
     private GameOverScreen  GAME_OVER_SCREEN;
+    private LoadScreen LOAD_SCREEN;
+    
+    private Controller controller;
     
     private PlayerRepresentation    player;
 
@@ -45,15 +49,22 @@ public class RepresentationManager implements Observer{
     private TileRepresentation[][]  tiles;
     private TileImageLoader tl;
     
-    public RepresentationManager()
+    public RepresentationManager(Controller ctrl)
     {
-
+        controller = ctrl;
     }
     
     public void update () {
         
         if (!GAME_IS_ACTIVE)
             return;
+        
+        if (lock != 0) {
+            lock--;
+            if (lock == 0)
+                unpause ();
+        }
+        
         
         player.update ();
         
@@ -159,23 +170,34 @@ public class RepresentationManager implements Observer{
 
     @Override
     public void notifyReset() {
-        player = null;
         enemies = new ArrayList ();
         interactables = new ArrayList ();
         tiles = null;
     }
     
     @Override
-    public void notifyGameOver () {
-        if(MENUSTATE != 1)        
-            GAME_OVER_SCREEN = new GameOverScreen ();
+    public void notifyGameOver () {       
+        GAME_OVER_SCREEN = new GameOverScreen ();
         MENUSTATE = 1;
         notifyReset();
-        GAME_IS_ACTIVE = false;
     }
     
+    @Override
     public void notifyNewLevel (Level level) {
+        
         tl = new TileImageLoader(level);
+        LOAD_SCREEN = new LoadScreen (level, player.getLife ());
+        MENUSTATE = 2;
+        controller.pause(50);
+        pause (50);
+    }
+    
+    private void pause (int c){
+        lock = c;
+    }
+    
+    private void unpause () {
+        MENUSTATE = -1;
     }
     
     public int getMenuState()
@@ -199,6 +221,8 @@ public class RepresentationManager implements Observer{
         switch (MENUSTATE) {
             case 1:
                 return GAME_OVER_SCREEN;
+            case 2:
+                return LOAD_SCREEN;
         }
         return null;
     }

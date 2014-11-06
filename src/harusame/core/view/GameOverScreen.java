@@ -46,13 +46,14 @@ public class GameOverScreen implements Menu {
         }
     }
     
+    @Override
     public void draw (Graphics g) {
         		g.drawImage(backGround, 0, 0, GamePanel.WIDTH, GamePanel.HEIGHT, null);
 
         // draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("GAMERU OVERU", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
+        g.drawString("You have died", GamePanel.WIDTH/4, GamePanel.HEIGHT/6);
 
         // draw menu options
         g.setFont(font);

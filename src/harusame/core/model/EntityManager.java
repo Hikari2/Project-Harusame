@@ -85,6 +85,7 @@ public class EntityManager {
         
     public void startGame () {
         mapLoader.loadMap(Level.Level_1);
+        setCurrentLevel (Level.Level_1);
         GAME_PAUSED = false;
     }
     
@@ -168,11 +169,18 @@ public class EntityManager {
     
     public void addObserver (Observer o) {
         observer = o;
-
+    }
+    
+    public void setCurrentLevel (Level LEVEL) {
+        CURRENT_LEVEL = LEVEL;
         observer.notifyNewLevel (CURRENT_LEVEL);
     }
     
-    public void setCurrentLevel (Level NEW_LEVEL) {
-        CURRENT_LEVEL = NEW_LEVEL;
+    public void pause () {
+        GAME_PAUSED = true;
+    }
+    
+    public void unpause () {
+        GAME_PAUSED = false;
     }
 }

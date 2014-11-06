@@ -52,9 +52,7 @@ public class MapLoader
                 line = br.readLine();
             }
             line = br.readLine();
-            
-            entityManager.setCurrentLevel(Level.valueOf(line));
-            
+
             loadMap (Level.valueOf(line));
             
         } catch (FileNotFoundException ex) {
@@ -66,7 +64,6 @@ public class MapLoader
     
     public void loadMap(Level level)
     {
-        
         BufferedReader br = null;
         
         try {
@@ -94,7 +91,7 @@ public class MapLoader
                     map.setTile(tile, j, i);
                 }
             }
-            
+            entityManager.setCurrentLevel(level);
             entityManager.setMap(map);
             
         } catch (IOException e) {
@@ -108,7 +105,7 @@ public class MapLoader
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }          
+        }
     }
     
     private void LoadSymbolMap (Level level, BufferedReader br) throws FileNotFoundException, IOException {

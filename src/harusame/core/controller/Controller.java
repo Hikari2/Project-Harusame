@@ -12,6 +12,8 @@ import java.io.IOException;
 public class Controller {
     
     EntityManager   em;
+    int counter = 0;
+    
     
     public Controller () {
         em = new EntityManager ();
@@ -19,6 +21,14 @@ public class Controller {
     
     public void startGame () {
         em.startGame();
+    }
+    
+    public void pauseGame (){
+        em.pause ();
+    }
+    
+    public void unpauseGame (){
+        em.unpause ();
     }
 
     public void keyPressed(int keyCode) {
@@ -30,10 +40,16 @@ public class Controller {
     }
 
     public void update() throws IOException {
-        em.update();
+        if (counter == 0)
+            em.update();
+        else counter--;
     }
     
     public void addObserver (Observer o) {
         em.addObserver(o);
+    }
+    
+    public void pause (int c){
+        counter = c;
     }
 }

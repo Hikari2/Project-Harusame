@@ -83,6 +83,9 @@ public class PlayerRepresentation {
         return y;
     }
     
+    public int getLife (){
+        return player.getLife();
+    }
     
     public void draw(Graphics g) {
        BufferedImage    image = ACTIVE_ANIMATION.getFrame();

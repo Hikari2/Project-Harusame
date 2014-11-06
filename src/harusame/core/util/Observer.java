@@ -16,13 +16,13 @@ public interface Observer {
     
     void notifyNewMap (TileMap  map);
     
+    void notifyNewLevel (Level level);
+    
     void notifyNewPlayer (Player p);
     
     void notifyNewEnemy (Enemy e);
     
     void notifyGameOver ();
-    
-    void notifyNewLevel (Level level);
 
     public void notifyNewInteractable(Interactable i);
 }
