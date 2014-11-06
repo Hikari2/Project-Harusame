@@ -1,10 +1,12 @@
-package harusame.core.view;
+package harusame.core.view.Representations;
 
 import harusame.core.model.Interactable;
 import harusame.core.model.MovableSprite;
 import harusame.core.util.Direction;
 import harusame.core.util.MovableType;
 import harusame.core.util.ObjectType;
+import harusame.core.view.Animations.Animation;
+import harusame.core.view.Animations.AnimationLoader;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;

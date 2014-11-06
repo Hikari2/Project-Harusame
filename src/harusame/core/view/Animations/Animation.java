@@ -1,4 +1,4 @@
-package harusame.core.view;
+package harusame.core.view.Animations;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

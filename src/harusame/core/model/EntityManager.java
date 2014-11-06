@@ -3,13 +3,11 @@ package harusame.core.model;
 import harusame.core.model.map.MapLoader;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
-import static harusame.core.util.Direction.LEFT;
-import static harusame.core.util.Direction.RIGHT;
 import harusame.core.util.Level;
 import static harusame.core.util.Level.Level_1;
 import static harusame.core.util.ObjectType.DIRT;
 import harusame.core.util.Observer;
-import java.awt.Rectangle;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class EntityManager {
@@ -18,8 +16,8 @@ public class EntityManager {
     
     private Observer observer;
     
-    private MapLoader   mapLoader;
-    private CollisionHandler collisionHandler;
+    private final MapLoader   mapLoader;
+    private final CollisionHandler collisionHandler;
     
     private Level CURRENT_LEVEL = Level_1;
     
@@ -28,7 +26,6 @@ public class EntityManager {
     private TileMap map;
     private ArrayList<Enemy>    enemies = new ArrayList ();
     private ArrayList<Projectile>   projectiles = new ArrayList ();
-    
     private ArrayList<Interactable> interactables = new ArrayList ();
     
     public EntityManager () {
@@ -38,8 +35,9 @@ public class EntityManager {
     
     /**
      * Update all objects in the model
+     * @throws java.io.IOException
      */
-    public void update () {
+    public void update () throws IOException {
         
         if (GAME_PAUSED)
             return;
@@ -79,7 +77,10 @@ public class EntityManager {
             }
         }   
         
-        collisionHandler.checkEnemyCollision (enemies, interactables, map); 
+        collisionHandler.checkEnemyCollision (enemies, interactables, map);
+        
+        if (enemies.isEmpty())
+            loadNextLevel ();
     }
         
     public void startGame () {
@@ -91,6 +92,12 @@ public class EntityManager {
         reset ();
         observer.notifyReset();
         mapLoader.loadMap(CURRENT_LEVEL);
+    }
+    
+    private void loadNextLevel () throws IOException{
+        reset ();
+        observer.notifyReset();
+        mapLoader.loadNextMap(CURRENT_LEVEL);
     }
     
     private void gameOver () {
@@ -161,7 +168,11 @@ public class EntityManager {
     
     public void addObserver (Observer o) {
         observer = o;
-        collisionHandler.setObserver(o);
+
         observer.notifyNewLevel (CURRENT_LEVEL);
+    }
+    
+    public void setCurrentLevel (Level NEW_LEVEL) {
+        CURRENT_LEVEL = NEW_LEVEL;
     }
 }

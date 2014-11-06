@@ -1,5 +1,7 @@
 package harusame.core.view;
 
+import harusame.core.view.Animations.AnimationLoader;
+import harusame.core.view.Animations.Animation;
 import harusame.core.model.Player;
 import harusame.core.model.map.Tile;
 import harusame.core.util.Direction;

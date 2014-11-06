@@ -1,4 +1,4 @@
-package harusame.core.view;
+package harusame.core.view.Representations;
 
 import harusame.core.model.map.Tile;
 import harusame.core.util.TileType;

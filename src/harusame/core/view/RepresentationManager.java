@@ -1,5 +1,8 @@
 package harusame.core.view;
 
+import harusame.core.view.Representations.TileRepresentation;
+import harusame.core.view.Representations.InteractableRepresentation;
+import harusame.core.view.Representations.EnemyRepresentation;
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
 import harusame.core.model.Interactable;

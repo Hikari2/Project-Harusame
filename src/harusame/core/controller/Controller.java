@@ -3,6 +3,7 @@ package harusame.core.controller;
 import harusame.core.model.EntityManager;
 import harusame.core.model.map.MapLoader;
 import harusame.core.util.Observer;
+import java.io.IOException;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Controller {
         em.getPlayer().keyReleased(keyCode);
     }
 
-    public void update() {
+    public void update() throws IOException {
         em.update();
     }
     

@@ -2,7 +2,6 @@ package harusame.core.model;
 
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
-import harusame.core.util.Direction;
 import static harusame.core.util.Direction.LEFT;
 import static harusame.core.util.Direction.RIGHT;
 import static harusame.core.util.ObjectType.STONE;
@@ -12,12 +11,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 /**
- *
- * @author Hikari
+ * This class contain method used for detecting and handling collisions 
+ * between objects in the game world.
  */
 public class CollisionHandler {
-    
-    private Observer observer;
     
     void checkPlayerTileCollision (Player player, TileMap map) {
 
@@ -210,9 +207,5 @@ public class CollisionHandler {
         tiles[4] = map.getTile(colum, row-1);
                                         
         return tiles;
-    }
-
-    public void setObserver(Observer observer) {
-        this.observer = observer;
     }
 }
