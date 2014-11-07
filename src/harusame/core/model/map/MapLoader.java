@@ -11,9 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -22,13 +20,9 @@ import java.util.logging.Logger;
  */
 public class MapLoader 
 {
-    List<Level>    levelMap = new ArrayList<> ();
-    
-    private EntityManager   entityManager;
+    private final EntityManager   entityManager;
 
     private TileMap map;
-    
-    private ArrayList<Tile> tempTiles = new ArrayList<Tile>();
     
     private HashMap<String, Object[]> symbolMap;
     
@@ -37,9 +31,6 @@ public class MapLoader
 
     public MapLoader(EntityManager em) {
        entityManager = em;
-       
-       levelMap.add(Level.Level_1);
-       levelMap.add(Level.Level_2);
     }
     
     public void loadNextMap (Level level){
@@ -69,7 +60,7 @@ public class MapLoader
         try {
             
             br = new BufferedReader(new FileReader("Resources/Maps/" +level +"/SymbolMap.txt"));
-            LoadSymbolMap (level, br);
+            LoadSymbolMap (br);
             
             br = new BufferedReader(new FileReader("Resources/Maps/" +level +"/TileMap.txt"));
             
@@ -108,13 +99,13 @@ public class MapLoader
         }
     }
     
-    private void LoadSymbolMap (Level level, BufferedReader br) throws FileNotFoundException, IOException {
+    private void LoadSymbolMap (BufferedReader br) throws FileNotFoundException, IOException {
         symbolMap = new HashMap ();
         
         Object[]    data;
-        String symbol = " ";
-        String type = " ";
-        String isBlocked = " ";
+        String symbol;
+        String type;
+        String isBlocked;
         String line = " ";
         while (line != null) {
             symbol = br.readLine();

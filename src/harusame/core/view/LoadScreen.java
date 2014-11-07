@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
@@ -19,8 +20,8 @@ public class LoadScreen implements Menu {
     private Font titleFont;
     private Font font;
     
-    private String nextLevel;
-    private int playerLife;
+    private final String nextLevel;
+    private final int playerLife;
     
     public LoadScreen (Level level, int life) {
         
@@ -39,11 +40,11 @@ public class LoadScreen implements Menu {
             font = new Font("Arial", Font.PLAIN, 32);
 
         }
-        catch(Exception e) {
-                e.printStackTrace();
+        catch(IOException e) {
         }
     }
     
+    @Override
     public void draw (Graphics g) {
         g.drawImage(backGround, 0, 0, GamePanel.WIDTH, GamePanel.HEIGHT, null);
 

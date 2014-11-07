@@ -44,7 +44,7 @@ public class InteractableRepresentation {
                     break;
                 case DIRT: image = ImageIO.read(new File("Resources/Tilesets/EARTH/dirt.png"));
                     break;
-                case LARVA: image = ImageIO.read(new File("Resources/Sprites/Misc/Larva.gif"));
+                case LARVA: image = ImageIO.read(new File("Resources/Sprites/Misc/Larva.png"));
                     break;
             }
         }
@@ -74,7 +74,7 @@ public class InteractableRepresentation {
     public void draw(Graphics g) { 
 
        g.drawImage(image, x, y, interactable.getDX(), interactable.getDY(), null);
-       g.drawRect(x, y, interactable.getDX(), interactable.getDY());
-       g.drawString("x: "+x+ " y: "+y, interactable.getX(), interactable.getY()-5);
+       //g.drawRect(x, y, interactable.getDX(), interactable.getDY());
+       //g.drawString("x: "+x+ " y: "+y, interactable.getX(), interactable.getY()-5);
     }
 }

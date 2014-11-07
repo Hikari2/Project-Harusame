@@ -1,5 +1,6 @@
 package harusame.core.view;
 
+import harusame.core.view.Representations.PlayerRepresentation;
 import harusame.core.controller.Controller;
 import harusame.core.view.Representations.TileRepresentation;
 import harusame.core.view.Representations.InteractableRepresentation;

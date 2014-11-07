@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
  * @author Admin
  */
 public class GameOverScreen implements Menu {
+    
     private BufferedImage backGround;
 
     private int currentChoice = 1;

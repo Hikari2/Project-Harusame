@@ -22,14 +22,6 @@ public class Controller {
     public void startGame () {
         em.startGame();
     }
-    
-    public void pauseGame (){
-        em.pause ();
-    }
-    
-    public void unpauseGame (){
-        em.unpause ();
-    }
 
     public void keyPressed(int keyCode) {
         em.getPlayer().keyPressed(keyCode);        

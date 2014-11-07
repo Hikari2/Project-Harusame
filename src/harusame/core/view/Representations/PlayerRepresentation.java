@@ -1,4 +1,4 @@
-package harusame.core.view;
+package harusame.core.view.Representations;
 
 import harusame.core.view.Animations.AnimationLoader;
 import harusame.core.view.Animations.Animation;

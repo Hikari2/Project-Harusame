@@ -175,12 +175,4 @@ public class EntityManager {
         CURRENT_LEVEL = LEVEL;
         observer.notifyNewLevel (CURRENT_LEVEL);
     }
-    
-    public void pause () {
-        GAME_PAUSED = true;
-    }
-    
-    public void unpause () {
-        GAME_PAUSED = false;
-    }
 }
