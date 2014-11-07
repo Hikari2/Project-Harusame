@@ -31,13 +31,6 @@ public class AnimationLoader {
         loadDeathAnimation ();
     }
     
-    
-    // When no movementanimation is needed
-    public AnimationLoader (String newPath, boolean check) {
-        path = newPath;
-        loadDeathAnimation ();
-    }
-    
     public  Animation   getFacingRight () {
         return facingRight;
     }
