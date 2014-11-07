@@ -84,7 +84,7 @@ public class AnimationLoader {
     
     private void loadDeathAnimation () {
         try {
-            BufferedImage   sheet = ImageIO.read(new File(path + "/death.png"));
+            BufferedImage   sheet = ImageIO.read(new File(path + "/Death.png"));
         
             for (int i=0; i<5; i++){
             BufferedImage   image = sheet.getSubimage((sheet.getWidth()/5)*i, 0, (sheet.getWidth()/5), (sheet.getHeight()/2));

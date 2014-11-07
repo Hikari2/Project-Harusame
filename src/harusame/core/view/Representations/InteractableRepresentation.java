@@ -40,10 +40,10 @@ public class InteractableRepresentation {
             ObjectType type = interactable.getType();
             
             switch (type){
-                case STONE: image = ImageIO.read(new File("Resources/Interactable/Misc/Stone.png"));
+                case STONE: image = ImageIO.read(new File("Resources/Sprites/Interactable/Stone.png"));
                     break;
                 case DIRT: 
-                    image = ImageIO.read(new File("Resources/Interactable/dirt.png"));
+                    image = ImageIO.read(new File("Resources/Sprites/Interactable/Dirt/Neutral.png"));
                     al = new AnimationLoader("/Interactable/Dirt", false);
                     break;
                 case LARVA: image = ImageIO.read(new File("Resources/Sprites/Interactable/Larva.png"));
