@@ -46,7 +46,7 @@ public class CollisionHandler {
             
             if (playerBound.intersects(interactableBound)){
                 
-                 if (interactable.isFalling())
+                 if (interactable.isFalling() && interactable.getType() == STONE)
                  {                     
                      player.revert();
                      return;
