@@ -39,11 +39,7 @@ public class EnemyRepresentation {
         ACTIVE = true;
         
         if (enemy.getEnemyType() == EnemyType.BEE) {
-            animationLoader = new AnimationLoader ("Enemy/th_bee");
-        }
-        
-        if (enemy.getEnemyType() == EnemyType.BEE_LARVA) {
-            animationLoader = new AnimationLoader ("Enemy/th_bee_larva");
+            animationLoader = new AnimationLoader ("/Enemy/Bee");
         }
         
         ACTIVE_ANIMATION = animationLoader.getFacingLeft();

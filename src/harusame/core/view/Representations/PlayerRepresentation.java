@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
  */
 public class PlayerRepresentation {
     
-    private AnimationLoader al = new AnimationLoader ("Player/Player");
+    private AnimationLoader al = new AnimationLoader ("/Player");
     
     private Player player;
     private int x;

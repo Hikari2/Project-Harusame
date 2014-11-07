@@ -110,7 +110,6 @@ public class EntityManager {
     }
     
     private boolean checkWinCondition (){
-        
         for (int i=0; i<interactables.size(); i++){
             if (interactables.get(i).getType() == ObjectType.LARVA)
                 return false;

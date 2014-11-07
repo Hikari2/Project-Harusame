@@ -25,8 +25,6 @@ public class InteractableRepresentation {
     private int y;    
     private boolean ACTIVE;
     
-    private Animation   ACTIVE_ANIMATION;
-    
     public InteractableRepresentation (Interactable e) {
         interactable = e;
         init ();
@@ -40,11 +38,11 @@ public class InteractableRepresentation {
             ObjectType type = interactable.getType();
             
             switch (type){
-                case STONE: image = ImageIO.read(new File("Resources/Sprites/Misc/Stone.png"));
+                case STONE: image = ImageIO.read(new File("Resources/Sprites/Interactable/Stone.png"));
                     break;
-                case DIRT: image = ImageIO.read(new File("Resources/Tilesets/EARTH/dirt.png"));
+                case DIRT: image = ImageIO.read(new File("Resources/Sprites/Interactable/dirt.png"));
                     break;
-                case LARVA: image = ImageIO.read(new File("Resources/Sprites/Misc/Larva.png"));
+                case LARVA: image = ImageIO.read(new File("Resources/Sprites/Interactable/Larva.png"));
                     break;
             }
         }
@@ -59,10 +57,9 @@ public class InteractableRepresentation {
     
     public void update () {
         
-        if (interactable.isACTIVE() == false) {
+        if (interactable.isACTIVE() == false)
             ACTIVE = false;
-            return;
-        }
+        
         x = interactable.getX();
         y = interactable.getY();  
     }

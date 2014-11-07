@@ -19,10 +19,14 @@ public class AnimationLoader {
     
     Animation death = new Animation ();
             
-    String path;
+    String path = "Resources/Sprites";
     
-    public AnimationLoader (String newPath) {
-        path = newPath;
+    /**
+     * 
+     * @param s Extra string to add to the path variable
+     */
+    public AnimationLoader (String s) {
+        path = path + s;
         loadMovementAnimation ();
         loadDeathAnimation ();
     }
@@ -49,7 +53,7 @@ public class AnimationLoader {
     
     private void loadMovementAnimation () {
         try {
-            BufferedImage   spriteSheet = ImageIO.read(new File("Resources/Sprites/" + path + ".png"));
+            BufferedImage   spriteSheet = ImageIO.read(new File(path + "/Movement.png"));
             
             loadSubImage (facingLeft, spriteSheet, 1);
             loadSubImage (facingRight, spriteSheet, 2);
@@ -73,7 +77,7 @@ public class AnimationLoader {
     
     private void loadDeathAnimation () {
         try {
-            BufferedImage   sheet = ImageIO.read(new File("Resources/Sprites/" + path + "_Death.png"));
+            BufferedImage   sheet = ImageIO.read(new File(path + "/death.png"));
         
             for (int i=0; i<5; i++){
             BufferedImage   image = sheet.getSubimage((sheet.getWidth()/5)*i, 0, (sheet.getWidth()/5), (sheet.getHeight()/2));

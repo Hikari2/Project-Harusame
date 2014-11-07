@@ -3,7 +3,7 @@
 TYYYYYYYYYYYYYYYYYYYYYYYYYYYYU
 G............................J
 G......TYYYYYYYYYYYU.........J
-G......GDSLLLSSD.E.J.........J
+G......GDSLLLSSDSE.J.........J
 G......GDDDDDDDDDDDJ.........J
 G......G...........J.........J
 G......GP..S.......J.........J
