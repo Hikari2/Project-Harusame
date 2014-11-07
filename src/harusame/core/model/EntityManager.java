@@ -5,6 +5,7 @@ import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Level;
 import static harusame.core.util.Level.Level_1;
+import harusame.core.util.ObjectType;
 import static harusame.core.util.ObjectType.DIRT;
 import harusame.core.util.Observer;
 import java.io.IOException;
@@ -41,6 +42,9 @@ public class EntityManager {
         
         if (GAME_PAUSED)
             return;
+     
+        if (checkWinCondition ())
+            loadNextLevel ();
         
         player.update ();
         
@@ -78,9 +82,6 @@ public class EntityManager {
         }   
         
         collisionHandler.checkEnemyCollision (enemies, interactables, map);
-        
-        if (enemies.isEmpty())
-            loadNextLevel ();
     }
         
     public void startGame () {
@@ -106,6 +107,15 @@ public class EntityManager {
         player = null;
         observer.notifyGameOver ();
         GAME_PAUSED = true;
+    }
+    
+    private boolean checkWinCondition (){
+        
+        for (int i=0; i<interactables.size(); i++){
+            if (interactables.get(i).getType() == ObjectType.LARVA)
+                return false;
+        }
+        return true;
     }
     
     private void reset (){

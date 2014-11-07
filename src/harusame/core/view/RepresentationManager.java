@@ -39,6 +39,7 @@ public class RepresentationManager implements Observer{
     
     private GameOverScreen  GAME_OVER_SCREEN;
     private LoadScreen LOAD_SCREEN;
+    private HUD HUD;
     
     private Controller controller;
     
@@ -127,8 +128,10 @@ public class RepresentationManager implements Observer{
         }
         
         player.draw (g);
+        
+        HUD.draw (g, camX, camY);
     }
-
+    
     @Override
     public void notifyNewMap(TileMap map) {
         int h = map.getHeight();
@@ -151,7 +154,7 @@ public class RepresentationManager implements Observer{
         GAME_IS_ACTIVE = true;
     }
     
-        private void adjustCamera (Graphics g, int x, int y) {
+    private void adjustCamera (Graphics g, int x, int y) {
         
         camX = x - CAMERA_SIZE_X / 2;
         camY = y - CAMERA_SIZE_Y / 2;
@@ -185,9 +188,9 @@ public class RepresentationManager implements Observer{
     
     @Override
     public void notifyNewLevel (Level level) {
-        
         tl = new TileImageLoader(level);
         LOAD_SCREEN = new LoadScreen (level, player.getLife ());
+        HUD = new HUD (player);
         MENUSTATE = 2;
         controller.pause(50);
         pause (50);
