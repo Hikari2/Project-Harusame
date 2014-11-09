@@ -8,6 +8,8 @@ import static harusame.core.util.Level.Level_1;
 import harusame.core.util.ObjectType;
 import static harusame.core.util.ObjectType.DIRT;
 import harusame.core.util.Observer;
+import static harusame.core.util.ProjectileType.PLAYER;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -58,6 +60,9 @@ public class EntityManager {
             
             return;
         }
+        
+        for (int i=0; i<projectiles.size(); i++)
+            projectiles.get(i).update();
         
         for (int i=0; i<enemies.size(); i++) 
             enemies.get(i).update();
@@ -167,6 +172,12 @@ public class EntityManager {
         observer.notifyNewEnemy(enemy);
     }
     
+    public void addProjectile(Projectile projectile)
+    {
+        projectiles.add(projectile);
+        observer.notifyNewProjectile(projectile);         
+    }
+    
     public void addInteractable (Interactable i){
         interactables.add(i);
         observer.notifyNewInteractable (i);
@@ -184,4 +195,23 @@ public class EntityManager {
         CURRENT_LEVEL = LEVEL;
         observer.notifyNewLevel (CURRENT_LEVEL);
     }
+    
+    public void keyPressed (int keyCode) 
+    {
+        if(player.keyPressed(keyCode) == false)
+            KeyCodeToFunction (keyCode);
+    }
+    
+    private void KeyCodeToFunction(int keyCode) 
+    {
+        switch (keyCode) {
+            case KeyEvent.VK_S:
+                if(player.getAmmo() > 0)
+                {
+                    player.subtractAmmo();                    
+                    addProjectile(new Projectile(player.getX(), player.getY(), PLAYER, player.getLAST_DIRECTION()));
+                }                        
+        }
+    }
+    
 }

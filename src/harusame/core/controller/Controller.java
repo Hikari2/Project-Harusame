@@ -24,7 +24,7 @@ public class Controller {
     }
 
     public void keyPressed(int keyCode) {
-        em.getPlayer().keyPressed(keyCode);        
+        em.keyPressed(keyCode);        
     }
 
     public void keyReleased(int keyCode) {

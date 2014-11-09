@@ -1,6 +1,7 @@
 package harusame.core.model;
 
-import harusame.core.model.MovableSprite;
+import harusame.core.util.Direction;
+import harusame.core.util.ProjectileType;
 
 /**
  *
@@ -8,11 +9,16 @@ import harusame.core.model.MovableSprite;
  */
 public class Projectile extends MovableSprite {
 
-    public Projectile (int x, int y) {
+    ProjectileType type;
+    
+    public Projectile (int x, int y, ProjectileType p, Direction d) {
         super(x, y);
-        MOVE_SPEED = 8;
+        MOVE_SPEED = 15;
+        type  = p;
+        DIRECTION = d;
     }
-    /*
+   
+    @Override
     public void update () {
         switch (DIRECTION){
             case LEFT:                 
@@ -32,5 +38,9 @@ public class Projectile extends MovableSprite {
                 break;
         }
     }
-    */
+    
+    public ProjectileType getType() {
+        return type;        
+    }
+    
 }

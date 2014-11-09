@@ -18,6 +18,7 @@ public class AnimationLoader {
     Animation   facingDown = new Animation ();
     
     Animation death = new Animation ();
+    Animation rolling = new Animation ();
             
     String path = "Resources/Sprites";
     
@@ -29,14 +30,19 @@ public class AnimationLoader {
         path = path + s;
         loadMovementAnimation ();
         loadDeathAnimation ();
-    }
-    
+    }  
     
     // When no movementanimation is needed
     public AnimationLoader (String newPath, boolean check) {
-        path = newPath;
+        path = path + newPath;
         loadDeathAnimation ();
     }
+    
+    // When no death animation is needed
+    public AnimationLoader (String newPath, int zero) {
+        path = path + newPath;          
+        loadRollingAnimation ();        
+    }   
     
     public  Animation   getFacingRight () {
         return facingRight;
@@ -56,6 +62,10 @@ public class AnimationLoader {
     
     public Animation getDeath () {
         return death;
+    }
+    
+    public Animation getRolling () {
+        return rolling;
     }
     
     private void loadMovementAnimation () {
@@ -79,6 +89,20 @@ public class AnimationLoader {
             a.addFrame(image);
             a.addFrame(image);
         }
+    }
+    
+    private void loadRollingAnimation () {
+        try {
+            BufferedImage   spriteSheet = ImageIO.read(new File(path));
+            
+            for(int i=0; i<4; i++) {           
+                BufferedImage   image = spriteSheet.getSubimage((spriteSheet.getWidth()/4)*i, 0, (spriteSheet.getWidth()/4), (spriteSheet.getHeight()));
+                rolling.addFrame(image);                
+            }
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }        
     }
     
     

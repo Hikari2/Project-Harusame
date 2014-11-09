@@ -8,10 +8,12 @@ import harusame.core.view.Representations.EnemyRepresentation;
 import harusame.core.model.Player;
 import harusame.core.model.Enemy;
 import harusame.core.model.Interactable;
+import harusame.core.model.Projectile;
 import harusame.core.model.map.Tile;
 import harusame.core.model.map.TileMap;
 import harusame.core.util.Level;
 import harusame.core.util.Observer;
+import harusame.core.view.Representations.ProjectileRepresentation;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -47,6 +49,7 @@ public class RepresentationManager implements Observer{
 
     private ArrayList<EnemyRepresentation>  enemies = new ArrayList ();
     private ArrayList<InteractableRepresentation> interactables = new ArrayList ();
+    private ArrayList<ProjectileRepresentation> projectiles = new ArrayList ();
     
     private TileRepresentation[][]  tiles;
     private TileImageLoader tl;
@@ -78,6 +81,14 @@ public class RepresentationManager implements Observer{
             enemies.get(i).update();
         }
         
+        for (int i=0; i<projectiles.size(); i++) {
+            if (!projectiles.get(i).isACTIVE()) {
+                projectiles.remove(i);
+                continue;
+            }
+            projectiles.get(i).update();
+        }
+        
         for (int j=0; j<interactables.size(); j++)
         {
             if (!interactables.get(j).isACTIVE()) {
@@ -96,6 +107,11 @@ public class RepresentationManager implements Observer{
     @Override
     public void notifyNewEnemy(Enemy e) {
         enemies.add(new EnemyRepresentation (e));
+    }
+    
+    @Override
+    public void notifyNewProjectile(Projectile p) {
+        projectiles.add(new ProjectileRepresentation(p));
     }
     
     @Override
@@ -121,6 +137,10 @@ public class RepresentationManager implements Observer{
         
         for (int i=0; i<enemies.size(); i++) {
             enemies.get(i).draw(g);
+        }
+        
+        for (int i=0; i<projectiles.size(); i++) {
+            projectiles.get(i).draw(g);
         }
         
         for (int i=0; i<interactables.size(); i++) {

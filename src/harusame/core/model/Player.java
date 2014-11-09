@@ -48,6 +48,20 @@ public class Player extends MovableSprite {
        lock = 0;
     }
     
+    public int getAmmo () {
+        return ammo;
+    }
+    
+    public void subtractAmmo ()
+    {
+        ammo--;
+    }
+    
+    public void addAmmo (int addAmount)
+    {
+       ammo+= addAmount;
+    }
+    
     @Override
     public void update () {
 
@@ -105,10 +119,13 @@ public class Player extends MovableSprite {
         }
     }
 
-    public void keyPressed (int keyCode) 
+    public boolean keyPressed (int keyCode) 
     {
-        Direction   d = KeyCodeToDirection (keyCode);
-        holdDirection (d);
+        Direction   d = KeyCodeToDirection (keyCode);  
+         if(d == null)
+            return false;
+        holdDirection (d);       
+        return true;
     }
     
     private void holdDirection (Direction d) 
@@ -150,9 +167,11 @@ public class Player extends MovableSprite {
     
     public void keyReleased (int keyCode) 
     {
-        Direction d = KeyCodeToDirection (keyCode);
+        Direction d = KeyCodeToDirection (keyCode);  
+        if(d == null)
+            return;
         releaseDirection (d);
-    }
+    }   
     
     private void releaseDirection (Direction d) 
     {
