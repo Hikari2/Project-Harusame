@@ -43,8 +43,8 @@ public class InteractableRepresentation {
                 case STONE: image = ImageIO.read(new File("Resources/Sprites/Interactable/Stone.png"));
                     break;
                 case DIRT: 
-                    image = ImageIO.read(new File("Resources/Sprites/Interactable/Dirt/Neutral.png"));
-                    al = new AnimationLoader("/Interactable/Dirt", false);
+                    image = ImageIO.read(new File("Resources/Sprites/Interactable/Dirt/Movement.png"));
+                    al = new AnimationLoader("/Interactable/Dirt");
                     break;
                 case LARVA: image = ImageIO.read(new File("Resources/Sprites/Interactable/Larva.png"));
                     break;
